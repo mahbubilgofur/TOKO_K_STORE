@@ -151,10 +151,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('pelanggan') ?>" class="nav-link">
+                            <a href="<?= base_url('user') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    PELANGGAN
+                                    USER
                                 </p>
                             </a>
                         </li>

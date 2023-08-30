@@ -33,7 +33,7 @@
                     <!-- /.card -->
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        TAMBAH TRANSAKSI
+                        TAMBAH VARIASIPRODUK
                     </button>
 
                     <!-- /.card-header -->
@@ -51,30 +51,22 @@
                                     </div>
                                     <div class="modal-body">
 
-                                        <form action="<?= base_url() ?>transaksi/Inputtransaksi" method="POST">
+                                        <form action="<?= base_url() ?>variasiproduk/Inputvariasiproduk" method="POST">
                                             <div class="form-group">
-                                                <label>ID KELAS</label>
-                                                <input type="text" class="form-control" name="id_transaksi" placeholder="id_kelas" required>
+                                                <label>ID VARIASIvariasiproduk</label>
+                                                <input type="text" class="form-control" name="id_variasiproduk" placeholder="ID_VARIASIPRODUK" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>NAMA</label>
-                                                <input type="text" class="form-control" name="id_user" placeholder="id_kelas" required>
+                                                <input type="text" class="form-control" name="nama" placeholder="NAMA" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>HARGA</label>
-                                                <input type="text" class="form-control" name="harga" placeholder="id_kelas" required>
+                                                <label>SIZE</label>
+                                                <input type="text" class="form-control" name="size" placeholder="SIZE" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>GAMBAR</label>
-                                                <input type="text" class="form-control" name="jumlah" placeholder="id_kelas" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>DESKRIPSI</label>
-                                                <input type="text" class="form-control" name="total" placeholder="id_kelas" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>ID KATEGORI</label>
-                                                <input type="text" class="form-control" name="tgl_transaksi" placeholder="Nama Kelas" required>
+                                                <label>STOK</label>
+                                                <input type="text" class="form-control" name="stok" placeholder="STOK" required>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -87,29 +79,25 @@
                         </div>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
-                                <th scope="col">ID TRANSAKSI</th>
-                                <th scope="col">ID_USER</th>
-                                <th scope="col">HARGA</th>
-                                <th scope="col">JUMLAH</th>
-                                <th scope="col">TOTAL</th>
-                                <th scope="col">TGL_TRANSAKSI</th>
+                                <th scope="col">ID VARIASIPRODUK</th>
+                                <th scope="col">NAMA</th>
+                                <th scope="col">SIZE</th>
+                                <th scope="col">STOK</th>
                                 <th scope="col">Action</th>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($data_transaksi as $row) {
+                                foreach ($data_variasiproduk as $row) {
 
                                 ?>
                                     <tr>
-                                        <td><?php echo $row->id_transaksi ?></td>
-                                        <td><?php echo $row->id_user ?></td>
-                                        <td><?php echo $row->harga ?></td>
-                                        <td><?php echo $row->jumlah ?></td>
-                                        <td><?php echo $row->total ?></td>
-                                        <td><?php echo $row->tgl_transaksi ?></td>
+                                        <td><?php echo $row->id_variasiproduk ?></td>
+                                        <td><?php echo $row->nama ?></td>
+                                        <td><?php echo $row->size ?></td>
+                                        <td><?php echo $row->stok ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('transaksi/update/') . $row->id_transaksi ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?php echo base_url('transaksi/delete/') . $row->id_transaksi ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            <a href="<?php echo base_url('variasiproduk/update/') . $row->id_variasiproduk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="<?php echo base_url('variasiproduk/delete/') . $row->id_variasiproduk ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
 

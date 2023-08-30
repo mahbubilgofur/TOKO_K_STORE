@@ -33,7 +33,7 @@
                     <!-- /.card -->
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        TAMBAH TRANSAKSI
+                        TAMBAH PRODUK
                     </button>
 
                     <!-- /.card-header -->
@@ -51,30 +51,30 @@
                                     </div>
                                     <div class="modal-body">
 
-                                        <form action="<?= base_url() ?>transaksi/Inputtransaksi" method="POST">
+                                        <form action="<?= base_url() ?>produk/Inputproduk" method="POST">
                                             <div class="form-group">
-                                                <label>ID KELAS</label>
-                                                <input type="text" class="form-control" name="id_transaksi" placeholder="id_kelas" required>
+                                                <label>ID PRODUK</label>
+                                                <input type="text" class="form-control" name="id_produk" placeholder="ID_PRODUK" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>NAMA</label>
-                                                <input type="text" class="form-control" name="id_user" placeholder="id_kelas" required>
+                                                <input type="text" class="form-control" name="nama" placeholder="NAMA" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>HARGA</label>
-                                                <input type="text" class="form-control" name="harga" placeholder="id_kelas" required>
+                                                <input type="text" class="form-control" name="harga" placeholder="HARGA" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>GAMBAR</label>
-                                                <input type="text" class="form-control" name="jumlah" placeholder="id_kelas" required>
+                                                <input type="text" class="form-control" name="gambar" placeholder="GAMBAR" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>DESKRIPSI</label>
-                                                <input type="text" class="form-control" name="total" placeholder="id_kelas" required>
+                                                <input type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>ID KATEGORI</label>
-                                                <input type="text" class="form-control" name="tgl_transaksi" placeholder="Nama Kelas" required>
+                                                <input type="text" class="form-control" name="id_kategori" placeholder="ID_KATEGORI" required>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -87,29 +87,29 @@
                         </div>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
-                                <th scope="col">ID TRANSAKSI</th>
-                                <th scope="col">ID_USER</th>
+                                <th scope="col">ID KELAS</th>
+                                <th scope="col">NAMA KELAS</th>
                                 <th scope="col">HARGA</th>
-                                <th scope="col">JUMLAH</th>
-                                <th scope="col">TOTAL</th>
-                                <th scope="col">TGL_TRANSAKSI</th>
+                                <th scope="col">GAMBAR</th>
+                                <th scope="col">DESKRIPSI</th>
+                                <th scope="col">ID_KATEGORI</th>
                                 <th scope="col">Action</th>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($data_transaksi as $row) {
+                                foreach ($data_produk as $row) {
 
                                 ?>
                                     <tr>
-                                        <td><?php echo $row->id_transaksi ?></td>
-                                        <td><?php echo $row->id_user ?></td>
+                                        <td><?php echo $row->id_produk ?></td>
+                                        <td><?php echo $row->nama ?></td>
                                         <td><?php echo $row->harga ?></td>
-                                        <td><?php echo $row->jumlah ?></td>
-                                        <td><?php echo $row->total ?></td>
-                                        <td><?php echo $row->tgl_transaksi ?></td>
+                                        <td><?php echo $row->gambar ?></td>
+                                        <td><?php echo $row->deskripsi ?></td>
+                                        <td><?php echo $row->id_kategori ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('transaksi/update/') . $row->id_transaksi ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?php echo base_url('transaksi/delete/') . $row->id_transaksi ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            <a href="<?php echo base_url('produk/update/') . $row->id_produk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="<?php echo base_url('produk/delete/') . $row->id_produk ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
 
