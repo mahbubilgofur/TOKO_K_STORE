@@ -174,18 +174,39 @@
         </div>
         <div class="form">
             <h2></h2>
-            <form method="post" action="<?= base_url('register') ?>">
-                <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
-                <input name="nama" type="text" placeholder="Nama" value="<?= set_value('nama') ?>"><br>
+            <form action="<?= base_url('login/register'); ?>" method="POST">
+                <?= form_error('nama', '<small class="text-danger pl-3">', '</small>');
+                ?>
+                <div class="input-group mb-3">
 
-                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
-                <input name="email" type="email" placeholder="Email" value="<?= set_value('email') ?>"><br>
+                    <input type="text" name="nama" class="form-control" placeholder="NIS" value="<?= set_value('nama'); ?>">
+                    <div class=" input-group-append">
 
-                <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
-                <input type="password" name="password1" placeholder="Password"><br>
-
-                <?= form_error('password2', '<small class="text-danger pl-3">', '</small>'); ?>
-                <input type="password" name="password2" placeholder="Password Confirmation"><br>
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <?= form_error('email', '<small class="text-danger pl-3">', '</small>');
+                ?>
+                <div class="input-group mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="EMAIL" value="<?= set_value('email'); ?>">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <?= form_error('password', '<small class="text-danger pl-3">', '</small>');
+                ?>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="NIS">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
 
                 <button type="submit">Register</button>
             </form>

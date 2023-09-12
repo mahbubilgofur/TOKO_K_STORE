@@ -7,12 +7,15 @@ class Transaksi extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('email')) {
+            redirect('login');
+        }
         $this->load->model('M_transaksi');
     }
 
     public function index()
     {
-        $transaksi = $this->M_transaksi->getDatatransaksi();
+        $transaksi = $this->m_transaksi->getDatatransaksi();
         $DATA = array('data_transaksi' => $transaksi);
         $this->load->view('layout/header');
         $this->load->view('layout/navbar');
@@ -38,7 +41,7 @@ class Transaksi extends CI_Controller
             'tgl_transaksi' => $tgl_transaksi
         );
 
-        if ($this->M_transaksi->InsertDatatransaksi($DataInsert)) {
+        if ($this->m_transaksi->InsertDatatransaksi($DataInsert)) {
             // Input berhasil
             $this->session->set_flashdata('success', 'Data transaksi berhasil ditambahkan.');
             redirect(base_url('transaksi/'));
@@ -51,7 +54,7 @@ class Transaksi extends CI_Controller
 
     public function update($id_transaksi)
     {
-        $transaksi = $this->M_transaksi->getDatatransaksiDetail($id_transaksi);
+        $transaksi = $this->m_transaksi->getDatatransaksiDetail($id_transaksi);
         $DATA = array('data_transaksi' => $transaksi);
         $this->load->view('layout/header');
         $this->load->view('layout/navbar');
@@ -77,13 +80,13 @@ class Transaksi extends CI_Controller
             'tgl_transaksi' => $tgl_transaksi
         );
 
-        $this->M_transaksi->UpdateDatatransaksi($DataUpdate, $id_transaksi);
+        $this->m_transaksi->UpdateDatatransaksi($DataUpdate, $id_transaksi);
         redirect(base_url('transaksi/'));
     }
 
     public function delete($id_transaksi)
     {
-        $this->M_transaksi->DeleteDatatransaksi($id_transaksi);
+        $this->m_transaksi->DeleteDatatransaksi($id_transaksi);
         redirect(base_url('transaksi/'));
     }
 }

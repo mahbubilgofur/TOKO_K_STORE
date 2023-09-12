@@ -6,6 +6,9 @@ class User extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('email')) {
+            redirect('login');
+        }
         $this->load->model('M_user');
     }
     public function index()
@@ -20,20 +23,18 @@ class User extends CI_Controller
 
     public function Inputuser()
     {
-        $id_user = $this->input->post('id_user');
+        $id = $this->input->post('id');
         $nama = $this->input->post('nama');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-        $alamat = $this->input->post('alamat');
-        $level = $this->input->post('level');
+        $role_id = $this->input->post('role_id');
 
         $DataInsert = array(
-            'id_user' => $id_user,
+            'id' => $id,
             'nama' => $nama,
             'email' => $email,
             'password' => $password,
-            'alamat' => $alamat,
-            'level' => $level
+            'role_id' => $role_id
         );
 
         if ($this->M_user->InsertDatauser($DataInsert)) {
@@ -47,9 +48,9 @@ class User extends CI_Controller
         }
     }
 
-    public function update($id_user)
+    public function update($id)
     {
-        $user = $this->M_user->getDatauserDetail($id_user);
+        $user = $this->M_user->getDatauserDetail($id);
         $DATA = array('data_user' => $user);
         $this->load->view('layout/header');
         $this->load->view('layout/navbar');
@@ -58,30 +59,28 @@ class User extends CI_Controller
     }
     public function updateuser()
     {
-        $id_user = $this->input->post('id_user');
+        $id = $this->input->post('id');
         $nama = $this->input->post('nama');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-        $alamat = $this->input->post('alamat');
-        $level = $this->input->post('level');
+        $role_id = $this->input->post('role_id');
 
 
         $DataUpdate = array(
-            'id_user' => $id_user,
+            'id' => $id,
             'nama' => $nama,
             'email' => $email,
             'password' => $password,
-            'alamat' => $alamat,
-            'level' => $level
+            'role_id' => $role_id
         );
 
-        $this->M_user->UpdateDatauser($DataUpdate, $id_user);
+        $this->M_user->UpdateDatauser($DataUpdate, $id);
         redirect(base_url('user/'));
     }
 
-    public function delete($id_user)
+    public function delete($id)
     {
-        $this->M_user->DeleteDatauser($id_user);
+        $this->M_user->DeleteDatauser($id);
         redirect(base_url('user/'));
     }
 }

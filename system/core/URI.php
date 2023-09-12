@@ -51,8 +51,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link		https://codeigniter.com/userguide3/libraries/uri.html
  */
 
-class CI_URI
-{
+#[\AllowDynamicProperties]
+
+class CI_URI {
+
 
 	/**
 	 * List of cached URI segments
@@ -100,8 +102,10 @@ class CI_URI
 	 *
 	 * @return	void
 	 */
+
 	public function __construct()
 	{
+    
 		$this->config = &load_class('Config', 'core');
 
 		// If query strings are enabled, we don't need to parse any segments.

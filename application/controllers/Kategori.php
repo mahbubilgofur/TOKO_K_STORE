@@ -6,8 +6,12 @@ class Kategori extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('email')) {
+            redirect('login');
+        }
         $this->load->model('M_kategori');
     }
+
     public function index()
     {
         $querykategori = $this->M_kategori->getdatakategori1();
@@ -18,8 +22,7 @@ class Kategori extends CI_Controller
         $this->load->view('kategori/viewkategori', $DATA);
         $this->load->view('layout/footer');
     }
-
-    public function Inputkategori()
+   public function Inputkategori()
     {
         $id_kategori = $this->input->post('id_kategori');
         $nama = $this->input->post('nama');

@@ -6,6 +6,9 @@ class Produk extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('email')) {
+            redirect('login');
+        }
         $this->load->model('M_produk');
     }
     public function index()
@@ -24,20 +27,34 @@ class Produk extends CI_Controller
         $id_produk = $this->input->post('id_produk');
         $nama = $this->input->post('nama');
         $harga = $this->input->post('harga');
-        $gambar = $this->input->post('gambar');
+        $gambar = $_FILES['gambar']; // Mengambil data file gambar dari input
         $deskripsi = $this->input->post('deskripsi');
         $id_kategori = $this->input->post('id_kategori');
+
+        // Cek apakah file gambar ada dan valid
+        if ($gambar['name']) {
+            $allowed_formats = array('jpg', 'jpeg', 'png');
+            $ext = pathinfo($gambar['name'], PATHINFO_EXTENSION);
+
+            if (!in_array($ext, $allowed_formats)) {
+                $this->session->set_flashdata('error', 'Format gambar tidak valid. Hanya JPG atau PNG yang diperbolehkan.');
+                redirect(base_url('produk/'));
+            }
+        }
 
         $DataInsert = array(
             'id_produk' => $id_produk,
             'nama' => $nama,
             'harga' => $harga,
-            'gambar' => $gambar,
+            'gambar' => $gambar['name'], // Simpan nama file gambar dalam database
             'deskripsi' => $deskripsi,
             'id_kategori' => $id_kategori
         );
 
         if ($this->M_produk->InsertDataproduk($DataInsert)) {
+            // Upload file gambar ke direktori (contoh: uploads/)
+            move_uploaded_file($gambar['tmp_name'], 'path/ke/direktori/' . $gambar['name']);
+
             // Input berhasil
             $this->session->set_flashdata('success', 'Data produk berhasil ditambahkan.');
             redirect(base_url('produk/'));
