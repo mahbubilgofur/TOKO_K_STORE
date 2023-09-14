@@ -54,7 +54,7 @@
                                         <form action="<?= base_url() ?>user/Inputuser" method="POST">
                                             <div class="form-group">
                                                 <label>ID USER</label>
-                                                <input type="text" class="form-control" name="id_user" placeholder="ID_USER" required>
+                                                <input type="text" class="form-control" name="id" placeholder="id" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>NAMA</label>
@@ -101,15 +101,15 @@
 
                                 ?>
                                     <tr>
-                                        <td><?php echo $row->id_user ?></td>
+                                        <td><?php echo $row->id ?></td>
                                         <td><?php echo $row->nama ?></td>
                                         <td><?php echo $row->email ?></td>
                                         <td><?php echo $row->password ?></td>
                                         <td><?php echo $row->alamat ?></td>
                                         <td><?php echo $row->level ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('user/update/') . $row->id_user ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="<?php echo base_url('user/delete/') . $row->id_user ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            <a href="<?php echo base_url('user/update/') . $row->id ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="<?php echo base_url('user/delete/') . $row->id ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
 

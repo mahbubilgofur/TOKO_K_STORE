@@ -1,6 +1,6 @@
 <?php
 
-class m_transaksi extends CI_Model
+class M_transaksi extends CI_Model
 {
 	public function getDatatransaksi()
 	{

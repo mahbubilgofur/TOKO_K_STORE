@@ -1,35 +1,24 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login extends CI_Controller
+class Login_user extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
 
-        // Memeriksa apakah pengguna telah login
-
-
-        // Mendapatkan role_id dari sesi
-        $role_id = $this->session->userdata('role_id');
-
-        // Menambahkan kondisi untuk role_id
-        if ($role_id == 2) {
-            // Jika role_id adalah 2, arahkan ke halaman tertentu atau berikan pesan kesalahan
-            redirect('home_user');
-        }
-        // Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
-
         $this->load->library('form_validation');
         $this->load->model('M_user');
     }
+
+
     public function index()
     {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('login');
+            $this->load->view('login_user');
         } else {
             $this->_login();
         }
@@ -50,18 +39,18 @@ class Login extends CI_Controller
                 ];
                 $this->session->set_userdata($data);
 
-                if ($user->role_id == 1) {
-                    redirect(base_url('admin'));
+                if ($user->role_id == 2) {
+                    redirect(base_url('home_user'));
                 } else {
-                    redirect(base_url('home')); // Ganti 'home' dengan halaman sesuai dengan role_id 2
+                    redirect(base_url('home_user'));
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password salah</div>');
-                redirect(base_url('login'));
+                redirect(base_url('login_user'));
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email tidak terdaftar</div>');
-            redirect(base_url('login'));
+            redirect(base_url('login_user'));
         }
     }
 
@@ -74,13 +63,13 @@ class Login extends CI_Controller
         ]);
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('register');
+            $this->load->view('register_user');
         } else {
             $data = [
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'email' =>  htmlspecialchars($this->input->post('email', true)),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'role_id' => 1
+                'role_id' => 2
             ];
 
             $this->db->insert('tbl_user', $data);
@@ -89,19 +78,15 @@ class Login extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
                 Berhasil register
               </div>');
-                redirect(base_url('login'));
+                redirect(base_url('login/login_user'));
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 Gagal register
               </div>');
-                redirect(base_url('register'));
+                redirect(base_url('register_user'));
             }
         }
     }
-
-
-
-
 
 
 

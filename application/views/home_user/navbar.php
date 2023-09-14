@@ -39,8 +39,8 @@
 
                             <!-- Cart -->
                             <div class="dropdown">
-                                <a class="droplogin" href="login_user">
-                                    <img src="<?= base_url() ?>template/img/login.png" alt="">
+                                <a class="droplogin" href="<?= base_url('login_user/logout') ?>">
+                                    LOGOUT
                                 </a>
                                 <div class="cart-dropdown">
                                     <div class="cart-list">

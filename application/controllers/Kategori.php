@@ -6,9 +6,21 @@ class Kategori extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        // Memeriksa apakah pengguna telah login
         if (!$this->session->userdata('email')) {
             redirect('login');
         }
+
+        // Mendapatkan role_id dari sesi
+        $role_id = $this->session->userdata('role_id');
+
+        // Menambahkan kondisi untuk role_id
+        if ($role_id == 2) {
+            redirect('home_user');
+        }
+        // Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
+
         $this->load->model('M_kategori');
     }
 
@@ -22,7 +34,7 @@ class Kategori extends CI_Controller
         $this->load->view('kategori/viewkategori', $DATA);
         $this->load->view('layout/footer');
     }
-   public function Inputkategori()
+    public function Inputkategori()
     {
         $id_kategori = $this->input->post('id_kategori');
         $nama = $this->input->post('nama');

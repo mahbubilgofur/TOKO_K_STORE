@@ -7,10 +7,23 @@ class Transaksi extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        // Memeriksa apakah pengguna telah login
         if (!$this->session->userdata('email')) {
             redirect('login');
         }
-        $this->load->model('M_transaksi');
+
+        // Mendapatkan role_id dari sesi
+        $role_id = $this->session->userdata('role_id');
+
+        // Menambahkan kondisi untuk role_id
+        if ($role_id == 2) {
+            // Jika role_id adalah 2, arahkan ke halaman tertentu atau berikan pesan kesalahan
+            redirect('home_user');
+        }
+        // Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
+
+        $this->load->model('m_transaksi');
     }
 
     public function index()

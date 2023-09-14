@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <title>ADMIN</title>
+    <title>REGISTER USER</title>
 </head>
 
 <body>
@@ -159,7 +159,7 @@
         }
     </style>
     <div class="pen-title">
-        <h1>LOGIN</h1>
+        <h1>REGISTER USER</h1>
     </div>
     <!-- Form Module-->
     <div class="module form-module">
@@ -173,22 +173,45 @@
             </form> -->
         </div>
         <div class="form">
-            <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-            <?php echo $this->session->flashdata('message'); ?>
-            <form action="<?= base_url('login'); ?>" method="POST">
+            <h2></h2>
+            <form action="<?= base_url('login_user/register'); ?>" method="POST">
+                <?= form_error('nama', '<small class="text-danger pl-3">', '</small>');
+                ?>
+                <div class="form-group">
+                    <label for="nama">NAMA:</label>
+                    <input type="text" name="nama" class="form-control" placeholder="NAMA" value="<?= set_value('nama'); ?>">
+                    <div class=" input-group-append">
+
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <?= form_error('email', '<small class="text-danger pl-3">', '</small>');
+                ?>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" class="form-control" required>
+                    <input type="email" name="email" class="form-control" placeholder="EMAIL" value="<?= set_value('email'); ?>">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
                 </div>
+                <?= form_error('password', '<small class="text-danger pl-3">', '</small>');
+                ?>
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input type="password" name="password" id="password" class="form-control" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit">Register</button>
             </form>
         </div>
-        <a href="<?= base_url('login/register'); ?>">BELUM REGISTER?</a>
-
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

@@ -1,5 +1,49 @@
+document.addEventListener("DOMContentLoaded", function () {
+	const popup = document.getElementById("popup");
+
+	// Tampilkan pop-up saat halaman dimuat
+	popup.style.display = "flex";
+
+	// Fungsi untuk menutup pop-up
+	function closePopup() {
+		popup.style.display = "none";
+	}
+
+	// Tambahkan event listener untuk tombol "X"
+	document.querySelector(".close-btn").addEventListener("click", closePopup);
+});
+
+// const slider = document.querySelector('.slider');
+// const slides = document.querySelectorAll('.slide');
+// const dots = document.querySelectorAll('.dot');
+// const interval = 3000; // Interval 3 detik
+// let currentIndex = 0;
+
+// function updateDots() {
+// 	dots.forEach((dot, index) => {
+// 		dot.classList.toggle('active', index === currentIndex);
+// 	});
+// }
+
+// function slide() {
+// 	currentIndex = (currentIndex + 1) % slides.length;
+// 	const translateX = -currentIndex * 100;
+// 	slider.style.transform = `translateX(${translateX}%)`;
+// 	updateDots();
+// }
+
+// setInterval(slide, interval);
+
+// // Tambahkan event listener untuk titik navigasi
+// dots.forEach((dot, index) => {
+// 	dot.addEventListener('click', () => {
+// 		currentIndex = index;
+// 		const translateX = -currentIndex * 100;
+// 		slider.style.transform = `translateX(${translateX}%)`;
+// 		updateDots();
+// 	});
+// });
 const slider = document.querySelector('.slider');
-const slides = document.querySelectorAll('.slide');
 const dots = document.querySelectorAll('.dot');
 const interval = 3000; // Interval 3 detik
 let currentIndex = 0;
@@ -11,8 +55,8 @@ function updateDots() {
 }
 
 function slide() {
-	currentIndex = (currentIndex + 1) % slides.length;
-	const translateX = -currentIndex * 100;
+	currentIndex = (currentIndex + 1) % 3;
+	const translateX = -currentIndex * 33.333;
 	slider.style.transform = `translateX(${translateX}%)`;
 	updateDots();
 }
@@ -23,12 +67,11 @@ setInterval(slide, interval);
 dots.forEach((dot, index) => {
 	dot.addEventListener('click', () => {
 		currentIndex = index;
-		const translateX = -currentIndex * 100;
+		const translateX = -currentIndex * 33.333;
 		slider.style.transform = `translateX(${translateX}%)`;
 		updateDots();
 	});
 });
-
 
 (function ($) {
 	"use strict"

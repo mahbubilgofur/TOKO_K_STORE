@@ -1,10 +1,3 @@
-<div class="popup-container" id="popup">
-    <div class="popup">
-        <button class="close-btn" onclick="closePopup()">X</button>
-        <h2>Selamat Datang!</h2>
-        <p>NAMA SAYA MAHBUBIL DARI 12 RPL2</p>
-    </div>
-</div>
 <div class="section1">
 
     <div class="container1">
