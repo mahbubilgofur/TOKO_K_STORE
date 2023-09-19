@@ -69,12 +69,8 @@
                                                 <input type="text" class="form-control" name="password" placeholder="password" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>ALAMAT</label>
-                                                <input type="text" class="form-control" name="alamat" placeholder="alamat" required>
-                                            </div>
-                                            <div class="form-group">
                                                 <label>LEVEL</label>
-                                                <input type="text" class="form-control" name="level" placeholder="level" required>
+                                                <input type="text" class="form-control" name="role_id" placeholder="level" required>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -91,7 +87,6 @@
                                 <th scope="col">NAMA</th>
                                 <th scope="col">EMAIL</th>
                                 <th scope="col">password</th>
-                                <th scope="col">alamat</th>
                                 <th scope="col">level</th>
                                 <th scope="col">Action</th>
                             </thead>
@@ -105,8 +100,7 @@
                                         <td><?php echo $row->nama ?></td>
                                         <td><?php echo $row->email ?></td>
                                         <td><?php echo $row->password ?></td>
-                                        <td><?php echo $row->alamat ?></td>
-                                        <td><?php echo $row->level ?></td>
+                                        <td><?php echo $row->role_id ?></td>
                                         <td>
                                             <a href="<?php echo base_url('user/update/') . $row->id ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="<?php echo base_url('user/delete/') . $row->id ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

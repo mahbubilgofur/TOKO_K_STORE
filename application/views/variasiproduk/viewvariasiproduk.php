@@ -54,7 +54,8 @@
                                         <form action="<?= base_url() ?>variasiproduk/Inputvariasiproduk" method="POST">
                                             <div class="form-group">
                                                 <label>ID VARIASIvariasiproduk</label>
-                                                <input type="text" class="form-control" name="id_variasiproduk" placeholder="ID_VARIASIPRODUK" required>
+                                                <input type="text" class="form-control" name="id_variasiproduk" placeholder="ID_VARIASIPRODUK" value="<?php echo sprintf($data_variasi) ?>" readonly>
+
                                             </div>
                                             <div class="form-group">
                                                 <label>NAMA</label>

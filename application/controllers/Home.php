@@ -28,4 +28,71 @@ class Home extends CI_Controller
 		$this->load->view('home/content');
 		$this->load->view('home/footer');
 	}
+	public function kartun()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/contentkartun');
+		$this->load->view('home/footer');
+	}
+	public function olahraga()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/contentolahraga');
+		$this->load->view('home/footer');
+	}
+	public function panjang()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/contentpanjang');
+		$this->load->view('home/footer');
+	}
+	public function polos()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/contentpolos');
+		$this->load->view('home/footer');
+	}
+	public function hitam()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/contenthitam');
+		$this->load->view('home/footer');
+	}
+	public function keren()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/contentkeren');
+		$this->load->view('home/footer');
+	}
+	public function anime()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/contentanime');
+		$this->load->view('home/footer');
+	}
+	public function distro()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/contentdistro');
+		$this->load->view('home/footer');
+	}
+
+
+
+
+	public function detail()
+	{
+		$this->load->view('home/header');
+		$this->load->view('home/navbar');
+		$this->load->view('homedetail/content_detail');
+		$this->load->view('homedetail/footer');
+	}
 }

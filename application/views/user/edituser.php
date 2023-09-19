@@ -42,8 +42,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-10 col-form-label">ID USER</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" value="<?php echo $data_user->id_user ?>" disabled>
-                                                <input type="hidden" name="id_user" value="<?php echo $data_user->id_user ?>">
+                                                <input type="text" class="form-control" value="<?php echo $data_user->id ?>" disabled>
+                                                <input type="hidden" name="id" value="<?php echo $data_user->id ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -71,25 +71,20 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-sm-10 col-form-label">ALAMAT</label>
+                                            <label class="col-sm-10 col-form-label">ROLE_ID</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="alamat" value="<?php echo $data_user->alamat ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-sm-10 col-form-label">LEVEL</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" name="level" value="<?php echo $data_user->level ?>">
+                                                <input type="text" class="form-control" name="role_id" value="<?php echo $data_user->role_id ?>">
                                             </div>
                                         </div>
                                     </div>
                                     <br>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <a class="btn btn-warning" href="<?= base_url() ?>user" role="button">Kembali</a>
+                                    <div class="modal-footer">
+                                        <button type="<?= base_url('user/') ?>" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
                             </form>
                         </div>
                     </div>

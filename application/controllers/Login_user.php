@@ -8,7 +8,7 @@ class Login_user extends CI_Controller
         parent::__construct();
 
         $this->load->library('form_validation');
-        $this->load->model('M_user');
+        $this->load->model('m_user');
     }
 
 
@@ -29,7 +29,7 @@ class Login_user extends CI_Controller
         $email = $this->input->post('email');
         $password = $this->input->post('password');
 
-        $user = $this->M_user->get_user_by_email($email);
+        $user = $this->m_user->get_user_by_email($email);
 
         if ($user) {
             if (password_verify($password, $user->password)) {

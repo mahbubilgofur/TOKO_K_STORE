@@ -1,38 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<!-- index-431:41-->
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Home Version Four || limupa - Digital Products Store ECommerce Bootstrap 4 Template</title>
+  <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-  <title>K-STORE</title>
-
-  <!-- Google font -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-
-  <!-- Bootstrap -->
-  <link type="text/css" rel="stylesheet" href="<?= base_url() ?>template/css/bootstrap.min.css" />
-
-  <!-- Slick -->
-  <link type="text/css" rel="stylesheet" href="<?= base_url() ?>template/css/slick.css" />
-  <link type="text/css" rel="stylesheet" href="<?= base_url() ?>template/css/slick-theme.css" />
-
-  <!-- nouislider -->
-  <link type="text/css" rel="stylesheet" href="<?= base_url() ?>template/css/nouislider.min.css" />
-
-  <!-- Font Awesome Icon -->
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+  <!-- Material Design Iconic Font-V2.2.0 -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/material-design-iconic-font.min.css">
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url() ?>template/css/font-awesome.min.css">
-
-  <!-- Custom stlylesheet -->
-  <link type="text/css" rel="stylesheet" href="<?= base_url() ?>template/css/style.css" />
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
+  <!-- Font Awesome Stars-->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/fontawesome-stars.css">
+  <!-- Meanmenu CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/meanmenu.css">
+  <!-- owl carousel CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/owl.carousel.min.css">
+  <!-- Slick Carousel CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/slick.css">
+  <!-- Animate CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/animate.css">
+  <!-- Jquery-ui CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/jquery-ui.min.css">
+  <!-- Venobox CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/venobox.css">
+  <!-- Nice Select CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/nice-select.css">
+  <!-- Magnific Popup CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/magnific-popup.css">
+  <!-- Bootstrap V4.1.3 Fremwork CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/bootstrap.min.css">
+  <!-- Helper CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/helper.css">
+  <!-- Main Style CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/style.css">
+  <!-- Responsive CSS -->
+  <link rel="stylesheet" href="<?= base_url() ?>template/css/responsive.css">
+  <!-- Modernizr js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="<?= base_url() ?>template/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>

@@ -27,7 +27,8 @@ class Variasiproduk extends CI_Controller
     public function index()
     {
         $variasiproduk = $this->M_variasiproduk->getDatavariasiproduk();
-        $DATA = array('data_variasiproduk' => $variasiproduk);
+        $variasi = $this->M_variasiproduk->getDatavariasiproduk1();
+        $DATA = array('data_variasiproduk' => $variasiproduk, 'data_variasi' => $variasi);
         $this->load->view('layout/header');
         $this->load->view('layout/navbar');
         $this->load->view('variasiproduk/viewvariasiproduk', $DATA);

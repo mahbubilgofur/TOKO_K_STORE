@@ -52,7 +52,7 @@
 
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Insert Data</h5>
@@ -62,65 +62,94 @@
                                     </div>
                                     <div class="modal-body">
                                         <form method="post" action="<?php echo base_url('produk/Inputproduk'); ?>" enctype="multipart/form-data">
-                                            <div class="form-group">
-                                                <label>ID PRODUK</label>
-                                                <input type="text" class="form-control" name="id_produk" placeholder="ID PRODUK" value="<?php echo sprintf($queryproduk) ?>" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>NAMA</label>
-                                                <input type="text" class="form-control" name="nama" placeholder="NAMA" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>HARGA</label>
-                                                <input type="text" class="form-control" name="harga" placeholder="HARGA" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>GAMBAR</label>
-                                                <input type="file" class="form-control" name="gambar" id="gambar" accept=".jpg, .jpeg, .png, .webp" required>
-                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label>ID PRODUK</label>
+                                                    <input type="text" class="form-control" name="id_produk" placeholder="ID PRODUK" value="<?php echo sprintf($queryproduk) ?>" readonly>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <?= form_error('nama', '<small class="text-danger pl-3">', '</small>');
+                                                    ?>
+                                                    <label>NAMA</label>
+                                                    <input type="text" class="form-control" name="nama" placeholder="NAMA" required value="<?= set_value('nama'); ?>">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>HARGA</label>
+                                                    <input type="text" class="form-control" name="harga" placeholder="HARGA" required value="<?= set_value('harga'); ?>">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>GAMBAR</label>
+                                                    <input type="file" class="form-control" name="gambar" id="gambar" accept=".jpg, .jpeg, .png, .webp" required value="<?= set_value('gambar'); ?>">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>DESKRIPSI</label>
+                                                    <input type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required value="<?= set_value('deskripsi'); ?>">
+                                                </div>
 
-                                            <!-- Tampilkan gambar yang akan diunggah (opsional) -->
-                                            <div class="form-group">
-                                                <label>Gambar yang akan diunggah:</label>
-                                                <img id="preview-gambar" src="#" alt="Preview Gambar" style="max-width: 50%; display: none;">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>DESKRIPSI</label>
-                                                <input type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>ID KATEGORI</label>
-                                                <input type="text" class="form-control" name="id_kategori" placeholder="ID_KATEGORI" required>
-                                            </div>
-                                            <script>
-                                                // Fungsi untuk menampilkan pratinjau gambar saat memilih berkas gambar
-                                                function previewImage(input) {
-                                                    if (input.files && input.files[0]) {
-                                                        var reader = new FileReader();
-                                                        reader.onload = function(e) {
-                                                            $('#preview-gambar').attr('src', e.target.result);
-                                                            $('#preview-gambar').css('display', 'block');
-                                                        };
-                                                        reader.readAsDataURL(input.files[0]);
-                                                    }
-                                                }
+                                                <div class="form-group col-md-6">
+                                                    <label>ID KATEGORI</label>
+                                                    <select class="form-control" name="id_kategori" required value="<?= set_value('id_kategori'); ?>">
+                                                        <option value="">Pilih Kategori</option>
+                                                        <?php foreach ($getketegori as $row) { ?>
+                                                            <option value="<?= $row->id_kategori; ?>"><?= $row->nama; ?></option>
+                                                        <?php } ?>
+                                                    </select>
 
-                                                // Menjalankan fungsi previewImage saat berkas gambar dipilih
-                                                $('#gambar').change(function() {
-                                                    previewImage(this);
-                                                });
-                                            </script>
 
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>ID VARIASIPRODUK</label>
+                                                    <select class="form-control" name="id_variasiproduk" required value="<?= set_value('id_variasiproduk'); ?>">
+                                                        <option value="">Pilih Kategori</option>
+                                                        <?php foreach ($getvariasi as $row) { ?>
+                                                            <option value="<?= $row->id_variasiproduk; ?>"><?= $row->nama; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <span id="preview-gambar-container">
+                                                    <img id="preview-gambar" src="<?= base_url('template/img/page.jpg') ?>" alt="Belum diupload" style="max-width: 100px; max-height: 100px;">
+                                                </span>
+                                            </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary">Save</button>
                                             </div>
                                         </form>
+                                        <script>
+                                            // Fungsi untuk menampilkan gambar saat berkas gambar diunggah
+                                            function previewImage(input) {
+                                                var previewGambar = document.getElementById('preview-gambar');
+
+                                                if (input.files && input.files[0]) {
+                                                    var reader = new FileReader();
+
+                                                    reader.onload = function(e) {
+                                                        previewGambar.src = e.target.result;
+                                                        previewGambar.style.display = 'block'; // Tampilkan gambar
+                                                    };
+
+                                                    reader.readAsDataURL(input.files[0]);
+                                                }
+                                            }
+
+                                            // Membaca perubahan pada input berkas gambar
+                                            var inputBerkas = document.getElementById('gambar');
+                                            inputBerkas.addEventListener('change', function() {
+                                                previewImage(inputBerkas);
+                                            });
+                                        </script>
+
 
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -130,6 +159,7 @@
                                     <th scope="col">GAMBAR</th>
                                     <th scope="col">DESKRIPSI</th>
                                     <th scope="col">ID_KATEGORI</th>
+                                    <th scope="col">ID VARIASIPRODUK</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -143,7 +173,8 @@
                                             <img src="<?= base_url('gambarproduk/' . $row->gambar); ?>" alt="" width="100px" height="100px">
                                         </td>
                                         <td><?php echo $row->deskripsi ?></td>
-                                        <td><?php echo $row->id_kategori ?></td>
+                                        <td><?php echo $row->nama_kategori ?></td>
+                                        <td><?php echo $row->nama_variasi ?></td>
                                         <td>
                                             <a href="<?php echo base_url('produk/update/') . $row->id_produk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="<?php echo base_url('produk/delete/') . $row->id_produk ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

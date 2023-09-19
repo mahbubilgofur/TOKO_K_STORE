@@ -4,8 +4,10 @@ class M_transaksi extends CI_Model
 {
 	public function getDatatransaksi()
 	{
-		$this->db->select('*');
+		$this->db->select('tbl_transaksi.*, tbl_user.nama as nama_user, tbl_produk.nama as nama_produk');
 		$this->db->from('tbl_transaksi');
+		$this->db->join('tbl_user', 'tbl_transaksi.id_user = tbl_user.id');
+		$this->db->join('tbl_produk', 'tbl_transaksi.id_produk = tbl_produk.id_produk');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -33,15 +35,34 @@ class M_transaksi extends CI_Model
 		$this->db->where('id_transaksi', $id_transaksi);
 		$this->db->delete('tbl_transaksi');
 	}
-	public function generate_produk_id()
+	public function get_idtransaksi()
 	{
-		$latest_id = $this->get_latest_produk_id();
-		if ($latest_id) {
-			$numeric_part = intval(substr($latest_id, 2)) + 1;
-			$new_id = 'PR' . str_pad($numeric_part, 4, '0', STR_PAD_LEFT);
+		$this->db->select_max('id_transaksi');
+		$query = $this->db->get('tbl_transaksi'); // Ganti 'nama_tabel' dengan nama tabel Anda
+
+		$row = $query->row();
+		$current_id_transaksi = $row->id_transaksi;
+
+		if ($current_id_transaksi === null) {
+			return '0001';
 		} else {
-			$new_id = 'PR0001';
+			$next_id_transaksi = str_pad($current_id_transaksi + 1, 4, '0', STR_PAD_LEFT);
+			return $next_id_transaksi;
 		}
-		return $new_id;
+	}
+	public function getuser()
+	{
+		$this->db->select('id, nama');
+		$this->db->from('tbl_user');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function getproduk()
+	{
+		$this->db->select('id_produk, nama');
+		$this->db->select('id_produk, harga');
+		$this->db->from('tbl_produk');
+		$query = $this->db->get();
+		return $query->result();
 	}
 }

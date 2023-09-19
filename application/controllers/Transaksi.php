@@ -29,7 +29,10 @@ class Transaksi extends CI_Controller
     public function index()
     {
         $transaksi = $this->m_transaksi->getDatatransaksi();
-        $DATA = array('data_transaksi' => $transaksi);
+        $getuser = $this->m_transaksi->getuser();
+        $getproduk = $this->m_transaksi->getproduk();
+        $get_idtransaksi = $this->m_transaksi->get_idtransaksi();
+        $DATA = array('data_transaksi' => $transaksi, 'get_idtransaksi' => $get_idtransaksi, 'getuser' => $getuser, 'getproduk' => $getproduk);
         $this->load->view('layout/header');
         $this->load->view('layout/navbar');
         $this->load->view('transaksi/viewtransaksi', $DATA);
@@ -40,6 +43,7 @@ class Transaksi extends CI_Controller
     {
         $id_transaksi = $this->input->post('id_transaksi');
         $id_user = $this->input->post('id_user');
+        $id_produk = $this->input->post('id_produk');
         $harga = $this->input->post('harga');
         $jumlah = $this->input->post('jumlah');
         $total = $this->input->post('total');
@@ -48,6 +52,7 @@ class Transaksi extends CI_Controller
         $DataInsert = array(
             'id_transaksi' => $id_transaksi,
             'id_user' => $id_user,
+            'id_produk' => $id_produk,
             'harga' => $harga,
             'jumlah' => $jumlah,
             'total' => $total,
