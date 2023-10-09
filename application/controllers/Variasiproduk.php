@@ -37,21 +37,32 @@ class Variasiproduk extends CI_Controller
 
     public function Inputvariasiproduk()
     {
-        $id_variasiproduk = $this->input->post('id_variasiproduk');
+        // Menerima data dari permintaan POST
         $nama = $this->input->post('nama');
-        $size = $this->input->post('size');
         $stok = $this->input->post('stok');
+        $sizes = $this->input->post('size'); // Menggunakan 'size' sesuai dengan name input Anda di view
 
-
-        $DataInsert = array(
-            'id_variasiproduk' => $id_variasiproduk,
+        // Masukkan data utama ke dalam tabel variasiproduk
+        $data_produk = array(
             'nama' => $nama,
-            'size' => $size,
             'stok' => $stok
         );
 
-        if ($this->M_variasiproduk->InsertDatavariasiproduk($DataInsert)) {
-            // Input berhasil
+        // Insert data utama produk dan ambil ID produk yang baru saja dimasukkan
+        $produk_id = $this->M_variasiproduk->InsertDatavariasiproduk($data_produk);
+
+        if ($produk_id) {
+            // Input utama berhasil, lanjutkan dengan ukuran
+            foreach ($sizes as $size) {
+                // Masukkan setiap ukuran ke dalam tabel detailvariasi
+                $data_size = array(
+                    'id_variasiproduk' => $produk_id, // Hubungkan dengan ID produk yang baru saja dimasukkan
+                    'size' => $size
+                );
+                $this->M_variasiproduk->InsertDetailvariasi($data_size);
+            }
+
+            // Redirect atau tampilkan pesan sukses
             $this->session->set_flashdata('success', 'Data variasiproduk berhasil ditambahkan.');
             redirect(base_url('variasiproduk/'));
         } else {
@@ -60,6 +71,9 @@ class Variasiproduk extends CI_Controller
             redirect(base_url('variasiproduk/'));
         }
     }
+
+
+
 
     public function update($id_variasiproduk)
     {

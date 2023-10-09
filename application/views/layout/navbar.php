@@ -113,8 +113,8 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url('transaksi/detailtransaksi') ?>" class="nav-link">
-                                        <p>DETAILTRANSAKSI</p>
+                                    <a href="<?= base_url('transaksi/transaksi') ?>" class="nav-link">
+                                        <p>CHECKOUT</p>
                                     </a>
                                 </li>
                             </ul>
@@ -155,6 +155,14 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     USER
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('gambar') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    GAMBAR PRODUK
                                 </p>
                             </a>
                         </li>

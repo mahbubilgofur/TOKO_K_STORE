@@ -15,9 +15,9 @@ class Kategori extends CI_Controller
         // Mendapatkan role_id dari sesi
         $role_id = $this->session->userdata('role_id');
 
-        // Menambahkan kondisi untuk role_id
         if ($role_id == 2) {
-            redirect('home_user');
+            // Jika role_id adalah 2, arahkan ke halaman tertentu atau berikan pesan kesalahan
+            redirect('home');
         }
         // Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 
@@ -87,5 +87,13 @@ class Kategori extends CI_Controller
     {
         $this->M_kategori->DeleteDatakategori($id_kategori);
         redirect(base_url('kategori/'));
+    }
+    public function searchKategoriByNama($nama)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_kategori');
+        $this->db->like('LOWER(nama)', strtolower($nama)); // Perbandingan case-insensitive
+        $query = $this->db->get();
+        return $query->result();
     }
 }

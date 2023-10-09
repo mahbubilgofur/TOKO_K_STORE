@@ -19,7 +19,7 @@ class Admin extends CI_Controller
 		// Menambahkan kondisi untuk role_id
 		if ($role_id == 2) {
 			// Jika role_id adalah 2, arahkan ke halaman tertentu atau berikan pesan kesalahan
-			redirect('home_user');
+			redirect('home');
 		}
 		// Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 

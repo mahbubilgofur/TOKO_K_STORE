@@ -30,60 +30,105 @@
                     <div class="alert alert-info" role="alert">
 
                     </div>
-                    <!-- /.card -->
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        TAMBAH VARIASIPRODUK
-                    </button>
-
-                    <!-- /.card-header -->
                     <div class="card-body">
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Insert Data</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <form action="<?= base_url() ?>variasiproduk/Inputvariasiproduk" method="POST">
-                                            <div class="form-group">
-                                                <label>ID VARIASIvariasiproduk</label>
-                                                <input type="text" class="form-control" name="id_variasiproduk" placeholder="ID_VARIASIPRODUK" value="<?php echo sprintf($data_variasi) ?>" readonly>
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label>NAMA</label>
-                                                <input type="text" class="form-control" name="nama" placeholder="NAMA" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>SIZE</label>
-                                                <input type="text" class="form-control" name="size" placeholder="SIZE" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>STOK</label>
-                                                <input type="text" class="form-control" name="stok" placeholder="STOK" required>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="sumbmit" class="btn btn-primary">Save</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                        <div class="modal-body">
+                            <!-- Di dalam view Anda -->
+                            <div class="form-group">
+                                <label for="nama">Nama</label>
+                                <input type="text" class="form-control" id="nama" placeholder="Nama" required>
                             </div>
+                            <div class="form-group">
+                                <label for="stok">Stok</label>
+                                <input type="text" class="form-control" id="stok" placeholder="Stok" required>
+                            </div>
+                            <div class="form-group" id="sizesContainer">
+                                <label for="size">Size</label>
+                                <input type="text" class="form-control" id="size" placeholder="Size" required>
+                            </div>
+                            <button type="button" class="btn btn-success" id="addSize">Tambah Ukuran</button>
+                            <button type="button" class="btn btn-primary" id="saveButton">Simpan</button>
+
+                            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    let sizeCounter = 1;
+
+                                    function addSizeInput(sizeValue) {
+                                        sizeCounter++;
+                                        const sizeInput = `<div class="input-group mb-3" id="sizeInput-${sizeCounter}">
+                <input type="text" class="form-control" name="size[]" placeholder="SIZE" required value="${sizeValue}">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger remove-size" data-size="${sizeCounter}">Hapus</button>
+                </div>
+            </div>`;
+                                        $("#sizesContainer").append(sizeInput);
+
+                                        $(`#sizeInput-${sizeCounter} .remove-size`).click(function() {
+                                            const sizeId = $(this).data("size");
+                                            removeSizeInput(sizeId);
+                                        });
+                                    }
+
+                                    function removeSizeInput(sizeId) {
+                                        $(`#sizeInput-${sizeId}`).remove();
+                                    }
+
+                                    $("#addSize").click(function() {
+                                        addSizeInput('');
+                                    });
+
+                                    // ...
+
+                                    $("#saveButton").click(function() {
+                                        const sizeValues = $("input[name='size[]']").map(function() {
+                                            return $(this).val();
+                                        }).get();
+
+                                        const nama = $("#nama").val();
+                                        const stok = $("#stok").val();
+
+                                        const dataToSend = {
+                                            nama: nama,
+                                            stok: stok,
+                                        };
+
+                                        // Cek apakah ada ukuran yang dimasukkan
+                                        if (sizeValues.length > 0) {
+                                            dataToSend.sizes = sizeValues;
+                                        }
+
+                                        // Menggunakan Ajax untuk mengirim data ke controller
+                                        $.ajax({
+                                            url: '<?= base_url('variasiproduk/Inputvariasiproduk') ?>',
+                                            type: 'POST',
+                                            data: dataToSend,
+                                            success: function(response) {
+                                                console.log(response);
+                                                alert('Data telah disimpan');
+                                            },
+                                            error: function(error) {
+                                                console.error(error);
+                                                alert('Terjadi kesalahan saat menyimpan data');
+                                            }
+                                        });
+                                    });
+
+                                });
+                            </script>
+
+
+
                         </div>
+
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <th scope="col">ID VARIASIPRODUK</th>
                                 <th scope="col">NAMA</th>
                                 <th scope="col">SIZE</th>
                                 <th scope="col">STOK</th>
+                                <th scope="col">DETAIL</th>
                                 <th scope="col">Action</th>
                             </thead>
                             <tbody>
@@ -96,6 +141,9 @@
                                         <td><?php echo $row->nama ?></td>
                                         <td><?php echo $row->size ?></td>
                                         <td><?php echo $row->stok ?></td>
+                                        <td>
+                                            <a href="<?php echo base_url('variasiproduk/update/') . $row->id_variasiproduk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        </td>
                                         <td>
                                             <a href="<?php echo base_url('variasiproduk/update/') . $row->id_variasiproduk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="<?php echo base_url('variasiproduk/delete/') . $row->id_variasiproduk ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

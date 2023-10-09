@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>LOGIN</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -159,7 +160,7 @@
         }
     </style>
     <div class="pen-title">
-        <h1>USER</h1>
+        <h1>LOGIN USER </h1>
     </div>
     <!-- Form Module-->
     <div class="module form-module">
@@ -172,10 +173,10 @@
                 <button>Login</button>
             </form> -->
         </div>
-        <div class="form">
-            <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-            <?php echo $this->session->flashdata('message'); ?>
+        <div class="row">
             <form action="<?= base_url('login_user'); ?>" method="POST">
+                <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
+                <?php echo $this->session->flashdata('message'); ?>
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" name="email" id="email" class="form-control" required>
@@ -184,12 +185,21 @@
                     <label for="password">Password:</label>
                     <input type="password" name="password" id="password" class="form-control" required>
                 </div>
+
+                <!-- Tambahkan wrapper div untuk centang "Saya bukan robot" -->
+
+
+                <!-- Tambahkan widget reCAPTCHA V2 Checkbox di sini -->
+                <div class="g-recaptcha" data-sitekey="6LfbTUAoAAAAABZL1r8dWTq_L1p_3trPFkNc2Ngr"></div>
+
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
+
         <a href="<?= base_url('login_user/register'); ?>">BELUM REGISTER?</a>
 
     </div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 

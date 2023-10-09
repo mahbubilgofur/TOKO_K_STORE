@@ -4,13 +4,22 @@ class M_transaksi extends CI_Model
 {
 	public function getDatatransaksi()
 	{
-		$this->db->select('tbl_transaksi.*, tbl_user.nama as nama_user, tbl_produk.nama as nama_produk');
+		$this->db->select('tbl_transaksi.*, tbl_user.nama as nama_user');
 		$this->db->from('tbl_transaksi');
 		$this->db->join('tbl_user', 'tbl_transaksi.id_user = tbl_user.id');
-		$this->db->join('tbl_produk', 'tbl_transaksi.id_produk = tbl_produk.id_produk');
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function getDetailDatatransaksi()
+	{
+		$this->db->select('detail_transaksi.*, tbl_produk.nama AS nama_produk');
+		$this->db->from('detail_transaksi');
+		$this->db->join('tbl_produk', 'detail_transaksi.id_produk = tbl_produk.id_produk');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 
 	public function InsertDatatransaksi($data)
 	{
@@ -57,10 +66,10 @@ class M_transaksi extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
 	public function getproduk()
 	{
-		$this->db->select('id_produk, nama');
-		$this->db->select('id_produk, harga');
+		$this->db->select('id_produk, nama, id_variasiproduk, harga');
 		$this->db->from('tbl_produk');
 		$query = $this->db->get();
 		return $query->result();

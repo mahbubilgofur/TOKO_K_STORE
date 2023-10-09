@@ -9,6 +9,7 @@
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- jQuery -->
 <script src="<?= base_url() ?>layout/plugins/jquery/jquery.min.js"></script>

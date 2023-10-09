@@ -47,4 +47,11 @@ class M_user extends CI_Model
     {
         return $this->db->where('email', $email)->get('tbl_user')->row();
     }
+    public function getuser()
+    {
+        $this->db->select('id, nama as namauser');
+        $this->db->from('tbl_user');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

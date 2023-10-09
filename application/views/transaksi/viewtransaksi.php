@@ -32,9 +32,10 @@
                     </div>
                     <!-- /.card -->
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        TAMBAH TRANSAKSI
-                    </button>
+                    <a href="<?= base_url('transaksi/transaksi') ?>"><button type="button" class="btn btn-primary">
+                            TAMBAH TRANSAKSI
+                        </button>
+                    </a>
 
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -50,7 +51,9 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <!-- Your existing form -->
                                         <form action="<?= base_url() ?>transaksi/Inputtransaksi" method="POST">
+                                            <!-- Transaction details -->
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="id_transaksi">ID TRANSAKSI</label>
@@ -58,7 +61,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>ID USER</label>
-                                                    <select class="form-control" name="id_user" required value="<?= set_value('id_user'); ?>">
+                                                    <select class="form-control" name="id_user" required>
                                                         <option value="">Pilih Kategori</option>
                                                         <?php foreach ($getuser as $row) { ?>
                                                             <option value="<?= $row->id; ?>"><?= $row->nama; ?></option>
@@ -66,97 +69,112 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label>ID PRODUK</label>
-                                                    <select class="form-control" name="id_produk" id="id_produk" required>
-                                                        <option value="">Pilih Kategori</option>
-                                                        <?php foreach ($getproduk as $row) { ?>
-                                                            <option value="<?= $row->id_produk; ?>" data-harga="<?= $row->harga; ?>"><?= $row->nama; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="harga">HARGA</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">RP</span>
-                                                        </div>
-                                                        <input type="text" class="form-control" id="harga" name="harga" placeholder="HARGA" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="jumlah">JUMLAH</label>
-                                                    <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="JUMLAH" required>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="total">TOTAL</label>
-                                                    <input type="text" class="form-control" id="total" name="total" placeholder="TOTAL" readonly>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <div id="total_display"></div>
-                                                </div>
-                                                <div class="form-group col-md-6">
                                                     <label for="tgl_transaksi">TGL TRANSAKSI</label>
                                                     <input type="date" class="form-control" id="tgl_transaksi" name="tgl_transaksi" value="<?php echo date('Y-m-d'); ?>" readonly>
                                                 </div>
                                             </div>
 
+                                            <!-- Input for Detail Transaksi (multiple products) -->
+                                            <div id="product_fields">
+                                                <div class="form-row product-row">
+
+                                                    <div class="form-group col-md-6">
+                                                        <label for="id_produk">ID PRODUK</label>
+                                                        <select class="form-control" name="id_produk[]" required>
+                                                            <option value="">Pilih Produk</option>
+                                                            <?php foreach ($getproduk as $row) { ?>
+                                                                <option value="<?= $row->id_produk; ?>"><?= $row->nama; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="harga">HARGA</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">RP</span>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="harga" name="harga" placeholder="HARGA" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="jumlah">JUMLAH</label>
+                                                        <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="JUMLAH" required>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="total">TOTAL</label>
+                                                        <input type="text" class="form-control" id="total" name="total" placeholder="TOTAL" readonly>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <div id="total_display"></div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="tgl_transaksi">TGL TRANSAKSI</label>
+                                                        <input type="date" class="form-control" id="tgl_transaksi" name="tgl_transaksi" value="<?php echo date('Y-m-d'); ?>" readonly>
+                                                    </div>
 
 
-                                            <script>
-                                                var idProdukSelect = document.getElementById("id_produk");
-                                                var hargaInput = document.getElementById("harga");
-                                                var jumlahInput = document.getElementById("jumlah");
-                                                var totalInput = document.getElementById("total");
-                                                var totalDisplay = document.getElementById("total_display");
+                                                    <!-- Button to add a product -->
+                                                    <button type="button" id="add_product_button" class="btn btn-primary">Tambah Produk</button>
 
-                                                // Tambahkan event listener ketika id_produk dipilih
-                                                idProdukSelect.addEventListener("change", updateHarga);
+                                                    <!-- Hidden field to store selected products -->
 
-                                                function updateHarga() {
-                                                    // Dapatkan harga dari opsi yang dipilih
-                                                    var selectedOption = idProdukSelect.options[idProdukSelect.selectedIndex];
-                                                    var harga = selectedOption.getAttribute("data-harga");
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                    </div>
 
-                                                    // Tampilkan harga di input harga
-                                                    hargaInput.value = harga;
+                                                    <script>
+                                                        var idProdukSelect = document.getElementById("id_produk");
+                                                        var hargaInput = document.getElementById("harga");
+                                                        var jumlahInput = document.getElementById("jumlah");
+                                                        var totalInput = document.getElementById("total");
+                                                        var totalDisplay = document.getElementById("total_display");
 
-                                                    // Hitung total saat id_produk berubah juga
-                                                    hitungTotal();
-                                                }
+                                                        // Tambahkan event listener ketika id_produk dipilih
+                                                        idProdukSelect.addEventListener("change", updateHarga);
 
-                                                // Tambahkan event listener untuk menghitung total saat input harga atau jumlah berubah
-                                                hargaInput.addEventListener("input", hitungTotal);
-                                                jumlahInput.addEventListener("input", hitungTotal);
+                                                        function updateHarga() {
+                                                            // Dapatkan harga dari opsi yang dipilih
+                                                            var selectedOption = idProdukSelect.options[idProdukSelect.selectedIndex];
+                                                            var harga = selectedOption.getAttribute("data-harga");
 
-                                                function hitungTotal() {
-                                                    // Dapatkan nilai dari input harga dan jumlah
-                                                    var harga = hargaInput.value.trim(); // Hapus spasi di awal dan akhir
-                                                    var jumlah = parseFloat(jumlahInput.value) || 0;
+                                                            // Tampilkan harga di input harga
+                                                            hargaInput.value = harga;
 
-                                                    // Hapus "RP" dan spasi jika ada di dalam harga
-                                                    harga = harga.replace("RP", "").trim();
+                                                            // Hitung total saat id_produk berubah juga
+                                                            hitungTotal();
+                                                        }
 
-                                                    // Konversi harga menjadi angka dengan menghapus titik sebagai pemisah ribuan
-                                                    harga = parseFloat(harga.replace(".", "").replace(",", "")) || 0;
+                                                        // Tambahkan event listener untuk menghitung total saat input harga atau jumlah berubah
+                                                        hargaInput.addEventListener("input", hitungTotal);
+                                                        jumlahInput.addEventListener("input", hitungTotal);
 
-                                                    // Hitung total
-                                                    var total = harga * jumlah;
+                                                        function hitungTotal() {
+                                                            // Dapatkan nilai dari input harga dan jumlah
+                                                            var harga = hargaInput.value.trim(); // Hapus spasi di awal dan akhir
+                                                            var jumlah = parseFloat(jumlahInput.value) || 0;
 
-                                                    // Tampilkan total di input total dengan format tanpa dua desimal
-                                                    totalInput.value = total.toFixed(0); // Membulatkan total ke bilangan bulat
+                                                            // Hapus "RP" dan spasi jika ada di dalam harga
+                                                            harga = harga.replace("RP", "").trim();
 
-                                                    // Tampilkan total di bawah input total dan tambahkan "RP" di depan harga
-                                                    totalDisplay.innerHTML = "Total: RP " + totalInput.value;
-                                                }
-                                            </script>
+                                                            // Konversi harga menjadi angka dengan menghapus titik sebagai pemisah ribuan
+                                                            harga = parseFloat(harga.replace(".", "").replace(",", "")) || 0;
 
+                                                            // Hitung total
+                                                            var total = harga * jumlah;
+
+                                                            // Tampilkan total di input total dengan format tanpa dua desimal
+                                                            totalInput.value = total.toFixed(0); // Membulatkan total ke bilangan bulat
+
+                                                            // Tampilkan total di bawah input total dan tambahkan "RP" di depan harga
+                                                            totalDisplay.innerHTML = "Total: RP " + totalInput.value;
+                                                        }
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
 
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -166,26 +184,21 @@
                             <thead>
                                 <th scope="col">ID TRANSAKSI</th>
                                 <th scope="col">ID_USER</th>
-                                <th scope="col">ID_PRODUK</th>
-                                <th scope="col">HARGA</th>
-                                <th scope="col">JUMLAH</th>
-                                <th scope="col">TOTAL</th>
                                 <th scope="col">TGL_TRANSAKSI</th>
+                                <th scope="col">detail</th>
                                 <th scope="col">Action</th>
                             </thead>
                             <tbody>
                                 <?php
                                 foreach ($data_transaksi as $row) {
-
                                 ?>
                                     <tr>
                                         <td><?php echo $row->id_transaksi ?></td>
                                         <td><?php echo $row->nama_user ?></td>
-                                        <td><?php echo $row->nama_produk ?></td>
-                                        <td><?php echo $row->harga ?></td>
-                                        <td><?php echo $row->jumlah ?></td>
-                                        <td><?php echo $row->total ?></td>
                                         <td><?php echo $row->tgl_transaksi ?></td>
+                                        <td>
+                                            <a href="<?php echo base_url('transaksi/transaksidetail/') ?>" class="btn btn-warning">detail</a>
+                                        </td>
                                         <td>
                                             <a href="<?php echo base_url('transaksi/update/') . $row->id_transaksi ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="<?php echo base_url('transaksi/delete/') . $row->id_transaksi ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

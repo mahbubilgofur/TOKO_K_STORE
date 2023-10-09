@@ -14,13 +14,33 @@ class Login_user extends CI_Controller
 
     public function index()
     {
+        // Ganti 'YOUR_RECAPTCHA_SECRET_KEY' dengan kunci rahasia reCAPTCHA Anda
+        $recaptchaSecretKey = '6LfbTUAoAAAAAJucmrsloHn44764JRxOSzNNyX8N'; // Ganti dengan kunci rahasia reCAPTCHA Anda
+
+        // Validasi form
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
-        if ($this->form_validation->run() == false) {
-            $this->load->view('login_user');
+        // Jika validasi form berhasil
+        if ($this->form_validation->run() == true) {
+            // Validasi reCAPTCHA
+            $recaptchaResponse = $this->input->post('g-recaptcha-response');
+
+            // Verifikasi reCAPTCHA
+            $recaptchaVerify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecretKey}&response={$recaptchaResponse}");
+            $recaptchaData = json_decode($recaptchaVerify);
+
+            if (!$recaptchaData->success) {
+                // Verifikasi reCAPTCHA gagal
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Verifikasi reCAPTCHA gagal. Silakan coba lagi.</div>');
+                redirect(base_url('login'));
+            } else {
+                // Verifikasi reCAPTCHA berhasil, lanjutkan dengan proses login
+                $this->_login();
+            }
         } else {
-            $this->_login();
+            // Validasi form gagal, tampilkan kembali halaman login
+            $this->load->view('login_user');
         }
     }
 
@@ -40,9 +60,9 @@ class Login_user extends CI_Controller
                 $this->session->set_userdata($data);
 
                 if ($user->role_id == 2) {
-                    redirect(base_url('home_user'));
+                    redirect(base_url('home/index'));
                 } else {
-                    redirect(base_url('home_user'));
+                    redirect(base_url('home/index'));
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password salah</div>');
@@ -53,6 +73,7 @@ class Login_user extends CI_Controller
             redirect(base_url('login_user'));
         }
     }
+
 
     public function register()
     {
@@ -78,7 +99,7 @@ class Login_user extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
                 Berhasil register
               </div>');
-                redirect(base_url('login/login_user'));
+                redirect(base_url('login_user/login_user'));
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 Gagal register
@@ -109,7 +130,7 @@ class Login_user extends CI_Controller
         } else {
             // Handle kasus lain jika diperlukan
             $message = '<div class="alert alert-success" role="alert">Anda berhasil logout</div>';
-            $redirect_url = base_url('login'); // Atur pengalihan default
+            $redirect_url = base_url('login_user'); // Atur pengalihan default
         }
 
         // Set pesan flashdata dan redirect

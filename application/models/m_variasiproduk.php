@@ -13,6 +13,15 @@ class M_variasiproduk extends CI_Model
     public function InsertDatavariasiproduk($data)
     {
         $this->db->insert('tbl_variasiproduk', $data);
+
+        // Mengembalikan ID variasiproduk yang baru saja dimasukkan
+        return $this->db->insert_id();
+    }
+    public function InsertDetailvariasi($data)
+    {
+        $this->db->insert('tbl_detailvariasi', $data);
+
+        // Tidak perlu mengembalikan ID karena kolom ID auto-increment
     }
 
     public function UpdateDatavariasiproduk($data, $id_variasiproduk)

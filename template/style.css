@@ -1,3 +1,70 @@
+.delete-button{
+	background-color: black;
+	color: white;
+	padding: 5px;
+	border-radius: 5px;
+	width: 100px;
+}
+.delete-button:hover{
+	background-color: #ffc54d;
+	color: rgb(0, 0, 0);
+	border: solid 2px #ffc54d;
+	transition: all 0.3s;
+	padding: 5px;
+	border-radius: 5px;
+	width: 100px;
+}
+.checkmark {
+    top: 0;
+    left: 0;
+    height: 50px; /* Ukuran kotak centang (atur sesuai kebutuhan) */
+    width: 20px; /* Ukuran kotak centang (atur sesuai kebutuhan) */
+    background-color: transparent; /* Warna kotak centang saat kosong */
+}
+
+.product-variants {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.product-variant {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 10%;
+	cursor: pointer;
+	width: 10%;
+}
+
+.product-variant label {
+	margin-top: 5px;
+}
+
+.product-variant.selected {
+	border: 2px solid #ffc54d;
+	border-bottom: 2px black solid;
+	border-radius: 5px;
+}
+
+.product-variant:hover {
+	border: 2px solid #ffc54d;
+	transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+	.product-variants {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.product-variant {
+		margin-bottom: 10px;
+		width: 80%;
+	}
+}
+
 .popup {
 	display: none;
 	position: fixed;
@@ -717,14 +784,18 @@ textarea:focus {
 	background: transparent;
 }
 
+
 /*----------------------------------------*/
 /*  1.9 Animation
 /*----------------------------------------*/
 /* Slider Progress Bar */
+.owl-item:hover{
+	border: 1px solid #ffc54d;
+}
 .slider-active .owl-item.active .slider-progress {
 	-webkit-animation: 5000ms ease-in-out 0s normal none 1 running timebar;
 	animation: 10000ms ease-in-out 0s normal none 1 running timebar;
-	background: rgba(0, 0, 0, .3);
+	background:#ffc54d;
 	height: 5px;
 	left: 0;
 	opacity: 0.8;
@@ -1451,7 +1522,12 @@ textarea:focus {
 	-ms-flex-pack: center;
 	justify-content: center;
 }
-
+.product-variants{
+	display: flex;
+	align-items: center;
+	align-items: center;
+	flex-direction: row;
+}
 .product-variants .produt-variants-size {
 	margin-right: 30px;
 }
@@ -1510,6 +1586,7 @@ textarea:focus {
 	overflow: hidden;
 	float: left;
 	width: 100%;
+	display: flex;
 }
 
 .cart-quantity label {
@@ -1526,8 +1603,10 @@ textarea:focus {
 	background: #fed700;
 	cursor: pointer;
 	font-weight: 500;
+	margin-left: 30px;
 	text-transform: capitalize;
-	padding: 13px 70px;
+	padding: 13px 20px;
+	border-radius: 2px;
 	border-radius: 2px;
 	transition: all 0.3s ease-in-out;
 }
@@ -1940,6 +2019,7 @@ textarea:focus {
 	text-align: center;
 	height: 45px;
 	line-height: 45px;
+	border-radius: 100%;
 	display: block;
 	transition: all 0.3s ease-in-out;
 }
@@ -1960,10 +2040,14 @@ textarea:focus {
 	background: #e80f0f;
 	color: #fff;
 	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	cursor: pointer;
 	display: block;
 	position: relative;
-	padding: 0 15px 0 55px;
+	padding: 0 15px 0 10px;
+	border-radius: 5px;
 }
 
 .item-icon::before {
@@ -2017,7 +2101,7 @@ textarea:focus {
 	position: absolute;
 	right: 0;
 	top: 100%;
-	z-index: 9;
+	z-index: 1000;
 	display: none;
 	border: 1px solid #e5e5e5;
 	padding: 20px;
@@ -2062,9 +2146,31 @@ textarea:focus {
 	-ms-flex-item-align: start;
 	align-self: flex-start;
 }
+/* CSS untuk kotak yang dicentang */
 
 .minicart .minicart-product-list li .minicart-product-image:hover {
 	border-color: #fed700;
+}
+.quantity1{
+	background-color: rgb(255, 255, 255);
+	border: 2px solid black;
+	width: 50px;
+	font-size: 20px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.quantity1:hover{
+	background-color:#ffc54d;
+	border: 1px solid black;
+	transition: all 0.5s;
+	width: 50px;
+	font-size: 20px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .minicart .minicart-product-list li .minicart-product-image span.quantity {

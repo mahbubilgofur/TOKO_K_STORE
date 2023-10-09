@@ -13,10 +13,9 @@ class Login extends CI_Controller
         // Mendapatkan role_id dari sesi
         $role_id = $this->session->userdata('role_id');
 
-        // Menambahkan kondisi untuk role_id
         if ($role_id == 2) {
             // Jika role_id adalah 2, arahkan ke halaman tertentu atau berikan pesan kesalahan
-            redirect('home_user');
+            redirect('home');
         }
         // Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 
@@ -25,15 +24,30 @@ class Login extends CI_Controller
     }
     public function index()
     {
+        $recaptchaSecretKey = '6LfbTUAoAAAAAJucmrsloHn44764JRxOSzNNyX8N';
+
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
-        if ($this->form_validation->run() == false) {
-            $this->load->view('login');
+        if ($this->form_validation->run() == true) {
+            $recaptchaResponse = $this->input->post('g-recaptcha-response');
+
+            $recaptchaVerify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecretKey}&response={$recaptchaResponse}");
+            $recaptchaData = json_decode($recaptchaVerify);
+
+            if (!$recaptchaData->success) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Verifikasi reCAPTCHA gagal. Silakan coba lagi.</div>');
+                redirect(base_url('login'));
+            } else {
+                $this->_login();
+            }
         } else {
-            $this->_login();
+            $this->load->view('login');
         }
     }
+
+
+
 
     private function _login()
     {

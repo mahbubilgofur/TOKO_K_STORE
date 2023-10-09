@@ -9,84 +9,111 @@
 <!-- content-wraper start -->
 <div class="content-wraper">
     <div class="container">
-        <div class="row single-product-area">
-            <div class="col-lg-5 col-md-6">
-                <!-- Product Details Left -->
-                <div class="product-details-left">
-                    <div class="product-details-images slider-navigation-1">
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos1.jpg" data-gall="myGallery">
-                                <img src="<?= base_url() ?>template/images/product/small-size/kaos1.jpg" alt="product image">
-                            </a>
+        <form action="<?= base_url('home/keranjang'); ?>" method="post">
+            <div class="row single-product-area">
+                <div class="col-lg-5 col-md-6">
+                    <!-- Product Details Left -->
+                    <div class="product-details-left">
+                        <div class="product-details-images slider-navigation-1">
+                            <div class="lg-image">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos1.jpg" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" alt="product image thumb">
+                                </a>
+                            </div>
+                            <div class="lg-image">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos2.png" data-gall="myGallery">
+                                    <img src="<?= base_url() ?>template/images/product/small-size/kaos2.png" alt="product image">
+                                </a>
+                            </div>
+                            <div class="lg-image">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos4.jpeg" data-gall="myGallery">
+                                    <img src="<?= base_url() ?>template/images/product/small-size/kaos4.jpeg" alt="product image">
+                                </a>
+                            </div>
+                            <div class="lg-image">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos5.jpeg" data-gall="myGallery">
+                                    <img src="<?= base_url() ?>template/images/product/small-size/kaos5.jpeg" alt="product image">
+                                </a>
+                            </div>
+                            <div class="lg-image">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos6.jpeg" data-gall="myGallery">
+                                    <img src="<?= base_url() ?>template/images/product/small-size/kaos6.jpeg" alt="product image">
+                                </a>
+                            </div>
+                            <div class="lg-image">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/koas33.jpg" data-gall="myGallery">
+                                    <img src="<?= base_url() ?>template/images/product/small-size/koas33.jpg" alt="product image">
+                                </a>
+                            </div>
                         </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos2.png" data-gall="myGallery">
-                                <img src="<?= base_url() ?>template/images/product/small-size/kaos2.png" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos4.jpeg" data-gall="myGallery">
-                                <img src="<?= base_url() ?>template/images/product/small-size/kaos4.jpeg" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos5.jpeg" data-gall="myGallery">
-                                <img src="<?= base_url() ?>template/images/product/small-size/kaos5.jpeg" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/kaos6.jpeg" data-gall="myGallery">
-                                <img src="<?= base_url() ?>template/images/product/small-size/kaos6.jpeg" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="<?= base_url() ?>template/images/product/small-size/koas33.jpg" data-gall="myGallery">
-                                <img src="<?= base_url() ?>template/images/product/small-size/koas33.jpg" alt="product image">
-                            </a>
+                        <div class="product-details-thumbs slider-thumbs-1">
+                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos1.jpg" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos2.png" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos4.jpeg" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos5.jpeg" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos6.jpeg" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/koas33.jpg" alt="product image thumb"></div>
                         </div>
                     </div>
-                    <div class="product-details-thumbs slider-thumbs-1">
-                        <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos1.jpg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos2.png" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos4.jpeg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos5.jpeg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos6.jpeg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/koas33.jpg" alt="product image thumb"></div>
-                    </div>
+                    <!--// Product Details Left -->
                 </div>
-                <!--// Product Details Left -->
-            </div>
 
-            <div class="col-lg-7 col-md-6">
-                <div class="product-details-view-content pt-60">
-                    <div class="product-info">
-                        <h2>KAOS MODEL TERLARIS KOAS KEREN</h2>
-                        <span class="product-details-ref">Reference: demo_15</span>
-                        <div class="rating-box pt-20">
-                            <ul class="rating rating-with-review-item">
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                <li class="review-item"><a href="#">Read Review</a></li>
-                                <li class="review-item"><a href="#">Write Review</a></li>
-                            </ul>
-                        </div>
-                        <div class="price-box pt-20">
-                            <span class="new-price new-price-2">RP.30000</span>
-                        </div>
-                        <div class="product-desc">
-                            <p>
-                                <span>Kaos keren adalah simbol gaya dan ketegasan. Kaos ini dirancang dengan desain minimalis, tampilan yang elegan, dan pesan yang kuat. Mereka sering memiliki kombinasi warna yang menarik dan grafis yang menonjol untuk menambahkan elemen keren. Kaos ini cocok untuk mereka yang ingin menampilkan sikap percaya diri mereka dan menjadikannya sebagai bagian dari gaya pribadi mereka.
-                                </span>
-
-                                <span>
-                                    Bahan kaos keren ini biasanya sangat nyaman dan cocok untuk berbagai kesempatan, baik itu untuk hangout santai, konser, atau bahkan pertemuan bisnis informal. Kaos keren juga bisa mencerminkan minat dan identitas seseorang dengan gaya yang eksklusif. Dengan memakai kaos keren, Anda dapat merasa percaya diri dan siap menghadapi dunia dengan sikap positif.
-                                </span>
-                            </p>
-                        </div>
-                        <div class="product-variants">
+                <div class="col-lg-7 col-md-6">
+                    <div class="product-details-view-content pt-60">
+                        <div class="product-info">
+                            <h2><?= $produk['nama']; ?></h2>
+                            <span class="product-details-ref">Reference: demo_15</span>
+                            <div class="rating-box pt-20">
+                                <ul class="rating rating-with-review-item">
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    <li class="review-item"><a href="#">Read Review</a></li>
+                                    <li class="review-item"><a href="#">Write Review</a></li>
+                                </ul>
+                            </div>
+                            <div class="price-box pt-20">
+                                <span class="new-price new-price-2">RP.<?= $produk['harga']; ?></span>
+                            </div>
+                            <div class="product-desc">
+                                <p>
+                                    <span><?= $produk['deskripsi']; ?>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="product-variants">
+                                <div class="product-variant" data-value="S">
+                                    <label>SIZE</label>
+                                    <div>S</div>
+                                </div>
+                                <div class="product-variant" data-value="M">
+                                    <label>SIZE</label>
+                                    <div>M</div>
+                                </div>
+                                <div class="product-variant" data-value="L">
+                                    <label>SIZE</label>
+                                    <div>L</div>
+                                </div>
+                                <div class="product-variant" data-value="XL">
+                                    <label>SIZE</label>
+                                    <div>XL</div>
+                                </div>
+                                <div class="product-variant" data-value="XXL">
+                                    <label>SIZE</label>
+                                    <div>XXL</div>
+                                </div>
+                                <div class="product-variant" data-value="XXXL">
+                                    <label>SIZE</label>
+                                    <div>XXXL</div>
+                                </div>
+                                <div class="product-variant" data-value="4XL">
+                                    <label>SIZE</label>
+                                    <div>4XL</div>
+                                </div>
+                            </div>
+                            <!-- <div class="product-variants">
                             <div class="produt-variants-size">
                                 <label>SIZE</label>
                                 <select class="nice-select">
@@ -97,63 +124,84 @@
                                     <option value="4" title="XL">XL</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="single-add-to-cart">
+                        </div> -->
+                            <script>
+                                const variants = document.querySelectorAll('.product-variant');
+
+                                variants.forEach(variant => {
+                                    variant.addEventListener('click', () => {
+                                        // Clear selection
+                                        variants.forEach(v => v.classList.remove('selected'));
+                                        // Set the clicked variant as selected
+                                        variant.classList.add('selected');
+                                    });
+                                });
+                            </script>
+                            <!-- <div class="single-add-to-cart">
                             <form action="#" class="cart-quantity">
                                 <div class="quantity">
                                     <label>Quantity</label>
                                     <div class="cart-plus-minus">
                                         <input class="cart-plus-minus-box" value="1" type="text">
                                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                     </div>
                                 </div>
                                 <button class="add-to-cart" type="submit">CHECKOUT</button>
                             </form>
-                        </div>
-                        <div class="product-additional-info pt-25">
-                            <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
-                            <div class="product-social-sharing pt-25">
+                        </div> -->
+                            <div class="single-add-to-cart">
+                                <div class="single-add-to-cart">
+                                    <a href="<?= base_url('home/add_to_cart/' . $produk['id_produk']); ?>">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Tambahkan ke Keranjang
+                                    </a>
+
+                                </div>
+                                <button class="add-to-cart" type="submit">CHECKOUT</button>
+                            </div>
+                            <div class="product-additional-info pt-25">
+                                <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                <div class="product-social-sharing pt-25">
+                                    <ul>
+                                        <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+                                        <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+                                        <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google +</a></li>
+                                        <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="block-reassurance">
                                 <ul>
-                                    <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
-                                    <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
-                                    <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google +</a></li>
-                                    <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+                                    <li>
+                                        <div class="reassurance-item">
+                                            <div class="reassurance-icon">
+                                                <i class="fa fa-check-square-o"></i>
+                                            </div>
+                                            <p>Security policy (edit with Customer reassurance module)</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="reassurance-item">
+                                            <div class="reassurance-icon">
+                                                <i class="fa fa-truck"></i>
+                                            </div>
+                                            <p>Delivery policy (edit with Customer reassurance module)</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="reassurance-item">
+                                            <div class="reassurance-icon">
+                                                <i class="fa fa-exchange"></i>
+                                            </div>
+                                            <p> Return policy (edit with Customer reassurance module)</p>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
-                        </div>
-                        <div class="block-reassurance">
-                            <ul>
-                                <li>
-                                    <div class="reassurance-item">
-                                        <div class="reassurance-icon">
-                                            <i class="fa fa-check-square-o"></i>
-                                        </div>
-                                        <p>Security policy (edit with Customer reassurance module)</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="reassurance-item">
-                                        <div class="reassurance-icon">
-                                            <i class="fa fa-truck"></i>
-                                        </div>
-                                        <p>Delivery policy (edit with Customer reassurance module)</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="reassurance-item">
-                                        <div class="reassurance-icon">
-                                            <i class="fa fa-exchange"></i>
-                                        </div>
-                                        <p> Return policy (edit with Customer reassurance module)</p>
-                                    </div>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <!-- content-wraper end -->

@@ -49,4 +49,12 @@ class M_kategori extends CI_Model
         $kodetampil = "S" . $batas;
         return $kodetampil;
     }
+    public function searchKategoriByNama($nama)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_kategori');
+        $this->db->like('LOWER(nama)', strtolower($nama)); // Perbandingan case-insensitive
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

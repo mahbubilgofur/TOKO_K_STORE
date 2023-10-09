@@ -69,14 +69,73 @@ class M_produk extends CI_Model
     }
     public function getProdukById($id_produk)
     {
-        $this->db->where('id_produk', $id_produk);
-        $query = $this->db->get('tbl_produk'); // Gantilah 'nama_tabel_produk' dengan nama tabel produk Anda
-
+        // Query database untuk mengambil data produk berdasarkan id_produk
+        $query = $this->db->get_where('tbl_produk', array('id_produk' => $id_produk));
 
         if ($query->num_rows() > 0) {
-            return $query->row(); // Mengembalikan satu baris data sebagai objek
+            return $query->row_array(); // Mengembalikan data produk dalam bentuk array jika ditemukan
         } else {
-            return null; // Mengembalikan null jika data tidak ditemukan
+            return false; // Mengembalikan false jika produk tidak ditemukan
+        }
+    }
+    public function getProdukOlahragaByIdKategori()
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_produk');
+        $this->db->where('id_kategori', 'S00001');
+        $this->db->or_where('LOWER(id_kategori)', 'olahraga');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function getProdukByNamaKategori($nama_kategori)
+    {
+        $this->db->select('tbl_produk.*'); // Mengambil semua kolom dari tbl_produk
+        $this->db->from('tbl_produk');
+        $this->db->join('tbl_kategori', 'tbl_produk.id_kategori = tbl_kategori.id_kategori');
+        $this->db->where('LOWER(tbl_kategori.nama)', strtolower($nama_kategori)); // Ubah ke huruf kecil untuk perbandingan case-insensitive
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
+    public function searchProdukByKeyword($keyword)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_produk');
+        $this->db->like('LOWER(id_kategori)', strtolower($keyword)); // Perbandingan case-insensitive
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function getProdukBy($id_produk)
+    {
+        // Gantilah 'tbl_produk' dengan nama tabel yang sesuai di database Anda
+        $this->db->where('id_produk', $id_produk);
+        $query = $this->db->get('tbl_produk');
+
+        if ($query->num_rows() == 1) {
+            return $query->row();
+        } else {
+            return null; // Produk tidak ditemukan
+        }
+    }
+    public function getuser()
+    {
+        $this->db->select('id, nama');
+        $this->db->from('tbl_user');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function getDatauser($id)
+    {
+        $this->db->select('role_id'); // Anda hanya perlu mengambil kolom role_id
+        $this->db->from('tbl_user');
+        $this->db->where('id', $id); // Menggunakan ID pengguna yang sedang login
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row_array(); // Mengembalikan hasil sebagai array assosiatif
+        } else {
+            return false; // Pengguna dengan ID yang diberikan tidak ditemukan
         }
     }
 }
