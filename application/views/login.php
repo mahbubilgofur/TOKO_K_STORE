@@ -196,7 +196,7 @@
             </form>
         </div>
 
-        <a href="<?= base_url('login_user/register'); ?>">BELUM REGISTER?</a>
+        <a href="<?= base_url('login/register'); ?>">BELUM REGISTER?</a>
 
     </div>
 
