@@ -60,6 +60,11 @@ class M_produk extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getcariKategori()
+    {
+        $query = $this->db->get('tbl_kategori');
+        return $query->result_array();
+    }
     public function getVariasi()
     {
         $this->db->select('id_variasiproduk, nama');

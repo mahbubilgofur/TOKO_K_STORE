@@ -1,28 +1,68 @@
-<div class="popup" id="popup">
+<!-- <div class="popup" id="popup">
     <div class="popup-content">
         <button class="close-button" id="close-button">X</button>
         <H1>MOHAMMAD MAHBUBIL GOFUR</H1>
         <H3>12RPL2</H3>
         <img src="<?= base_url() ?>template/images/pop-up.gif" alt="">
     </div>
-</div>
+</div> -->
 <div class="slider-with-banner">
     <div class="container">
         <div class="row">
+            <!-- Begin Category Menu Area -->
+            <div class="col-lg-3">
+                <!--Category Menu Start-->
+                <div class="category-menu category-menu-2">
+                    <div class="category-heading">
+                        <h2 class="categories-toggle"><span>categories</span></h2>
+                    </div>
+                    <div id="cate-toggle" class="category-menu-list">
+                        <?php foreach ($getcariketegori as $row) : ?>
+                            <ul>
+                                <?php if ($row['induk_id'] == 0) : ?>
+                                    <li class="right-menu"><a href="#"><?= $row['nama']; ?></a>
+                                        <ul class="cat-mega-menu">
+                                            <?php foreach ($getcariketegori as $subrow) : ?>
+                                                <?php if ($subrow['induk_id'] == $row['id_kategori']) : ?>
+                                                    <li class="right-menu cat-mega-title">
+                                                        <a href="#"><?= $subrow['nama']; ?></a>
+                                                        <ul>
+                                                            <?php foreach ($getcariketegori as $subsubrow) : ?>
+                                                                <?php if ($subsubrow['induk_id'] == $subrow['id_kategori']) : ?>
+                                                                    <li><a href="#"><?= $subsubrow['nama']; ?></a>
+                                                                        <ul>
+                                                                            <?php foreach ($getcariketegori as $subakhir) : ?>
+                                                                                <?php if ($subakhir['induk_id'] == $subsubrow['id_kategori']) : ?>
+                                                                                    <li><a href="#"><?= $subakhir['nama']; ?></a></li>
+                                                                                <?php endif; ?>
+                                                                            <?php endforeach; ?>
+                                                                        </ul>
+                                                                    </li>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    </li>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <!--Category Menu End-->
+            </div>
+            <!-- Category Menu Area End Here -->
             <!-- Begin Slider Area -->
-            <div class="col-lg-8 col-md-8">
-                <div class="slider-area pt-sm-30 pt-xs-30">
+            <div class="col-lg-6 col-md-8">
+                <div class="slider-area slider-area-3 pt-sm-30 pt-xs-30 pb-xs-30">
                     <div class="slider-active owl-carousel">
                         <!-- Begin Single Slide Area -->
                         <div class="single-slide align-center-left animation-style-01 bg-1">
                             <div class="slider-progress"></div>
                             <div class="slider-content">
-                                <h5>Sale Offer <span>20%</span>7.7</h5>
-                                <h2>Kaos Gambar Naruto| Checkout Sekarang </h2>
-                                <h3><span>RP.20000</span></h3>
-                                <div class="default-btn slide-btn">
-                                    <a class="links" href="<?= base_url() ?>template/shop-left-sidebar.html">Beli Sekarang</a>
-                                </div>
+
                             </div>
                         </div>
                         <!-- Single Slide Area End Here -->
@@ -30,12 +70,7 @@
                         <div class="single-slide align-center-left animation-style-02 bg-2">
                             <div class="slider-progress"></div>
                             <div class="slider-content">
-                                <h5>Sale Offer <span>Black Friday</span> This Week</h5>
-                                <h2>Work Desk Surface Studio 2018</h2>
-                                <h3>Starting at <span>$824.00</span></h3>
-                                <div class="default-btn slide-btn">
-                                    <a class="links" href="<?= base_url() ?>template/shop-left-sidebar.html">Beli Sekarang</a>
-                                </div>
+
                             </div>
                         </div>
                         <!-- Single Slide Area End Here -->
@@ -43,33 +78,14 @@
                         <div class="single-slide align-center-left animation-style-01 bg-3">
                             <div class="slider-progress"></div>
                             <div class="slider-content">
-                                <h5>Sale Offer <span>-10% Off</span> This Week</h5>
-                                <h2>Phantom 4 Pro+ Obsidian</h2>
-                                <h3>Starting at <span>$1849.00</span></h3>
-                                <div class="default-btn slide-btn">
-                                    <a class="links" href="<?= base_url() ?>template/shop-left-sidebar.html">Beli Sekarang</a>
-                                </div>
+
                             </div>
                         </div>
                         <!-- Single Slide Area End Here -->
                     </div>
                 </div>
             </div>
-            <!-- Slider Area End Here -->
-            <!-- Begin Li Banner Area -->
-            <div class="col-lg-4 col-md-4 text-center pt-sm-30 pt-xs-30">
-                <div class="li-banner">
-                    <a href="#">
-                        <img src="<?= base_url() ?>template/images/product/small-size/kaos1.jpg" alt="">
-                    </a>
-                </div>
-                <div class="li-banner mt-15 mt-md-30 mt-xs-25 mb-xs-5">
-                    <a href="#">
-                        <img src="<?= base_url() ?>template/images/product/small-size/kaos2.png" alt="">
-                    </a>
-                </div>
-            </div>
-            <!-- Li Banner Area End Here -->
+
         </div>
     </div>
 </div>

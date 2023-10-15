@@ -25,6 +25,7 @@ class Home extends CI_Controller
 		$produk = $this->m_produk->getDataproduk();
 		$queryproduk = $this->m_produk->getDataproduk1();
 		$getKategori = $this->m_produk->getKategori();
+		$getKategori1 = $this->m_produk->getcariKategori();
 		$getVariasi = $this->m_produk->getVariasi();
 		$getuser = $this->m_produk->getuser();
 
@@ -53,6 +54,7 @@ class Home extends CI_Controller
 			'data_produk' => $produk,
 			'queryproduk' => $queryproduk,
 			'getketegori' => $getKategori,
+			'getcariketegori' => $getKategori1,
 			'getvariasi' => $getVariasi,
 			'getuser' => $getuser,
 			'produk_keranjang' => $data['produk_keranjang'], // Data keranjang
