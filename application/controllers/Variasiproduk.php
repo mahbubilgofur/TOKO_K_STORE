@@ -30,7 +30,7 @@ class Variasiproduk extends CI_Controller
         $variasi = $this->M_variasiproduk->getDatavariasiproduk1();
         $DATA = array('data_variasiproduk' => $variasiproduk, 'data_variasi' => $variasi);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('variasiproduk/viewvariasiproduk', $DATA);
         $this->load->view('layout/footer');
     }
@@ -80,7 +80,7 @@ class Variasiproduk extends CI_Controller
         $variasiproduk = $this->M_variasiproduk->getDatavariasiprodukDetail($id_variasiproduk);
         $DATA = array('data_variasiproduk' => $variasiproduk);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('variasiproduk/editvariasiproduk', $DATA);
         $this->load->view('layout/footer');
     }

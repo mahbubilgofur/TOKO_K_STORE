@@ -28,7 +28,7 @@ class Gambar extends CI_Controller
     public function index()
     {
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('img_produk/viewproduk');
         $this->load->view('layout/footer');
     }
@@ -36,7 +36,7 @@ class Gambar extends CI_Controller
     public function input()
     {
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('img_produk/input_img');
         $this->load->view('layout/footer');
     }
@@ -66,7 +66,7 @@ class Gambar extends CI_Controller
         $gambarproduk = $this->M_gambarproduk->getDatagambarprodukDetail($id_gambarproduk);
         $DATA = array('data_gambarproduk' => $gambarproduk);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('gambarproduk/editgambarproduk', $DATA);
         $this->load->view('layout/footer');
     }

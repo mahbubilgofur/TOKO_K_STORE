@@ -34,7 +34,7 @@ class Admin extends CI_Controller
 	public function layout()
 	{
 		$this->load->view('layout/header');
-		$this->load->view('admin/navbar');
+		$this->load->view('layout/navbar');
 		$this->load->view('layout/content');
 		$this->load->view('layout/footer');
 	}

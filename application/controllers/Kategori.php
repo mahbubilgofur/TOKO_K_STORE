@@ -30,7 +30,7 @@ class Kategori extends CI_Controller
         $kategori = $this->M_kategori->getDatakategori();
         $DATA = array('data_kategori' => $kategori, 'querykategori' => $querykategori);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('kategori/viewkategori', $DATA);
         $this->load->view('layout/footer');
     }
@@ -62,7 +62,7 @@ class Kategori extends CI_Controller
         $kategori = $this->M_kategori->getDatakategoriDetail($id_kategori);
         $DATA = array('data_kategori' => $kategori);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('kategori/editkategori', $DATA);
         $this->load->view('layout/footer');
     }

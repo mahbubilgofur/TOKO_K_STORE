@@ -3603,9 +3603,9 @@ textarea:focus {
 }
 
 .footer-static-middle {
-	background-color: black;
+	background-color: rgb(255, 255, 255);
 	width: 100%;
-	height: au;
+	height: auto;
 }
 
 .footer-static-middle .footer-logo p.info {
@@ -3616,7 +3616,7 @@ textarea:focus {
 }
 
 .footer-static-middle .des>li {
-	color: #ffffff;
+	color: #000000;
 	font-size: 14px;
 	margin: 0;
 	font-weight: 400;
@@ -3635,7 +3635,7 @@ textarea:focus {
 	font-size: 20px;
 	line-height: 24px;
 	font-weight: 500;
-	color: #ffffff;
+	color: #000000;
 	margin: 0 0 15px 0;
 	cursor: pointer;
 	padding-top: 20px;
@@ -3652,7 +3652,7 @@ textarea:focus {
 
 .footer-block>ul>li>a {
 	font-size: 14px;
-	color: #ffffff;
+	color: #000000;
 	line-height: 36px;
 	display: block;
 	position: relative;
@@ -3688,7 +3688,7 @@ textarea:focus {
 
 .social-link>li>a>i {
 	font-size: 18px;
-	color: #fff;
+	color: #000000;
 }
 
 .social-link>li:hover>a {
@@ -3858,7 +3858,7 @@ textarea:focus {
 .category-heading {
 	position: relative;
 	cursor: pointer;
-	background: #fed700;
+	background: #ffc54d;
 	height: 55px;
 	border-radius: 3px 3px 0 0;
 	border-bottom: 3px solid #fed700;
@@ -3873,25 +3873,15 @@ textarea:focus {
 	font-size: 16px;
 	font-weight: 500;
 	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .categories-toggle>span {
 	padding-left: 10px;
 }
 
-.category-heading>h2::before {
-	font-size: 20px;
-	vertical-align: top;
-	content: '\f00a';
-	font-family: fontawesome;
-	font-weight: normal;
-	text-align: center;
-	line-height: 55px;
-	color: #242424;
-	float: left;
-	display: block;
-	padding-left: 30px;
-}
 
 .category-heading>h2::after {
 	content: "\f107";

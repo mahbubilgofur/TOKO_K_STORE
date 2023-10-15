@@ -33,7 +33,7 @@ class Produk extends CI_Controller
         $getVariasi = $this->m_produk->getVariasi();
         $DATA = array('data_produk' => $produk, 'queryproduk' => $queryproduk, 'getketegori' => $getKategori, 'getvariasi' => $getVariasi);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('produk/viewproduk', $DATA);
         $this->load->view('layout/footer');
     }
@@ -124,7 +124,7 @@ class Produk extends CI_Controller
         $produk = $this->m_produk->getDataprodukDetail($id_produk);
         $DATA = array('data_produk' => $produk, 'queryproduk' => $queryproduk, 'getketegori' => $getKategori, 'getvariasi' => $getVariasi);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('produk/editproduk', $DATA);
         $this->load->view('layout/footer');
     }

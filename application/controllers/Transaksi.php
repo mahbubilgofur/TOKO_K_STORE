@@ -34,7 +34,7 @@ class Transaksi extends CI_Controller
         $detailtransaksi = $this->m_transaksi->getDetailDatatransaksi();
         $DATA = array('data_detailtransaksi' => $detailtransaksi, 'data_transaksi' => $transaksi, 'get_idtransaksi' => $get_idtransaksi, 'getuser' => $getuser, 'getproduk' => $getproduk);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('transaksi/viewtransaksi', $DATA);
         $this->load->view('layout/footer');
     }
@@ -47,7 +47,7 @@ class Transaksi extends CI_Controller
         $detailtransaksi = $this->m_transaksi->getDetailDatatransaksi();
         $DATA = array('data_detailtransaksi' => $detailtransaksi, 'data_transaksi' => $transaksi, 'get_idtransaksi' => $get_idtransaksi, 'getuser' => $getuser, 'getproduk' => $getproduk);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('transaksi/inputtransaksi', $DATA);
         $this->load->view('layout/footer');
     }
@@ -122,7 +122,7 @@ class Transaksi extends CI_Controller
         $transaksi = $this->m_transaksi->getDatatransaksiDetail($id_transaksi);
         $DATA = array('data_transaksi' => $transaksi);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('transaksi/edittransaksi', $DATA);
         $this->load->view('layout/footer');
     }
@@ -164,7 +164,7 @@ class Transaksi extends CI_Controller
         $get_idtransaksi = $this->m_transaksi->get_idtransaksi();
         $DATA = array('data_detailtransaksi' => $transaksi, 'get_idtransaksi' => $get_idtransaksi, 'getuser' => $getuser, 'getproduk' => $getproduk);
         $this->load->view('layout/header');
-        $this->load->view('admin/navbar');
+        $this->load->view('layout/navbar');
         $this->load->view('transaksi/viewdetail', $DATA);
         $this->load->view('layout/footer');
     }
