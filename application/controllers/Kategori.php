@@ -30,7 +30,7 @@ class Kategori extends CI_Controller
         $kategori = $this->M_kategori->getDatakategori();
         $DATA = array('data_kategori' => $kategori, 'querykategori' => $querykategori);
         $this->load->view('layout/header');
-        $this->load->view('layout/navbar');
+        $this->load->view('admin/navbar');
         $this->load->view('kategori/viewkategori', $DATA);
         $this->load->view('layout/footer');
     }
@@ -38,11 +38,15 @@ class Kategori extends CI_Controller
     {
         $id_kategori = $this->input->post('id_kategori');
         $nama = $this->input->post('nama');
+        $deskripsi = $this->input->post('deskripsi');
+        $induk_id = $this->input->post('induk_id');
 
 
         $DataInsert = array(
             'id_kategori' => $id_kategori,
             'nama' => $nama,
+            'deskripsi' => $deskripsi,
+            'induk_id' => $induk_id
 
         );
 
@@ -70,12 +74,15 @@ class Kategori extends CI_Controller
     {
         $id_kategori = $this->input->post('id_kategori');
         $nama = $this->input->post('nama');
-
+        $deskripsi = $this->input->post('deskripsi');
+        $induk_id = $this->input->post('induk_id');
 
 
         $DataUpdate = array(
             'id_kategori' => $id_kategori,
             'nama' => $nama,
+            'deskripsi' => $deskripsi,
+            'induk_id' => $induk_id
 
         );
 

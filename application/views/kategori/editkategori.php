@@ -46,8 +46,6 @@
                                                 <input type="hidden" name="id_kategori" value="<?php echo $data_kategori->id_kategori ?>">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
                                         <div class="form-group row">
                                             <label class="col-sm-10 col-form-label">NAMA</label>
                                             <div class="col-sm-9">
@@ -55,10 +53,39 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-10 col-form-label">DESKRIPSI</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="deskripsi" value="<?php echo $data_kategori->deskripsi ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-10 col-form-label">PILIH</label>
+                                            <div class="col-sm-9">
+                                                <select name="tambahkan_master" id="tambahkan_master" class="form-control">
+                                                    <option value="0">Pilih master utama</option>
+                                                    <option value="0">Jadi master</option>
+                                                    <?php foreach ($data_kategori as $row) {
+                                                        $selected = ($row->id_kategori == $data_kategori->induk_id) ? 'selected' : '';
+                                                        echo '<option value="' . $row->id_kategori . '" ' . $selected . '>' . $row->nama . '</option>';
+                                                    }
 
-                                    <br>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <a class="btn btn-warning" href="<?= base_url() ?>kategori" role="button">Kembali</a>
+                                                    // Ambil data dari tabel tbl_kategori dan tampilkan dalam elemen select
+                                                    if (isset($kategori_db) && is_array($kategori_db)) {
+                                                        foreach ($kategori_db as $kategori) {
+                                                            $selected = ($kategori->id_kategori == $data_kategori->induk_id) ? 'selected' : '';
+                                                            echo '<option value="' . $kategori->id_kategori . '" ' . $selected . '>' . $kategori->nama . '</option>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <a class="btn btn-warning" href="<?= base_url() ?>kategori" role="button">Kembali</a>
                             </form>
                         </div>
                     </div>
