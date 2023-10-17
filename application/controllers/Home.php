@@ -66,54 +66,20 @@ class Home extends CI_Controller
 		$this->load->view('home/footer');
 	}
 
-	public function kartun()
+	public function homekategori($id_kategori)
 	{
-		$this->load->model('m_produk');
-
-		// Tentukan nama kategori yang ingin Anda cari
-		$nama_kategori = 'kartun';
-
-		// Ambil produk berdasarkan nama kategori
-		$data['data_produk'] = $this->m_produk->getProdukByNamaKategori($nama_kategori);
-		$produk = $this->m_produk->getDataproduk();
-		$queryproduk = $this->m_produk->getDataproduk1();
-		$getKategori = $this->m_produk->getKategori();
-		$getVariasi = $this->m_produk->getVariasi();
-
-		// Inisialisasi array untuk menyimpan detail produk dalam keranjang
-		$data['produk_keranjang'] = array();
-
-		// Ambil data keranjang
-		$this->load->library('session');
-		$keranjang_belanja = $this->session->userdata('keranjang_belanja');
-
-		// Periksa apakah $keranjang_belanja adalah array sebelum melakukan perulangan
-		if (is_array($keranjang_belanja)) {
-			// Loop melalui ID produk dalam keranjang dan ambil detail produk
-			foreach ($keranjang_belanja as $id_produk) {
-				// Dapatkan data produk berdasarkan ID produk
-				$produk_detail = $this->m_produk->getProdukById($id_produk);
-
-				// Jika produk ditemukan, tambahkan ke array detail produk
-				if ($produk_detail) {
-					$data['produk_keranjang'][] = $produk_detail;
-				}
-			}
-		}
-
-		$DATA = array(
-			'data_produk' => $produk,
-			'queryproduk' => $queryproduk,
-			'getketegori' => $getKategori,
-			'getvariasi' => $getVariasi,
-			'produk_keranjang' => $data['produk_keranjang'], // Data keranjang
-		);
+		$this->load->model('m_produk'); // Load model m_produk
+		$data['produk'] = $this->m_produk->get_produk_by_kategori_hierarki($id_kategori);
 
 		$this->load->view('home/header');
-		$this->load->view('home/navbar', $DATA);
-		$this->load->view('homekategori/contentkartun', $data);
+		$this->load->view('home/navbar');
+		$this->load->view('homekategori/content', $data);
 		$this->load->view('home/footer');
 	}
+
+
+
+
 	public function search()
 	{
 		// Ambil kata kunci pencarian dari input GET

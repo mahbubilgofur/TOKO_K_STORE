@@ -28,16 +28,14 @@
                             </select>
                         </div>
                     </div>
-                    <!-- product-select-box end -->
                 </div>
-                <!-- shop-top-bar end -->
-                <!-- shop-products-wrapper start -->
                 <div class="shop-products-wrapper">
                     <div class="tab-content">
                         <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                             <div class="product-area shop-product-area">
+
                                 <div class="row">
-                                    <?php foreach ($data_produk as $row) { ?>
+                                    <?php foreach ($produk as $row) { ?>
                                         <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                             <!-- single-product-wrap start -->
                                             <div class="single-product-wrap">
@@ -81,6 +79,7 @@
                                         </div>
                                     <?php } ?>
                                 </div>
+
                             </div>
                         </div>
                         <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">

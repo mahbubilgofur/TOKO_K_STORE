@@ -14,8 +14,22 @@
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
                                 <ul class="phone-wrap">
-                                    <li><span>Telephone Enquiry:</span><a href="#">(+123) 123 321 345</a></li>
+                                    <?php if ($this->session->userdata('role_id') == 2) : ?>
+                                        <?php
+                                        $user_id = $this->session->userdata('user_id');
+                                        $this->db->where('id', $user_id); // Menggunakan kolom "id" sebagai pengenal pengguna
+                                        $query = $this->db->get('tbl_user');
+
+                                        if ($query->num_rows() > 0) {
+                                            $user = $query->row();
+                                            echo '<li><span>Selamat datang, ' . $user->nama . '</span></li>';
+                                        }
+                                        ?>
+                                    <?php else : ?>
+                                        <li><span>Belum Login</span></li>
+                                    <?php endif; ?>
                                 </ul>
+
                             </div>
                         </div>
                         <!-- Header Top Left Area End Here -->
@@ -91,7 +105,7 @@
                                                         </a>
                                                         <div class="minicart-product-details">
                                                             <h6><a href="single-product.html"><?= $produk['nama']; ?></a></h6>
-                                                            <p class="harga-produk">RP.<?= $produk['harga']; ?></p>
+
                                                             <!-- Di sini Anda dapat menambahkan detail lainnya seperti harga, jumlah, dll. -->
                                                         </div>
                                                         <!-- <button class="close">

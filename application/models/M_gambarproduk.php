@@ -1,52 +1,50 @@
 <?php
 
-class M_gambarproduk extends CI_Model
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class M_gambarproduk extends CI_Model 
 {
-    public function getDatagambarproduk()
+
+    public function get_all_data()
+    {
+        $this->db->select('tbl_produk.*, COUNT(tbl_gambar.id_produk) as total_gambar');
+        $this->db->from('tbl_produk');
+        $this->db->join('tbl_gambar', 'tbl_gambar.id_produk = tbl_produk.id_produk', 'left');    
+        $this->db->group_by('tbl_produk.id_produk');
+        $this->db->order_by('tbl_produk.id_produk', 'desc');
+        return $this->db->get()->result();
+    }
+
+        public function get_data($id_gambar)
     {
         $this->db->select('*');
-        $this->db->from('tbl_gambarproduk');
-        $query = $this->db->get();
-        return $query->result();
+        $this->db->from('tbl_gambar');
+        $this->db->where('id_gambar', $id_gambar); // Menghapus tanda kutip ganda pada $id_gambar
+        return $this->db->get()->row();
     }
 
-    public function InsertDatagambarproduk($data)
+
+    public function get_gambar($id_produk)
     {
-        $this->db->insert('tbl_gambarproduk', $data);
+        $this->db->select('*');
+        $this->db->from('tbl_gambar');
+        $this->db->where('id_produk', $id_produk);
+        return $this->db->get()->result();
+        
     }
 
-    public function UpdateDatagambarproduk($data, $id_gambarproduk)
+    public function add($data)
     {
-        $this->db->where('id_gambarproduk', $id_gambarproduk);
-        $this->db->update('tbl_gambarproduk', $data);
+        $this->db->insert('tbl_gambar', $data);
+        
     }
 
-    public function getDatagambarprodukDetail($id_gambarproduk)
+    public function delete($id_gambar)
     {
-        $this->db->where('id_gambarproduk', $id_gambarproduk);
-        $query = $this->db->get('tbl_gambarproduk');
-        return $query->row();
+        $this->db->from('tbl_gambar');
+        $this->db->where('id_gambar', $id_gambar);
+        $this->db->delete('tbl_gambar');
     }
+    
 
-    public function DeleteDatagambarproduk($id_gambarproduk)
-    {
-        $this->db->where('id_gambarproduk', $id_gambarproduk);
-        $this->db->delete('tbl_gambarproduk');
-    }
-    public function getdatagambarproduk1()
-    {
-        $this->db->select('RIGHT(tbl_gambarproduk.id_gambarproduk,5) as id_gambarproduk', FALSE);
-        $this->db->order_by('id_gambarproduk', 'DESC');
-        $this->db->limit(1);
-        $query = $this->db->get('tbl_gambarproduk');
-        if ($query->num_rows() <> 0) {
-            $data = $query->row();
-            $kode = intval($data->id_gambarproduk) + 1;
-        } else {
-            $kode = 1;
-        }
-        $batas = str_pad($kode, 5, "0", STR_PAD_LEFT);
-        $kodetampil = "S" . $batas;
-        return $kodetampil;
-    }
 }

@@ -84,79 +84,46 @@
                                 </p>
                             </div>
                             <div class="product-variants">
-                                <div class="product-variant" data-value="S">
-                                    <label>SIZE</label>
-                                    <div>S</div>
-                                </div>
-                                <div class="product-variant" data-value="M">
-                                    <label>SIZE</label>
-                                    <div>M</div>
-                                </div>
-                                <div class="product-variant" data-value="L">
-                                    <label>SIZE</label>
-                                    <div>L</div>
-                                </div>
-                                <div class="product-variant" data-value="XL">
-                                    <label>SIZE</label>
-                                    <div>XL</div>
-                                </div>
-                                <div class="product-variant" data-value="XXL">
-                                    <label>SIZE</label>
-                                    <div>XXL</div>
-                                </div>
-                                <div class="product-variant" data-value="XXXL">
-                                    <label>SIZE</label>
-                                    <div>XXXL</div>
-                                </div>
-                                <div class="product-variant" data-value="4XL">
-                                    <label>SIZE</label>
-                                    <div>4XL</div>
+                                <div class="produt-variants-size">
+                                    <label>Dimension</label>
+                                    <select class="nice-select">
+                                        <option value="1" title="S" selected="selected">40x60cm</option>
+                                        <option value="2" title="M">60x90cm</option>
+                                        <option value="3" title="L">80x120cm</option>
+                                    </select>
                                 </div>
                             </div>
-                            <!-- <div class="product-variants">
-                            <div class="produt-variants-size">
-                                <label>SIZE</label>
-                                <select class="nice-select">
-                                    <option value="1" title="S" selected="selected">PILIH</option>
-                                    <option value="1" title="S">S</option>
-                                    <option value="2" title="M">M</option>
-                                    <option value="3" title="L">L</option>
-                                    <option value="4" title="XL">XL</option>
-                                </select>
-                            </div>
-                        </div> -->
-                            <script>
-                                const variants = document.querySelectorAll('.product-variant');
-
-                                variants.forEach(variant => {
-                                    variant.addEventListener('click', () => {
-                                        // Clear selection
-                                        variants.forEach(v => v.classList.remove('selected'));
-                                        // Set the clicked variant as selected
-                                        variant.classList.add('selected');
-                                    });
-                                });
-                            </script>
-                            <!-- <div class="single-add-to-cart">
-                            <form action="#" class="cart-quantity">
-                                <div class="quantity">
-                                    <label>Quantity</label>
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" value="1" type="text">
-                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                    </div>
-                                </div>
-                                <button class="add-to-cart" type="submit">CHECKOUT</button>
-                            </form>
-                        </div> -->
                             <div class="single-add-to-cart">
-                                <div class="single-add-to-cart">
-                                    <a href="<?= base_url('home/add_to_cart/' . $produk['id_produk']); ?>">
-                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Tambahkan ke Keranjang
-                                    </a>
+                                <form action="#" class="cart-quantity">
+                                    <div class="quantity">
+                                        <div class=" cart-plus-minus">
+                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                        </div>
+                                    </div>
 
-                                </div>
-                                <button class="add-to-cart" type="submit">CHECKOUT</button>
+                                    <div class="product-additional-info " style="margin-left: 20px;">
+                                        <div class="product-social-sharing pt-25">
+                                            <ul>
+                                                <li class="button1" style="width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: white; border: 1px solid orange;">
+                                                    <a href="<?= base_url('home/add_to_cart/' . $produk['id_produk']); ?>" style="font-size: 15px;">
+                                                        <i class="fa fa-cart-shopping" style="color: orange;"></i>
+                                                        <span style="color: orange;">Tambahkan ke keranjang</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="button1" style=" margin-left: 40px; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: orange;">
+                                                    <a href="#" style="font-size: 15px;">
+                                                        <i></i>
+                                                        <span style="color: white;">CHECKOUT</span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <div class="product-additional-info pt-25">
                                 <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
@@ -333,5 +300,6 @@
                 </div>
             </div>
         </div>
+           
     </div>
 </div>

@@ -66,7 +66,7 @@ class Kategori extends CI_Controller
         $kategori = $this->M_kategori->getDatakategoriDetail($id_kategori);
         $DATA = array('data_kategori' => $kategori);
         $this->load->view('layout/header');
-        $this->load->view('layout/navbar');
+        $this->load->view('admin/navbar');
         $this->load->view('kategori/editkategori', $DATA);
         $this->load->view('layout/footer');
     }

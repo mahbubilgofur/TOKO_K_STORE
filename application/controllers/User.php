@@ -28,7 +28,7 @@ class User extends CI_Controller
         $user = $this->M_user->getDatauser();
         $DATA = array('data_user' => $user);
         $this->load->view('layout/header');
-        $this->load->view('layout/navbar');
+        $this->load->view('admin/navbar');
         $this->load->view('user/viewuser', $DATA);
         $this->load->view('layout/footer');
     }
@@ -65,7 +65,7 @@ class User extends CI_Controller
         $user = $this->M_user->getDatauserDetail($id);
         $DATA = array('data_user' => $user);
         $this->load->view('layout/header');
-        $this->load->view('layout/navbar');
+        $this->load->view('admin/navbar');
         $this->load->view('user/edituser', $DATA);
         $this->load->view('layout/footer');
     }

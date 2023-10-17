@@ -43,82 +43,13 @@
                                 <label for="stok">Stok</label>
                                 <input type="text" class="form-control" id="stok" placeholder="Stok" required>
                             </div>
-                            <div class="form-group" id="sizesContainer">
-                                <label for="size">Size</label>
-                                <input type="text" class="form-control" id="size" placeholder="Size" required>
+                            <div class="form-group">
+                                <label for="size">size</label>
+                                <input type="text" class="form-control" id="size" placeholder="size" required>
                             </div>
+
                             <button type="button" class="btn btn-success" id="addSize">Tambah Ukuran</button>
                             <button type="button" class="btn btn-primary" id="saveButton">Simpan</button>
-
-                            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                            <script>
-                                $(document).ready(function() {
-                                    let sizeCounter = 1;
-
-                                    function addSizeInput(sizeValue) {
-                                        sizeCounter++;
-                                        const sizeInput = `<div class="input-group mb-3" id="sizeInput-${sizeCounter}">
-                <input type="text" class="form-control" name="size[]" placeholder="SIZE" required value="${sizeValue}">
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-danger remove-size" data-size="${sizeCounter}">Hapus</button>
-                </div>
-            </div>`;
-                                        $("#sizesContainer").append(sizeInput);
-
-                                        $(`#sizeInput-${sizeCounter} .remove-size`).click(function() {
-                                            const sizeId = $(this).data("size");
-                                            removeSizeInput(sizeId);
-                                        });
-                                    }
-
-                                    function removeSizeInput(sizeId) {
-                                        $(`#sizeInput-${sizeId}`).remove();
-                                    }
-
-                                    $("#addSize").click(function() {
-                                        addSizeInput('');
-                                    });
-
-                                    // ...
-
-                                    $("#saveButton").click(function() {
-                                        const sizeValues = $("input[name='size[]']").map(function() {
-                                            return $(this).val();
-                                        }).get();
-
-                                        const nama = $("#nama").val();
-                                        const stok = $("#stok").val();
-
-                                        const dataToSend = {
-                                            nama: nama,
-                                            stok: stok,
-                                        };
-
-                                        // Cek apakah ada ukuran yang dimasukkan
-                                        if (sizeValues.length > 0) {
-                                            dataToSend.sizes = sizeValues;
-                                        }
-
-                                        // Menggunakan Ajax untuk mengirim data ke controller
-                                        $.ajax({
-                                            url: '<?= base_url('variasiproduk/Inputvariasiproduk') ?>',
-                                            type: 'POST',
-                                            data: dataToSend,
-                                            success: function(response) {
-                                                console.log(response);
-                                                alert('Data telah disimpan');
-                                            },
-                                            error: function(error) {
-                                                console.error(error);
-                                                alert('Terjadi kesalahan saat menyimpan data');
-                                            }
-                                        });
-                                    });
-
-                                });
-                            </script>
-
-
 
                         </div>
 
@@ -141,7 +72,7 @@
                                         <td><?php echo $row->nama ?></td>
                                         <td><?php echo $row->size ?></td>
                                         <td><?php echo $row->stok ?></td>
-                                        <td>
+                                        <td>x
                                             <a href="<?php echo base_url('variasiproduk/update/') . $row->id_variasiproduk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                         </td>
                                         <td>

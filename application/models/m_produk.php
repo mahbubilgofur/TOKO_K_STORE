@@ -143,4 +143,16 @@ class M_produk extends CI_Model
             return false; // Pengguna dengan ID yang diberikan tidak ditemukan
         }
     }
+
+    public function get_produk_by_kategori_hierarki($id_kategori)
+    {
+        // Anda perlu menggantikan 'tbl_produk' dan 'tbl_kategori' sesuai dengan nama tabel yang sesuai di basis data Anda
+        $this->db->select('tbl_produk.*');
+        $this->db->from('tbl_produk');
+        $this->db->join('tbl_kategori', 'tbl_produk.id_kategori = tbl_kategori.id_kategori');
+        $this->db->where('tbl_kategori.id_kategori', $id_kategori);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
