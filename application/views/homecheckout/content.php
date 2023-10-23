@@ -169,26 +169,31 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('raja_ongkir/provinsi') ?>",
-                success: function(hasil_provinsi) {
-                    $("select[name=provinsi]").html(hasil_provinsi);
-                }
-            });
-            $("select[name=provinsi]").on("change", function() {
-                var id_provinsi_terpilih = $("option:selected", this).attr("id_provinsi");
 
-                $.ajax({
-                    type: "POST",
-                    url: "<?= base_url('raja_ongkir/kota') ?>",
-                    data: 'id_provinsi=' + id_provinsi_terpilih,
-                    success: function(hasil_kota) {
-                        $("select[name=kota]").html(hasil_kota);
-                    }
+    <div class="col-lg-6 col-12">
+        <div class="your-order">
+            <h3>Keranjang</h3>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('raja_ongkir/provinsi') ?>",
+                        success: function(hasil_provinsi) {
+                            $("select[name=provinsi]").html(hasil_provinsi);
+                        }
+                    });
+                    $("select[name=provinsi]").on("change", function() {
+                        var id_provinsi_terpilih = $("option:selected", this).attr("id_provinsi");
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?= base_url('raja_ongkir/kota') ?>",
+                            data: 'id_provinsi=' + id_provinsi_terpilih,
+                            success: function(hasil_kota) {
+                                $("select[name=kota]").html(hasil_kota);
+                            }
+                        });
+                    });
                 });
-            });
-        });
-    </script>
+            </script>
