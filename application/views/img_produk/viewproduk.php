@@ -79,13 +79,14 @@
 
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $value->nama_produk ?></td>
-                                        <td class="text-center"><img src="<?= base_url('assets/gambar/' . $value->gambar) ?>" width="100px"></td>
+                                        <td><?= $value->nama ?></td>
+                                        <td> <img src="<?= base_url('gambarproduk/' . $value->gambar); ?>" alt="" width="100px" height="100px">
+                                        </td>
                                         <td class="text-center"><span class="badge bg-primary">
                                                 <h6><?= $value->total_gambar ?></h6>
                                             </span></td>
                                         <td class="text-center">
-                                            <a href="<?= base_url('gambarproduk/add/' . $value->id_produk) ?>" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add Gambar</a>
+                                            <a href="<?= base_url('img/add/' . $value->id_produk) ?>" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add Gambar</a>
                                         </td>
                                     </tr>
 

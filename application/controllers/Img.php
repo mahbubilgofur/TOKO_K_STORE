@@ -15,9 +15,11 @@ class Img extends CI_Controller
 
     public function index()
     {
+        $data['gambarproduk'] = $this->m_gambarproduk->get_all_data();
+
         $this->load->view('layout/header');
         $this->load->view('admin/navbar');
-        $this->load->view('img_produk/viewproduk');
+        $this->load->view('img_produk/viewproduk', $data);
         $this->load->view('layout/footer');
     }
 
@@ -45,7 +47,10 @@ class Img extends CI_Controller
                     'gambar' => $this->m_gambarproduk->get_gambar($id_produk),
                     'isi' => 'gambarproduk/v_add',
                 );
-                $this->load->view('layout/v_wrapper_backend', $data, FALSE);
+                $this->load->view('layout/header');
+                $this->load->view('admin/navbar');
+                $this->load->view('img_produk/input_img', $data, false);
+                $this->load->view('layout/footer');
             } else {
                 $upload_data = array('uploads' => $this->upload->data());
                 $config['image_library'] = 'gd2';
@@ -59,7 +64,7 @@ class Img extends CI_Controller
                 );
                 $this->m_gambarproduk->add($data);
                 $this->session->set_flashdata('pesan', 'Gambar Berhasil DiTambahkan');
-                redirect('gambarproduk/add/' . $id_produk);
+                redirect('img/add/' . $id_produk);
             }
         }
 
@@ -69,7 +74,10 @@ class Img extends CI_Controller
             'gambar' => $this->m_gambarproduk->get_gambar($id_produk),
             'isi' => 'gambarproduk/v_add',
         );
-        $this->load->view('layout/v_wrapper_backend', $data, FALSE);
+        $this->load->view('layout/header');
+        $this->load->view('admin/navbar');
+        $this->load->view('img_produk/input_img', $data, false);
+        $this->load->view('layout/footer');
     }
     public function delete($id_produk, $id_gambar)
     {
@@ -84,6 +92,6 @@ class Img extends CI_Controller
         $this->m_gambarproduk->delete($id_gambar);
 
         $this->session->set_flashdata('pesan', 'Gambar berhasil dihapus');
-        redirect('gambarproduk/add/' . $id_produk);
+        redirect('img/add/' . $id_produk);
     }
 }

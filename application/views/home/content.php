@@ -6,91 +6,59 @@
         <img src="<?= base_url() ?>template/images/pop-up.gif" alt="">
     </div>
 </div> -->
-<div class="slider-with-banner">
+
+<!-- <div class="content-wraper pt-60 pb-60">
     <div class="container">
         <div class="row">
-            <!-- Begin Category Menu Area -->
-            <div class="col-lg-3">
-                <!--Category Menu Start-->
-                <div class="category-menu category-menu-2">
-                    <div class="category-heading">
-                        <h2 class="categories-toggle"><span>KATEGORI</span></h2>
-                    </div>
-                    <div id="cate-toggle" class="category-menu-list">
-                        <?php foreach ($getcariketegori as $row) : ?>
-                            <ul>
-                                <?php if ($row['induk_id'] == 0) : ?>
-                                    <li class="right-menu"><a href="<?= base_url('home/homekategori/' . $row['id_kategori']) ?>"><?= $row['nama']; ?></a>
-                                        <ul class="cat-mega-menu">
-                                            <?php foreach ($getcariketegori as $subrow) : ?>
-                                                <?php if ($subrow['induk_id'] == $row['id_kategori']) : ?>
-                                                    <li class="right-menu cat-mega-title">
-                                                        <a href="<?= base_url('home/homekategori/' . $row['id_kategori']) ?>"><?= $subrow['nama']; ?></a>
-                                                        <ul>
-                                                            <?php foreach ($getcariketegori as $subsubrow) : ?>
-                                                                <?php if ($subsubrow['induk_id'] == $subrow['id_kategori']) : ?>
-                                                                    <li><a href="<?= base_url('home/homekategori/' . $row['id_kategori']) ?>"><?= $subsubrow['nama']; ?></a>
-                                                                        <ul>
-                                                                            <?php foreach ($getcariketegori as $subakhir) : ?>
-                                                                                <?php if ($subakhir['induk_id'] == $subsubrow['id_kategori']) : ?>
-                                                                                    <li><a href="<?= base_url('home/homekategori/' . $row['id_kategori']) ?>"><?= $subakhir['nama']; ?></a></li>
-                                                                                <?php endif; ?>
-                                                                            <?php endforeach; ?>
-                                                                        </ul>
-                                                                    </li>
-                                                                <?php endif; ?>
-                                                            <?php endforeach; ?>
-                                                        </ul>
-                                                    </li>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </li>
-                                <?php endif; ?>
-                            </ul>
-                        <?php endforeach; ?>
-                    </div>
+            <div class="col-lg-12">
+                <div class="single-banner shop-page-banner">
+                    <a href="#">
+                    <img src="<?= base_url('') ?>template/images/slider/1.jpg" alt="Li's Static Banner">
+                    </a>
                 </div>
-                <!--Category Menu End-->
+
             </div>
-            <!-- Category Menu Area End Here -->
-            <!-- Begin Slider Area -->
-            <div class="col-lg-6 col-md-8">
-                <div class="slider-area slider-area-3 pt-sm-30 pt-xs-30 pb-xs-30">
-                    <div class="slider-active owl-carousel">
-                        <!-- Begin Single Slide Area -->
-                        <div class="single-slide align-center-left animation-style-01 bg-1">
-                            <div class="slider-progress"></div>
-                            <div class="slider-content">
-
-                            </div>
-                        </div>
-                        <!-- Single Slide Area End Here -->
-                        <!-- Begin Single Slide Area -->
-                        <div class="single-slide align-center-left animation-style-02 bg-2">
-                            <div class="slider-progress"></div>
-                            <div class="slider-content">
-
-                            </div>
-                        </div>
-                        <!-- Single Slide Area End Here -->
-                        <!-- Begin Single Slide Area -->
-                        <div class="single-slide align-center-left animation-style-01 bg-3">
-                            <div class="slider-progress"></div>
-                            <div class="slider-content">
-
-                            </div>
-                        </div>
-                        <!-- Single Slide Area End Here -->
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
+</div> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Mengatur interval 5 detik untuk slider
+        setInterval(function() {
+            $("#mySlider").carousel("next");
+        }, 5000);
+    });
+</script>
+<div class="containerku">
+    <div id="mySlider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="<?= base_url('') ?>template/gambar_slide/1.jpg" alt="Slide 1" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('') ?>template/gambar_slide/2.jpg" alt="Slide 2" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('') ?>template/gambar_slide/3.jpg" alt="Slide 3" class="d-block w-100">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#mySlider" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#mySlider" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 </div>
-<!-- Slider With Banner Area End Here -->
-<!-- Begin Static Top Area -->
+
+
+
+
+
+
 <div class="static-top-wrap">
     <div class="container">
         <div class="row">
@@ -108,53 +76,33 @@
         </div>
     </div>
 </div>
-
-<div class="container">
-    <div class="tab-content">
-        <div id="li-new-product" class="tab-pane active show" role="tabpanel">
-            <div class="row">
-                <?php foreach ($data_produk as $row) { ?>
-                    <div class="product-active owl-carousel">
-                        <div class="col-lg-12">
-                            <!-- single-product-wrap start -->
-                            <div class="single-product-wrap">
-                                <div class="product-image">
+<div class="product-area pt-55 pb-25 pt-xs-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                    <?php foreach ($data_produk as $row) { ?>
+                        <!-- Product -->
+                        <div class="product-item men col-lg-4 col-md-4 col-sm-6">
+                            <div class="product discount product_filter">
+                                <div class="product_image">
                                     <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
-                                        <img src="<?= base_url('gambarproduk/' . $row->gambar); ?>">
+                                        <img src="<?= base_url('gambarproduk/' . $row->gambar); ?>" alt="<?= $row->nama ?>" style=" height: 200px;">
                                     </a>
-
                                 </div>
-                                <div class=" product_desc">
-                                    <div class="product_desc_info">
-                                        <div class="product-review">
-                                            <h5 class="manufacturer">
-                                                <a href="<?= base_url() ?>template/product-details.html">RATING</a>
-                                            </h5>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li><i class="fa fa-star-o"></i></li>
-                                                    <li><i class="fa fa-star-o"></i></li>
-                                                    <li><i class="fa fa-star-o"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <h4><a class="product_name" href="<?= base_url('home/detail') ?>"><?php echo $row->nama ?></a></h4>
-                                        <div class="price-box">
-                                            <span class="new-price">RP.<?= number_format($row->harga, 0) ?></span>
-
-                                        </div>
-                                    </div>
-
+                                <div class="favorite favorite_left"></div>
+                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+                                <div class="product_info">
+                                    <h6 class="product_name"><a href="single.html"><?php echo $row->nama ?></a></h6>
+                                    <div class="product_price">RP.<?= number_format($row->harga, 0) ?></div>
                                 </div>
                             </div>
-                            <!-- single-product-wrap end -->
+                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                         </div>
-                    </div>
-                <?php } ?>
+                        <!-- End of Product -->
+                    <?php } ?>
+                </div>
             </div>
         </div>
-
     </div>
 </div>

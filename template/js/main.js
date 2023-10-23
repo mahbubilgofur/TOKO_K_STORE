@@ -1,26 +1,4 @@
 
-document.addEventListener("DOMContentLoaded", function () {
-	// Menyembunyikan semua elemen LI di awal, kecuali 5 pertama
-	var provinsiItems = document.querySelectorAll("#provinsi-list li");
-	for (var i = 5; i < provinsiItems.length; i++) {
-		provinsiItems[i].style.display = "none";
-	}
-
-	// Menambahkan event listener pada tombol "Tampilkan 5 Data Lainnya"
-	var showMoreButton = document.getElementById("show-more-button");
-	showMoreButton.addEventListener("click", function () {
-		var hiddenItems = document.querySelectorAll("#provinsi-list li:not([style='display: none;'])");
-		for (var i = 0; i < 5; i++) {
-			if (hiddenItems[i]) {
-				hiddenItems[i].style.display = "";
-			} else {
-				// Jika tidak ada lagi item yang disembunyikan, sembunyikan tombol
-				showMoreButton.style.display = "none";
-				break;
-			}
-		}
-	});
-});
 /*--------------------------------------------------
 Template Name: limupa;
 Description: limupa - Digital Products Store ECommerce Bootstrap 4 Template;

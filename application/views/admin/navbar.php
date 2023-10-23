@@ -159,10 +159,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('gambar') ?>" class="nav-link">
+                            <a href="<?= base_url('admin/setting') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    GAMBAR PRODUK
+                                    SETTING
                                 </p>
                             </a>
                         </li>

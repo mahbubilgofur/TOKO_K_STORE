@@ -17,11 +17,9 @@ class Detail extends CI_Controller
 		$role_id = $this->session->userdata('role_id');
 
 		// Menambahkan kondisi untuk role_id
-		if ($role_id == 2) {
-			// Jika role_id adalah 2, arahkan ke halaman tertentu atau berikan pesan kesalahan
-			redirect('home');
+		if ($role_id == 1) {
+			redirect('admin');
 		}
-		// Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 	}
 	public function index()
 	{
