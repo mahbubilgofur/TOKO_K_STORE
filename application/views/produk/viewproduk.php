@@ -85,6 +85,10 @@
                                                     <label>DESKRIPSI</label>
                                                     <input type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required value="<?= set_value('deskripsi'); ?>">
                                                 </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>BERAT</label>
+                                                    <input type="number" class="form-control" name="berat" placeholder="BERAT SATUAN GR" required value="<?= set_value('deskripsi'); ?>">
+                                                </div>
 
                                                 <div class="form-group col-md-6">
                                                     <label>ID KATEGORI</label>
@@ -160,6 +164,7 @@
                                     <th scope="col">DESKRIPSI</th>
                                     <th scope="col">ID_KATEGORI</th>
                                     <th scope="col">ID VARIASIPRODUK</th>
+                                    <th scope="col">BERAT</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -175,6 +180,7 @@
                                         <td><?php echo $row->deskripsi ?></td>
                                         <td><?php echo $row->nama_kategori ?></td>
                                         <td><?php echo $row->nama_variasi ?></td>
+                                        <td><?php echo $row->berat ?></td>
                                         <td>
                                             <a href="<?php echo base_url('produk/update/') . $row->id_produk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="<?php echo base_url('produk/delete/') . $row->id_produk ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

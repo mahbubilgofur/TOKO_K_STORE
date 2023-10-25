@@ -46,6 +46,7 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required|max_length[35]');
         $this->form_validation->set_rules('harga', 'Harga', 'trim|required|max_length[100]');
         $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required|max_length[100]');
+        $this->form_validation->set_rules('berat', 'Berat', 'trim|required|max_length[100]');
         $this->form_validation->set_rules('id_kategori', 'ID Kategori', 'trim|required|max_length[50]');
         $this->form_validation->set_rules('id_variasiproduk', 'ID Variasi Produk', 'trim|required|max_length[50]');
 
@@ -58,6 +59,7 @@ class Produk extends CI_Controller
             $nama = $this->input->post('nama');
             $harga = $this->input->post('harga');
             $deskripsi = $this->input->post('deskripsi');
+            $berat = $this->input->post('berat');
             $id_kategori = $this->input->post('id_kategori');
             $id_variasiproduk = $this->input->post('id_variasiproduk');
 
@@ -91,6 +93,7 @@ class Produk extends CI_Controller
                     'harga' => $harga,
                     'gambar' => $gambar_baru, // Simpan nama file gambar baru dalam database
                     'deskripsi' => $deskripsi,
+                    'berat' => $berat,
                     'id_kategori' => $id_kategori,
                     'id_variasiproduk' => $id_variasiproduk
                 );
@@ -102,6 +105,7 @@ class Produk extends CI_Controller
                 $this->session->unset_userdata('nama');
                 $this->session->unset_userdata('harga');
                 $this->session->unset_userdata('deskripsi');
+                $this->session->unset_userdata('berat');
                 $this->session->unset_userdata('id_kategori');
                 $this->session->unset_userdata('id_variasiproduk');
 
@@ -139,6 +143,7 @@ class Produk extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required|max_length[35]');
         $this->form_validation->set_rules('harga', 'Harga', 'trim|required|max_length[100]');
         $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required|max_length[100]');
+        $this->form_validation->set_rules('berat', 'Berat', 'trim|required|max_length[100]');
         $this->form_validation->set_rules('id_kategori', 'ID Kategori', 'trim|required|max_length[50]');
         $this->form_validation->set_rules('id_variasiproduk', 'ID Variasi Produk', 'trim|required|max_length[50]');
 
@@ -151,6 +156,7 @@ class Produk extends CI_Controller
             $nama = $this->input->post('nama');
             $harga = $this->input->post('harga');
             $deskripsi = $this->input->post('deskripsi');
+            $berat = $this->input->post('berat');
             $id_kategori = $this->input->post('id_kategori');
             $id_variasiproduk = $this->input->post('id_variasiproduk');
 
@@ -183,6 +189,7 @@ class Produk extends CI_Controller
                     'harga' => $harga,
                     'gambar' => $gambar_baru, // Simpan nama file gambar baru dalam database
                     'deskripsi' => $deskripsi,
+                    'berat' => $berat,
                     'id_kategori' => $id_kategori,
                     'id_variasiproduk' => $id_variasiproduk
                 );
@@ -194,6 +201,7 @@ class Produk extends CI_Controller
                 $this->session->unset_userdata('nama');
                 $this->session->unset_userdata('harga');
                 $this->session->unset_userdata('deskripsi');
+                $this->session->unset_userdata('berat');
                 $this->session->unset_userdata('id_kategori');
                 $this->session->unset_userdata('id_variasiproduk');
 
@@ -232,6 +240,7 @@ class Produk extends CI_Controller
     //     $nama = $this->input->post('nama');
     //     $harga = $this->input->post('harga');
     //     $deskripsi = $this->input->post('deskripsi');
+    //     $deskripsi = $this->input->post('deskripsi');
     //     $id_kategori = $this->input->post('id_kategori');
     //     $id_variasiproduk = $this->input->post('id_variasiproduk');
 
@@ -266,6 +275,7 @@ class Produk extends CI_Controller
     //             'nama' => $nama,
     //             'harga' => $harga,
     //             'gambar' => $gambar_baru, // Simpan nama file gambar baru dalam database
+    //             'deskripsi' => $deskripsi,
     //             'deskripsi' => $deskripsi,
     //             'id_kategori' => $id_kategori,
     //             'id_variasiproduk' => $id_variasiproduk

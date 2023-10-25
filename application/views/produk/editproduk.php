@@ -62,6 +62,10 @@
                                         <input type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required value="<?php echo $data_produk->deskripsi; ?>">
                                     </div>
                                     <div class="form-group col-md-6">
+                                        <label>BERAT</label>
+                                        <input type="number" class="form-control" name="berat" placeholder="BERAT SATUAN GR" required value="<?php echo $data_produk->berat; ?>">
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label>ID KATEGORI</label>
                                         <select class="form-control" name="id_kategori" required>
                                             <option value="">Pilih Kategori</option>

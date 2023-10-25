@@ -16,19 +16,20 @@ class Belanja extends CI_Controller
             redirect('admin');
         }
         $this->load->model('m_setting');
+        $this->load->model('m_produk');
+        $this->load->model('m_transaksi1');
         $this->load->library('cart');
         $this->load->helper('form');
     }
 
     public function index()
     {
+
         $this->load->view('home/header');
         $this->load->view('home/navbar');
         $this->load->view('homekeranjang/content');
         $this->load->view('home/footer');
     }
-
-
     public function add($produk_id)
     {
         // Cek apakah pengguna sudah login dengan role_id 2
@@ -46,18 +47,20 @@ class Belanja extends CI_Controller
                     'qty'     => 1,
                     'price'   => $produk->harga,
                     'name'    => $produk->nama,
-                    'options' => array('gambar' => $produk->gambar) // Misalkan Anda memiliki kolom gambar di tabel produk
+                    'options' => array('gambar' => $produk->gambar, 'berat' => $produk->berat)
                 );
 
                 $this->cart->insert($data);
 
                 // Setelah menambahkan produk ke keranjang, Anda bisa melakukan apa yang diperlukan, seperti menampilkan pesan sukses atau mengarahkan ke halaman lain
                 // Contoh:
+                $this->session->set_flashdata('message', 'Produk berhasil ditambahkan ke keranjang.');
                 redirect('home/detail/' . $produk_id);
             } else {
                 // Produk tidak ditemukan, Anda bisa menangani ini dengan menampilkan pesan kesalahan atau mengarahkan ke halaman lain
                 // Contoh:
-                echo "Produk tidak ditemukan.";
+                $this->session->set_flashdata('error', 'Produk tidak ditemukan.');
+                redirect('home');
             }
         } else {
             // Pengguna belum login dengan role_id 2, arahkan mereka ke halaman login_user
@@ -71,24 +74,57 @@ class Belanja extends CI_Controller
         $total_items = $this->cart->total_items();
         echo json_encode($total_items);
     }
-
-    public function update_cart()
+    public function update_qty()
     {
-        // Ambil data yang diperlukan seperti rowid dan qty dari permintaan Ajax
-        $rowid = $this->input->post('rowid');
-        $qty = $this->input->post('qty');
+        // Ambil data yang dikirim melalui permintaan Ajax
+        $row_id = $this->input->post('row_id');
+        $new_qty = $this->input->post('new_qty');
 
-        // Gunakan keranjang belanja CodeIgniter untuk memperbarui keranjang
-        $data = array(
-            'rowid' => $rowid,
-            'qty' => $qty
-        );
-        $this->cart->update($data);
+        // Cek apakah produk dengan row_id tersebut ada dalam keranjang
+        $item = $this->cart->get_item($row_id);
 
-        // Kirim respons berupa pesan sukses
-        echo "Keranjang diperbarui";
+        if ($item) {
+            // Perbarui jumlah produk
+            $data = array(
+                'rowid' => $row_id,
+                'qty'   => $new_qty
+            );
+            $this->cart->update($data);
+
+            // Hitung ulang total harga dan berat produk yang diperbarui
+            $total_harga = $item['price'] * $new_qty;
+            $total_berat = $item['options']['berat'] * $new_qty;
+
+            // Kembalikan respons dalam format JSON
+            $response = array(
+                'total_harga' => number_format($total_harga, 2),
+                'total_berat' => $total_berat
+            );
+            echo json_encode($response);
+        } else {
+            // Produk tidak ditemukan, kembalikan pesan kesalahan
+            echo json_encode(array('error' => 'Produk tidak ditemukan.'));
+        }
     }
+    public function hitung_total_berat()
+    {
+        // Ambil data keranjang dari session
+        $keranjang = $this->cart->contents();
 
+        // Inisialisasi total berat
+        $total_berat = 0;
+
+        // Loop melalui item dalam keranjang dan tambahkan berat masing-masing produk ke total
+        foreach ($keranjang as $item) {
+            $produk = $this->m_setting->get_produk_by_id($item['id_produk']);
+            $berat = $produk->berat;
+            $total_berat += $berat * $item['qty'];
+        }
+
+        // Kirim total berat sebagai respons dalam format JSON
+        $response = array('total_berat' => $total_berat);
+        echo json_encode($response);
+    }
 
     public function hapus($rowid)
     {
@@ -99,9 +135,62 @@ class Belanja extends CI_Controller
 
     public function checkout()
     {
-        $this->load->view('home/header');
-        $this->load->view('home/navbar');
-        $this->load->view('homecheckout/content');
-        $this->load->view('home/footer');
+        $this->form_validation->set_rules('provinsi', 'Provinsi', 'required', array(
+            'required' => '%s Harus Diisi !!!'
+        ));
+        $this->form_validation->set_rules('kota', 'Kota', 'required', array(
+            'required' => '%s Harus Diisi !!!'
+        ));
+        $this->form_validation->set_rules('exspedisi', 'Exspedisi', 'required', array(
+            'required' => '%s Harus Diisi !!!'
+        ));
+        $this->form_validation->set_rules('paket', 'Paket', 'required', array(
+            'required' => '%s Harus Diisi !!!'
+        ));
+        if ($this->form_validation->run() == false) {
+
+            $produk = $this->m_produk->getDataproduk();
+            $DATA = array('produk' => $produk);
+            $this->load->view('home/header');
+            $this->load->view('home/navbar');
+            $this->load->view('homecheckout/content', $DATA);
+            $this->load->view('home/footer');
+        } else {
+            $data = array(
+                'no_order' => $this->input->post('no_order'),
+                'tgl_order' => date('Y-m-d'),
+                'nama_penerima' => $this->input->post('nama_penerima'),
+                'hp_penerima' => $this->input->post('hp_penerima'),
+                'provinsi' => $this->input->post('provinsi'),
+                'kota' => $this->input->post('kota'),
+                'alamat' => $this->input->post('alamat'),
+                'kode_pos' => $this->input->post('kode_pos'),
+                'exspedisi' => $this->input->post('exspedisi'),
+                'paket' => $this->input->post('paket'),
+                'estimasi' => $this->input->post('estimasi'),
+                'ongkir' => $this->input->post('ongkir'),
+                'berat' => $this->input->post('berat'),
+                'grand_total' => $this->input->post('grand_total'),
+                'total_bayar' => $this->input->post('total_bayar'),
+                'status_bayar' => '0',
+                'status_order' => '0',
+
+            );
+            $this->m_transaksi1->simpan_transaksi($data);
+            // simpan tbl_rinci
+            $i = 1;
+            foreach ($this->cart->contents() as $item) {
+                $data_rinci = array(
+                    'no_order' => $this->input->post('no_order'),
+                    'id_produk' => $item['id'],
+                    'qty' => $this->input->post('qty' . $i++),
+                );
+                $this->m_transaksi1->simpan_rinci_transaksi($data_rinci);
+            }
+
+            $this->session->set_flashdata('pesan', 'Pesan Berhasil Diperoses !!!');
+            $this->cart->destroy();
+            redirect('pesanan_saya');
+        }
     }
 }

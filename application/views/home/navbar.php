@@ -69,66 +69,80 @@
                             <!-- Begin Header Middle Right Area -->
                             <div class="header-middle-right">
                                 <ul class="hm-menu">
-                                    <?php if ($this->session->userdata('role_id') == 2) : ?>
-                                        <li class="hm-wishlist">
-                                            <a href="<?= base_url('login_user/logout') ?>">
-                                                <i class="fas fa-sign-in-alt"></i>
-                                            </a>
-                                        </li>
-                                    <?php else : ?>
-                                        <li class="hm-wishlist">
-                                            <a href="<?= base_url('login_user') ?>">
-                                                <i class="fa-solid fa-user"></i>
-                                            </a>
-                                        </li>
-                                    <?php endif; ?>
-
-                                    <!-- Header Middle Wishlist Area End Here -->
-                                    <!-- Begin Header Mini Cart Area -->
                                     <li class="hm-minicart">
-                                        <div class="hm-minicart-trigger">
-                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> </a>
-                                            <span class="item-text">
-                                            </span>
-                                        </div>
-                                        <span></span>
-                                        <div class="minicart">
-                                            <?php if (!empty($this->cart->contents())) : ?>
-                                                <ul class="minicart-product-list">
-                                                    <?php foreach ($this->cart->contents() as $item) : ?>
-                                                        <li class="produk-keranjang">
-                                                            <a href="<?= base_url('produk/detail/' . $item['id']); ?>" class="minicart-product-image">
-                                                                <img src="<?= base_url('gambarproduk/' . $item['options']['gambar']); ?>" alt="<?= $item['name']; ?>">
-                                                            </a>
-                                                            <div class="minicart-product-details">
-                                                                <h6><a href="<?= base_url('produk/detail/' . $item['id']); ?>"><?= $item['name']; ?></a></h6>
-                                                                <p class=" harga-produk">RP.<?= number_format($item['price']); ?></p>
-                                                                <p class="jumlah-produk">Jumlah: <?= $item['qty']; ?></p>
-                                                                <p class="total-produk">Total Harga: <?= number_format($item['subtotal']); ?></p>
-                                                            </div>
-                                                            <!-- Tombol hapus dari keranjang -->
-                                                            <a href="<?= base_url('belanja/remove/' . $item['rowid']); ?>" class="remove-from-cart">Hapus</a>
-                                                        </li>
-                                                    <?php endforeach; ?>
-                                                </ul>
-                                            <?php else : ?>
-                                                <p>Keranjang belanja Anda kosong.</p>
-                                            <?php endif; ?>
-
-                                            <?php if ($this->cart->total_items() > 0) : ?>
+                                        <?php if ($this->session->userdata('role_id') == 2) : ?>
+                                            <div class="hm-minicart-trigger">
+                                                <i class="fa-solid fa-user"></i>
+                                                <span class="item-text">
+                                                </span>
+                                            </div>
+                                            <span></span>
+                                            <div class="minicart">
                                                 <div class="minicart-button">
-                                                    <a href="<?= base_url('belanja') ?>" class="li-button li-button-dark li-button-fullwidth li-button-sm">
-                                                        <span>View Full Cart</span>
+                                                    <a href="shopping-cart.html" class="li-button li-button-fullwidth">
+                                                        <span>Profil</span>
                                                     </a>
-
-                                                    <a href="<?= base_url('belanja/checkout') ?>" class="li-button li-button-fullwidth li-button-sm">
-                                                        <span>Checkout</span>
+                                                    <a href="<?= base_url('pesanan_saya') ?>" class="li-button li-button-fullwidth">
+                                                        <span>Pesanan Saya</span>
+                                                    </a>
+                                                    <a href="<?= base_url('login_user/logout') ?>" class="li-button li-button-fullwidth li-button-dark">
+                                                        <span>Logout</span>
                                                     </a>
                                                 </div>
-                                            <?php endif; ?>
-                                        </div>
+                                            </div>
+                                        <?php else : ?>
                                     </li>
-                                    <!-- Header Mini Cart Area End Here -->
+                                    <li class="hm-wishlist">
+                                        <a href="<?= base_url('login_user') ?>">
+                                            <i class="fa-solid fa-user"></i>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                                <!-- Header Middle Wishlist Area End Here -->
+                                <!-- Begin Header Mini Cart Area -->
+                                <li class="hm-minicart">
+                                    <div class="hm-minicart-trigger">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        <span class="item-text">
+                                        </span>
+                                    </div>
+                                    <span></span>
+                                    <div class="minicart">
+                                        <?php if (!empty($this->cart->contents())) : ?>
+                                            <ul class="minicart-product-list">
+                                                <?php foreach ($this->cart->contents() as $item) : ?>
+                                                    <li class="produk-keranjang">
+                                                        <a href="<?= base_url('produk/detail/' . $item['id']); ?>" class="minicart-product-image">
+                                                            <img src="<?= base_url('gambarproduk/' . $item['options']['gambar']); ?>" alt="<?= $item['name']; ?>">
+                                                        </a>
+                                                        <div class="minicart-product-details">
+                                                            <h6><a href="<?= base_url('produk/detail/' . $item['id']); ?>"><?= $item['name']; ?></a></h6>
+                                                            <p class=" harga-produk">RP.<?= number_format($item['price']); ?></p>
+                                                            <p class="jumlah-produk">Jumlah: <?= $item['qty']; ?></p>
+                                                            <p class="total-produk">Total Harga: <?= number_format($item['subtotal']); ?></p>
+                                                        </div>
+                                                        <!-- Tombol hapus dari keranjang -->
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php else : ?>
+                                            <p>Keranjang belanja Anda kosong.</p>
+                                        <?php endif; ?>
+
+                                        <?php if ($this->cart->total_items() > 0) : ?>
+                                            <div class="minicart-button">
+                                                <a href="<?= base_url('belanja') ?>" class="li-button li-button-dark li-button-fullwidth li-button-sm">
+                                                    <span>View Full Cart</span>
+                                                </a>
+
+                                                <a href="<?= base_url('belanja/checkout') ?>" class="li-button li-button-fullwidth li-button-sm">
+                                                    <span>Checkout</span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </li>
+                                <!-- Header Mini Cart Area End Here -->
                                 </ul>
                             </div>
                             <!-- Header Middle Right Area End Here -->
