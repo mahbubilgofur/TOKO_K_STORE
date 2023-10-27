@@ -26,7 +26,7 @@ class Home extends CI_Controller
 		$queryproduk = $this->m_produk->getDataproduk1();
 		$getKategori = $this->m_produk->getKategori();
 		$getKategori1 = $this->m_produk->getcariKategori();
-		$getVariasi = $this->m_produk->getVariasi();
+		$getuser = $this->m_produk->getuser();
 		$getuser = $this->m_produk->getuser();
 
 		// Inisialisasi array untuk menyimpan detail produk dalam keranjang
@@ -55,7 +55,6 @@ class Home extends CI_Controller
 			'queryproduk' => $queryproduk,
 			'getketegori' => $getKategori,
 			'getcariketegori' => $getKategori1,
-			'getvariasi' => $getVariasi,
 			'getuser' => $getuser,
 			'produk_keranjang' => $data['produk_keranjang'], // Data keranjang
 		);

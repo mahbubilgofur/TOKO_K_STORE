@@ -42,7 +42,7 @@
                                         <td class="li-product-remove"><a href="<?= base_url('belanja/hapus/' . $item['rowid']) ?>"><i class="fa fa-times"></i></a></td>
                                         <td class="li-product-thumbnail">
                                             <a href="#">
-                                                <img src="<?= base_url('gambarproduk/' . $item['options']['gambar']); ?>" alt="<?= $item['name']; ?>" width="50" height="50">
+                                                <img src="<?= base_url('gambarproduk/' . $item['options']['gambar1']); ?>" alt="<?= $item['name']; ?>" width="50" height="50">
                                             </a>
                                         </td>
                                         <td class="li-product-name">

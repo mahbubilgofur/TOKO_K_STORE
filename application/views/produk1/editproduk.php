@@ -42,14 +42,8 @@
 
                                 <div class="form-group">
                                     <label>Gambar saat ini:</label><br>
-                                    <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar1 ?>" alt="Gambar Produk" style="max-width: 15%;">
-                                    <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar2 ?>" alt="Gambar Produk" style="max-width: 15%;">
-                                    <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar3 ?>" alt="Gambar Produk" style="max-width: 15%;">
-                                    <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar4 ?>" alt="Gambar Produk" style="max-width: 15%;">
-                                    <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar5 ?>" alt="Gambar Produk" style="max-width: 15%;">
-     
+                                    <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar; ?>" alt="Gambar Produk" style="max-width: 50%;">
                                 </div>
-                               
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>NAMA</label>
@@ -60,28 +54,16 @@
                                         <input type="text" class="form-control" name="harga" placeholder="HARGA" required value="<?php echo $data_produk->harga; ?>">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>GAMBAR 1</label>
-                                        <input type="file" class="form-control" name="gambar1" id="gambar1" accept=".jpg, .jpeg, .png, .webp">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>GAMBAR 2</label>
-                                        <input type="file" class="form-control" name="gambar2" id="gambar2" accept=".jpg, .jpeg, .png, .webp">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>GAMBAR 3</label>
-                                        <input type="file" class="form-control" name="gambar3" id="gambar3" accept=".jpg, .jpeg, .png, .webp">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>GAMBAR 4</label>
-                                        <input type="file" class="form-control" name="gambar4" id="gambar4" accept=".jpg, .jpeg, .png, .webp">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>GAMBAR 5</label>
-                                        <input type="file" class="form-control" name="gambar5" id="gambar5" accept=".jpg, .jpeg, .png, .webp">
+                                        <label>GAMBAR</label>
+                                        <input type="file" class="form-control" name="gambar" id="gambar" accept=".jpg, .jpeg, .png, .webp">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>DESKRIPSI</label>
                                         <input type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required value="<?php echo $data_produk->deskripsi; ?>">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>BERAT</label>
+                                        <input type="number" class="form-control" name="berat" placeholder="BERAT SATUAN GR" required value="<?php echo $data_produk->berat; ?>">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>ID KATEGORI</label>
@@ -119,46 +101,23 @@
                             </form>
 
                             <script>
-                                    // Fungsi untuk menampilkan gambar saat berkas gambar diunggah
-                                    function previewImage(input, previewId) {
-                                        var previewGambar = document.getElementById(previewId);
-
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
-
-                                            reader.onload = function(e) {
-                                                previewGambar.src = e.target.result;
-                                                previewGambar.style.display = 'block'; // Tampilkan gambar
-                                            };
-
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
+                                // Fungsi untuk menampilkan pratinjau gambar saat memilih berkas gambar
+                                function previewImage(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.onload = function(e) {
+                                            $('#preview-gambar').attr('src', e.target.result);
+                                            $('#preview-gambar').css('display', 'block');
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
                                     }
+                                }
 
-                                    // Membaca perubahan pada input berkas gambar
-                                    var inputBerkas1 = document.getElementById('gambar1');
-                                    var inputBerkas2 = document.getElementById('gambar2');
-                                    var inputBerkas3 = document.getElementById('gambar3');
-                                    var inputBerkas4 = document.getElementById('gambar4');
-                                    var inputBerkas5 = document.getElementById('gambar5');
-
-                                    inputBerkas1.addEventListener('change', function() {
-                                        previewImage(inputBerkas1, 'preview-gambar');
-                                    });
-                                    inputBerkas2.addEventListener('change', function() {
-                                        previewImage(inputBerkas2, 'preview-gambar');
-                                    });
-                                    inputBerkas3.addEventListener('change', function() {
-                                        previewImage(inputBerkas3, 'preview-gambar');
-                                    });
-                                    inputBerkas4.addEventListener('change', function() {
-                                        previewImage(inputBerkas4, 'preview-gambar');
-                                    });
-                                    inputBerkas5.addEventListener('change', function() {
-                                        previewImage(inputBerkas5, 'preview-gambar');
-                                    });
-
-                                    </script>
+                                // Menjalankan fungsi previewImage saat berkas gambar dipilih
+                                $('#gambar').change(function() {
+                                    previewImage(this);
+                                });
+                            </script>
 
 
                         </div>

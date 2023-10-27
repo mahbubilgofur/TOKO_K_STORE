@@ -24,28 +24,28 @@
                     <div class="product-details-left">
                         <div class="product-details-images slider-navigation-1">
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" alt="product image thumb">
                                 </a>
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" alt="product image thumb">
                                 </a>
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" alt="product image thumb">
                                 </a>
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" alt="product image thumb">
                                 </a>
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar']); ?>" alt="product image thumb">
                                 </a>
                             </div>
 

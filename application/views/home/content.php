@@ -87,7 +87,7 @@
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
-                                        <img src="<?= base_url('gambarproduk/' . $row->gambar); ?>" alt="<?= $row->nama ?>" style=" height: 200px;">
+                                        <img src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="<?= $row->nama ?>" style=" height: 200px;">
                                     </a>
                                 </div>
                                 <div class="favorite favorite_left"></div>

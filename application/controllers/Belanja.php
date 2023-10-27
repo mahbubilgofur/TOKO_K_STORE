@@ -17,6 +17,7 @@ class Belanja extends CI_Controller
         }
         $this->load->model('m_setting');
         $this->load->model('m_produk');
+        $this->load->model('m_user');
         $this->load->model('m_transaksi1');
         $this->load->library('cart');
         $this->load->helper('form');
@@ -47,7 +48,7 @@ class Belanja extends CI_Controller
                     'qty'     => 1,
                     'price'   => $produk->harga,
                     'name'    => $produk->nama,
-                    'options' => array('gambar' => $produk->gambar, 'berat' => $produk->berat)
+                    'options' => array('gambar1' => $produk->gambar1, 'berat' => $produk->berat)
                 );
 
                 $this->cart->insert($data);
@@ -157,6 +158,7 @@ class Belanja extends CI_Controller
             $this->load->view('home/footer');
         } else {
             $data = array(
+                'id' => $this->session->userdata('id'),
                 'no_order' => $this->input->post('no_order'),
                 'tgl_order' => date('Y-m-d'),
                 'nama_penerima' => $this->input->post('nama_penerima'),

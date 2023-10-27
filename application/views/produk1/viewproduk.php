@@ -78,30 +78,19 @@
                                                     <input type="text" class="form-control" name="harga" placeholder="HARGA" required value="<?= set_value('harga'); ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label>GAMBAR 1</label>
-                                                    <input type="file" class="form-control" name="gambar1" id="gambar1" accept=".jpg, .jpeg, .png, .webp" required value="<?= set_value('gambar1'); ?>">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label>GAMBAR 2</label>
-                                                    <input type="file" class="form-control" name="gambar2" id="gambar2" accept=".jpg, .jpeg, .png, .webp" required value="<?= set_value('gambar2'); ?>">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label>GAMBAR 3</label>
-                                                    <input type="file" class="form-control" name="gambar3" id="gambar3" accept=".jpg, .jpeg, .png, .webp" required value="<?= set_value('gambar3'); ?>">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label>GAMBAR 4</label>
-                                                    <input type="file" class="form-control" name="gambar4" id="gambar4" accept=".jpg, .jpeg, .png, .webp" required value="<?= set_value('gambar4'); ?>">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label>GAMBAR 5</label>
-                                                    <input type="file" class="form-control" name="gambar5" id="gambar5" accept=".jpg, .jpeg, .png, .webp" required value="<?= set_value('gambar5'); ?>">
+                                                    <label>GAMBAR</label>
+                                                    <input type="file" class="form-control" name="gambar" id="gambar" accept=".jpg, .jpeg, .png, .webp" required value="<?= set_value('gambar'); ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>DESKRIPSI</label>
-                                                    <textarea type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required value="<?= set_value('deskripsi'); ?>"></textarea>
+                                                    <input type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required value="<?= set_value('deskripsi'); ?>">
                                                 </div>
-                                                <div class=" form-group col-md-6">
+                                                <div class="form-group col-md-6">
+                                                    <label>BERAT</label>
+                                                    <input type="number" class="form-control" name="berat" placeholder="BERAT SATUAN GR" required value="<?= set_value('deskripsi'); ?>">
+                                                </div>
+
+                                                <div class="form-group col-md-6">
                                                     <label>ID KATEGORI</label>
                                                     <select class="form-control" name="id_kategori" required value="<?= set_value('id_kategori'); ?>">
                                                         <option value="">Pilih Kategori</option>
@@ -110,34 +99,23 @@
                                                         <?php } ?>
                                                     </select>
 
-                                                    <div class="form-group col-md-6">
-                                                        <label>ID VARIASIPRODUK</label>
-                                                        <select class="form-control" name="id_variasiproduk" required value="<?= set_value('id_variasiproduk'); ?>">
-                                                            <option value="">Pilih Kategori</option>
-                                                            <?php foreach ($getvariasi as $row) { ?>
-                                                                <option value="<?= $row->id_variasiproduk; ?>"><?= $row->jenis_variasi; ?></option>
-                                                            <?php } ?>
-                                                        </select>
 
-
-                                                    </div>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <?= form_error('berat', '<small class="text-danger pl-3">', '</small>');
-                                                    ?>
-                                                    <label>BERAT</label>
-                                                    <input type="text" class="form-control" name="berat" placeholder="BERAT" required value="<?= set_value('berat'); ?>">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <?= form_error('berat', '<small class="text-danger pl-3">', '</small>');
-                                                    ?>
-                                                    <label>STOK</label>
-                                                    <input type="text" class="form-control" name="stok" placeholder="STOK" required value="<?= set_value('stok'); ?>">
+                                                    <label>ID VARIASIPRODUK</label>
+                                                    <select class="form-control" name="id_variasiproduk" required value="<?= set_value('id_variasiproduk'); ?>">
+                                                        <option value="">Pilih Kategori</option>
+                                                        <?php foreach ($getvariasi as $row) { ?>
+                                                            <option value="<?= $row->id_variasiproduk; ?>"><?= $row->nama; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+
+
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <span id="preview-gambar-container">
-                                                    <img id="preview-gambar" src="<?= base_url('gambarproduk/noimage.jpg') ?>" alt="Belum diupload" style="max-width: 100px; max-height: 100px;">
+                                                    <img id="preview-gambar" src="<?= base_url('template/img/page.jpg') ?>" alt="Belum diupload" style="max-width: 100px; max-height: 100px;">
                                                 </span>
                                             </div>
                                             <div class="modal-footer">
@@ -145,11 +123,10 @@
                                                 <button type="submit" class="btn btn-primary">Save</button>
                                             </div>
                                         </form>
-
                                         <script>
                                             // Fungsi untuk menampilkan gambar saat berkas gambar diunggah
-                                            function previewImage(input, previewId) {
-                                                var previewGambar = document.getElementById(previewId);
+                                            function previewImage(input) {
+                                                var previewGambar = document.getElementById('preview-gambar');
 
                                                 if (input.files && input.files[0]) {
                                                     var reader = new FileReader();
@@ -164,34 +141,17 @@
                                             }
 
                                             // Membaca perubahan pada input berkas gambar
-                                            var inputBerkas1 = document.getElementById('gambar1');
-                                            var inputBerkas2 = document.getElementById('gambar2');
-                                            var inputBerkas3 = document.getElementById('gambar3');
-                                            var inputBerkas4 = document.getElementById('gambar4');
-                                            var inputBerkas5 = document.getElementById('gambar5');
-
-                                            inputBerkas1.addEventListener('change', function() {
-                                                previewImage(inputBerkas1, 'preview-gambar');
-                                            });
-                                            inputBerkas2.addEventListener('change', function() {
-                                                previewImage(inputBerkas2, 'preview-gambar');
-                                            });
-                                            inputBerkas3.addEventListener('change', function() {
-                                                previewImage(inputBerkas3, 'preview-gambar');
-                                            });
-                                            inputBerkas4.addEventListener('change', function() {
-                                                previewImage(inputBerkas4, 'preview-gambar');
-                                            });
-                                            inputBerkas5.addEventListener('change', function() {
-                                                previewImage(inputBerkas5, 'preview-gambar');
+                                            var inputBerkas = document.getElementById('gambar');
+                                            inputBerkas.addEventListener('change', function() {
+                                                previewImage(inputBerkas);
                                             });
                                         </script>
+
 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- akhir Modal -->
 
 
                         <table id="example1" class="table table-bordered table-striped">
@@ -200,16 +160,11 @@
                                     <th scope="col">ID KELAS</th>
                                     <th scope="col">NAMA KELAS</th>
                                     <th scope="col">HARGA</th>
-                                    <th scope="col">GAMBAR 1</th>
-                                    <th scope="col">GAMBAR 2</th>
-                                    <th scope="col">GAMBAR 3</th>
-                                    <th scope="col">GAMBAR 4</th>
-                                    <th scope="col">GAMBAR 5</th>
+                                    <th scope="col">GAMBAR</th>
                                     <th scope="col">DESKRIPSI</th>
                                     <th scope="col">ID_KATEGORI</th>
                                     <th scope="col">ID VARIASIPRODUK</th>
                                     <th scope="col">BERAT</th>
-                                    <th scope="col">STOK</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -220,25 +175,12 @@
                                         <td><?php echo $row->nama ?></td>
                                         <td><?php echo $row->harga ?></td>
                                         <td>
-                                            <img src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="" width="100px" height="100px">
-                                        </td>
-                                        <td>
-                                            <img src="<?= base_url('gambarproduk/' . $row->gambar2); ?>" alt="" width="100px" height="100px">
-                                        </td>
-                                        <td>
-                                            <img src="<?= base_url('gambarproduk/' . $row->gambar3); ?>" alt="" width="100px" height="100px">
-                                        </td>
-                                        <td>
-                                            <img src="<?= base_url('gambarproduk/' . $row->gambar4); ?>" alt="" width="100px" height="100px">
-                                        </td>
-                                        <td>
-                                            <img src="<?= base_url('gambarproduk/' . $row->gambar5); ?>" alt="" width="100px" height="100px">
+                                            <img src="<?= base_url('gambarproduk/' . $row->gambar); ?>" alt="" width="100px" height="100px">
                                         </td>
                                         <td><?php echo $row->deskripsi ?></td>
                                         <td><?php echo $row->nama_kategori ?></td>
                                         <td><?php echo $row->nama_variasi ?></td>
                                         <td><?php echo $row->berat ?></td>
-                                        <td><?php echo $row->stok ?></td>
                                         <td>
                                             <a href="<?php echo base_url('produk/update/') . $row->id_produk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="<?php echo base_url('produk/delete/') . $row->id_produk ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

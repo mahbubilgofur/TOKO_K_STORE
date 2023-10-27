@@ -43,7 +43,6 @@ class Login_user extends CI_Controller
             $this->load->view('login_user');
         }
     }
-
     private function _login()
     {
         $email = $this->input->post('email');
@@ -55,7 +54,9 @@ class Login_user extends CI_Controller
             if (password_verify($password, $user->password)) {
                 $data = [
                     'email' => $user->email,
-                    'role_id' => $user->role_id
+                    'role_id' => $user->role_id,
+                    'nama' => $user->nama,
+                    'id' => $user->id // Tambahkan kolom 'id'
                 ];
                 $this->session->set_userdata($data);
 
@@ -73,7 +74,6 @@ class Login_user extends CI_Controller
             redirect(base_url('login_user'));
         }
     }
-
 
     public function register()
     {

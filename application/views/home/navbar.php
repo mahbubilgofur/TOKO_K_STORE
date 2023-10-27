@@ -14,17 +14,16 @@
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
                                 <ul class="phone-wrap">
-                                    <?php if ($this->session->userdata('role_id') == 2) : ?>
-                                        <?php
-                                        $user_id = $this->session->userdata('user_id');
-                                        $this->db->where('id', $user_id); // Menggunakan kolom "id" sebagai pengenal pengguna
-                                        $query = $this->db->get('tbl_user');
+                                    <?php $nama = $_SESSION['nama'];
 
-                                        if ($query->num_rows() > 0) {
-                                            $user = $query->row();
-                                            echo '<li><span>Selamat datang, ' . $user->nama . '</span></li>';
-                                        }
-                                        ?>
+                                    if (!empty($nama)) {
+                                        echo "Selamat datang, $nama!";
+                                    } else {
+                                        echo "Selamat datang, Pengunjung!";
+                                    }
+                                    ?>
+                                    <?php if ($this->session->userdata('role_id') == 2) : ?>
+                                        <?= $this->session->userdata('id') ?>
                                     <?php else : ?>
                                         <li><span>Belum Login</span></li>
                                     <?php endif; ?>
@@ -104,6 +103,7 @@
                                     <div class="hm-minicart-trigger">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         <span class="item-text">
+
                                         </span>
                                     </div>
                                     <span></span>
@@ -113,7 +113,7 @@
                                                 <?php foreach ($this->cart->contents() as $item) : ?>
                                                     <li class="produk-keranjang">
                                                         <a href="<?= base_url('produk/detail/' . $item['id']); ?>" class="minicart-product-image">
-                                                            <img src="<?= base_url('gambarproduk/' . $item['options']['gambar']); ?>" alt="<?= $item['name']; ?>">
+                                                            <img src="<?= base_url('gambarproduk/' . $item['options']['gambar1']); ?>" alt="<?= $item['name']; ?>">
                                                         </a>
                                                         <div class="minicart-product-details">
                                                             <h6><a href="<?= base_url('produk/detail/' . $item['id']); ?>"><?= $item['name']; ?></a></h6>

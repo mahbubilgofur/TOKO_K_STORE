@@ -76,7 +76,6 @@
                                                     } ?>
                                                 </select>
                                             </div>
-
                                             <div class="form-group">
                                                 <label for="tambahkan_master_kedua">Tambahkan Master Kedua:</label>
                                                 <select name="tambahkan_master_kedua" id="tambahkan_master_kedua" class="form-control">
@@ -88,7 +87,6 @@
                                                     } ?>
                                                 </select>
                                             </div>
-
                                             <div class="form-group">
                                                 <label for="tambahkan_master_ketiga">Tambahkan Master Ketiga:</label>
                                                 <select name="tambahkan_master_ketiga" id="tambahkan_master_ketiga" class="form-control">

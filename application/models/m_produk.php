@@ -5,7 +5,7 @@ class M_produk extends CI_Model
     public function getDataproduk()
     {
 
-        $this->db->select('tbl_produk.*, tbl_kategori.nama as nama_kategori,tbl_variasiproduk.nama as nama_variasi');
+        $this->db->select('tbl_produk.*, tbl_kategori.nama as nama_kategori,tbl_variasiproduk.jenis_variasi as nama_variasi');
         $this->db->from('tbl_produk', 'tbl_kategori', 'tbl_variasiproduk');
         $this->db->join('tbl_kategori', 'tbl_produk.id_kategori = tbl_kategori.id_kategori');
         $this->db->join('tbl_variasiproduk', 'tbl_produk.id_variasiproduk = tbl_variasiproduk.id_variasiproduk');
@@ -67,7 +67,7 @@ class M_produk extends CI_Model
     }
     public function getVariasi()
     {
-        $this->db->select('id_variasiproduk, nama');
+        $this->db->select('id_variasiproduk, jenis_variasi');
         $this->db->from('tbl_variasiproduk');
         $query = $this->db->get();
         return $query->result();
