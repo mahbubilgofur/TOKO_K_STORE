@@ -253,7 +253,33 @@
                                     </table>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
-                                    4
+                                    <table class="table">
+                                        <tr>
+                                            <th class="li-product">No_order</th>
+                                            <th class="li-product">Tanggal</th>
+                                            <th class="li-product">Expedisi</th>
+                                            <th class="li-product">Total Bayar</th>
+                                            <th class="li-product">No Resi</th>
+                                        </tr>
+                                        <tr>
+                                            <?php foreach ($pesanan_diterima as $value) { ?>
+                                                <td><?= $value->no_order ?></td>
+                                                <td><?= $value->tgl_order ?></td>
+                                                <td>
+                                                    <h5><?= $value->exspedisi ?></h5><br>
+                                                    <?= $value->paket ?><br>
+                                                    Rp.<?= number_format($value->ongkir, 0) ?><br>
+                                                </td>
+                                                <td>Rp.
+                                                    <?= number_format($value->total_bayar, 0) ?><br>
+                                                    <span class="badge badge-success">DITERIMA</span>
+                                                </td>
+                                                <td>
+                                                    <h5><?= $value->no_resi ?></h5>
+                                                </td>
+                                        </tr>
+                                    <?php } ?>
+                                    </table>
                                 </div>
                             </div>
                         </div>

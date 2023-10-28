@@ -63,10 +63,11 @@ class Admin extends CI_Controller
 	}
 	public function pesanan_masuk()
 	{
+		$pesanan_diterima = $this->m_pesanan_masuk->pesanan_diterima();
 		$pesanan_dikirim = $this->m_pesanan_masuk->pesanan_dikirim();
 		$pesanan_diproses = $this->m_pesanan_masuk->pesanan_diproses();
 		$pesanan = $this->m_pesanan_masuk->pesanan();
-		$DATA = array('pesanan' => $pesanan, 'pesanan_diproses' => $pesanan_diproses, 'pesanan_dikirim' => $pesanan_dikirim);
+		$DATA = array('pesanan' => $pesanan, 'pesanan_diproses' => $pesanan_diproses, 'pesanan_dikirim' => $pesanan_dikirim, 'pesanan_diterima' => $pesanan_diterima);
 		$this->load->view('layout/header');
 		$this->load->view('admin/navbar');
 		$this->load->view('pesananmasuk/content', $DATA, false);

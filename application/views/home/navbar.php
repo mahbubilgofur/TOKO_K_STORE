@@ -14,13 +14,7 @@
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
                                 <ul class="phone-wrap">
-                                    <?php $nama = $_SESSION['nama'];
-                                    if (!empty($nama)) {
-                                        echo "Selamat datang, $nama!";
-                                    } else {
-                                        echo "Selamat datang, Pengunjung!";
-                                    }
-                                    ?>
+
                                 </ul>
 
                             </div>

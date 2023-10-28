@@ -94,30 +94,9 @@
                             <a href="<?= base_url('admin') ?>" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Dashboard
+                                    DASBOARD
                                 </p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    TRANSAKSI
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= base_url('transaksi') ?>" class="nav-link">
-                                        <p>TRANSAKSI</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('transaksi/transaksi') ?>" class="nav-link">
-                                        <p>CHECKOUT</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -171,6 +150,14 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     PESANAN MASUK
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('laporan') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    LAPORAN
                                 </p>
                             </a>
                         </li>

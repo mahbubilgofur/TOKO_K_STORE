@@ -99,12 +99,12 @@ class Login_user extends CI_Controller
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
                 Berhasil register
               </div>');
-                redirect(base_url('login_user/login_user'));
+                redirect(base_url('login_user'));
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
                 Gagal register
               </div>');
-                redirect(base_url('register_user'));
+                redirect(base_url('login_user/register'));
             }
         }
     }

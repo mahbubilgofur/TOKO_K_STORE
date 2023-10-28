@@ -11,7 +11,6 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" href="<?= base_url() ?>template_login/css/style.css">
-	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
 </head>
@@ -29,29 +28,21 @@
 					<div class="login-wrap py-5">
 						<div class="img d-flex align-items-center justify-content-center" style="background-image: url(<?= base_url() ?>template_login/images/icon_user.jpg);"></div>
 
-						<form action="<?= base_url('login_user'); ?>" method="POST">
+						<form action="<?= base_url('login_user/register'); ?>" method="POST">
 							<?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
 							<?php echo $this->session->flashdata('message'); ?>
 							<div class="form-group">
 								<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
-								<input type="name" name="email" id="name" class="form-control" placeholder="Name">
+								<input type="text" name="nama" id="name" class="form-control" placeholder="Nama" required>
 							</div>
 							<div class="form-group">
 								<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
-								<input type="email" name="email" id="email" class="form-control" placeholder="Email">
+								<input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
 							</div>
 							<div class="form-group">
 								<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-lock"></span></div>
 								<input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
 							</div>
-							<!-- Tambahkan widget reCAPTCHA V2 Checkbox di sini -->
-
-							<!-- <div class="form-group d-md-flex">
-								<div class="w-100 text-md-right">
-									<a href="#">Forgot Password</a>
-								</div>
-	            </div> -->
-
 							<div class="form-group">
 								<a href="<?= base_url('login_user') ?>" class="btn btn-primary rounded submit px-3" id="batalButton">Kembali</a>
 								<button type="submit" class="btn btn-primary rounded submit px-3">Register</button>

@@ -12,8 +12,8 @@ class Belanja extends CI_Controller
         $role_id = $this->session->userdata('role_id');
 
         // Menambahkan kondisi untuk role_id
-        if ($role_id == 1) {
-            redirect('admin');
+        if ($role_id == 2) {
+            redirect('home');
         }
         $this->load->model('m_setting');
         $this->load->model('m_produk');
