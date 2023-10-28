@@ -7,13 +7,30 @@ class Pesanan_saya extends CI_Controller
     {
 
         parent::__construct();
+        // Memeriksa apakah pengguna telah login
+        if (!$this->session->userdata('email')) {
+            redirect('login');
+        }
 
+        // Mendapatkan role_id dari sesi
+        $role_id = $this->session->userdata('role_id');
+
+        // Menambahkan kondisi untuk role_id
+        if ($role_id == 1) {
+            // Jika role_id adalah 2, arahkan ke halaman tertentu atau berikan pesan kesalahan
+            redirect('admin');
+        }
+        $this->load->model('m_setting');
+        $this->load->model('m_pesanan_masuk');
         $this->load->model('m_transaksi1');
     }
     public function index()
     {
+        $diterima = $this->m_transaksi1->diterima();
+        $dikirim = $this->m_transaksi1->dikirim();
+        $diproses = $this->m_transaksi1->diproses();
         $belum_bayar = $this->m_transaksi1->belum_bayar();
-        $DATA = array('belum_bayar' => $belum_bayar);
+        $DATA = array('belum_bayar' => $belum_bayar, 'diproses' => $diproses, 'dikirim' => $dikirim, 'diterima' => $diterima);
         $this->load->view('home/header');
         $this->load->view('home/navbar');
         $this->load->view('homepesanan/content', $DATA, false);
@@ -71,5 +88,15 @@ class Pesanan_saya extends CI_Controller
         $this->load->view('home/navbar');
         $this->load->view('homebayar/content', $data, false);
         $this->load->view('home/footer');
+    }
+    public function diterima($id_transaksi)
+    {
+        $data = array(
+            'id_transaksi' => $id_transaksi,
+            'status_order' => '3'
+        );
+        $this->m_pesanan_masuk->update_order($data);
+        $this->session->set_flashdata('pesan', 'Pesanan Telah Diterima !!!');
+        redirect('pesanan_saya');
     }
 }

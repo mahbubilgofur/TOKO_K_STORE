@@ -167,6 +167,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('admin/pesanan_masuk') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    PESANAN MASUK
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('login/logout');  ?>" class="nav-link">
                                 <i class=" nav-icon fas fa-th"></i>
                                 <p>

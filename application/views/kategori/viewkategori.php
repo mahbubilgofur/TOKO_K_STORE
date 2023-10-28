@@ -50,7 +50,6 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-
                                         <form action="<?= base_url() ?>kategori/Inputkategori" method="POST">
                                             <div class="form-group">
                                                 <label>ID KATEGORI</label>

@@ -27,6 +27,7 @@
         <div class="card-body">
             <div class="tab-content" id="1">
                 <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                    <!-- data pesanan order -->
                     <table class="table">
                         <tr>
                             <th class="li-product">No_order</th>
@@ -65,14 +66,115 @@
                     </table>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
-                    2
+                    <!-- data pesanan di proses -->
+                    <table class="table">
+                        <tr>
+                            <th class="li-product">No_order</th>
+                            <th class="li-product">Tanggal</th>
+                            <th class="li-product">Expedisi</th>
+                            <th class="li-product">Total Bayar</th>
+                        </tr>
+                        <tr>
+                            <?php foreach ($diproses as $value) { ?>
+                                <td><?= $value->no_order ?></td>
+                                <td><?= $value->tgl_order ?></td>
+                                <td>
+                                    <h5><?= $value->exspedisi ?></h5><br>
+                                    <?= $value->paket ?><br>
+                                    Rp.<?= number_format($value->ongkir, 0) ?><br>
+                                </td>
+                                <td>Rp.
+                                    <?= number_format($value->total_bayar, 0) ?><br>
+                                    <span class="badge badge-success">TERVERIFIKASI</span> <br>
+                                    <span class="badge badge-primary">DIPROSES/DIKEMAS</span>
+                                </td>
+                        </tr>
+                    <?php } ?>
+                    </table>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
-                    3
+                    <table class="table">
+                        <tr>
+                            <th class="li-product">No_order</th>
+                            <th class="li-product">Tanggal</th>
+                            <th class="li-product">Expedisi</th>
+                            <th class="li-product">Total Bayar</th>
+                            <th class="li-product">No Resi</th>
+                        </tr>
+                        <tr>
+                            <?php foreach ($dikirim as $value) { ?>
+                                <td><?= $value->no_order ?></td>
+                                <td><?= $value->tgl_order ?></td>
+                                <td>
+                                    <h5><?= $value->exspedisi ?></h5><br>
+                                    <?= $value->paket ?><br>
+                                    Rp.<?= number_format($value->ongkir, 0) ?><br>
+                                </td>
+                                <td>Rp.
+                                    <?= number_format($value->total_bayar, 0) ?><br>
+                                    <span class="badge badge-success">DIKIRIM</span> <br>
+                                </td>
+                                <td>
+                                    <h5><?= $value->no_resi ?></h5><br>
+                                    <button class="btn btn-xs btn-flat btn-primary" data-toggle="modal" data-target="#diterima<?= $value->id_transaksi ?>">DITERIMA</button>
+                                </td>
+                        </tr>
+                    <?php } ?>
+                    </table>
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
-                    4
+                    <table class="table">
+                        <tr>
+                            <th class="li-product">No_order</th>
+                            <th class="li-product">Tanggal</th>
+                            <th class="li-product">Expedisi</th>
+                            <th class="li-product">Total Bayar</th>
+                            <th class="li-product">No Resi</th>
+                        </tr>
+                        <tr>
+                            <?php foreach ($diterima as $value) { ?>
+                                <td><?= $value->no_order ?></td>
+                                <td><?= $value->tgl_order ?></td>
+                                <td>
+                                    <h5><?= $value->exspedisi ?></h5><br>
+                                    <?= $value->paket ?><br>
+                                    Rp.<?= number_format($value->ongkir, 0) ?><br>
+                                </td>
+                                <td>Rp.
+                                    <?= number_format($value->total_bayar, 0) ?><br>
+                                    <span class="badge badge-success">DITERIMA</span> <br>
+                                </td>
+                                <td>
+                                    <h5><?= $value->no_resi ?></h5>
+                                </td>
+                        </tr>
+                    <?php } ?>
+                    </table>
                 </div>
+                <?php foreach ($dikirim as $key => $value) { ?>
+                    <div class="modal fade" id="diterima<?= $value->id_transaksi ?>">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">PESANAN DI TERIMA</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    APAKAH ANDA YAKIN PESAN SUDAH DITERIMA..
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">TIDAK</button>
+                                    <a href="<?= base_url('pesanan_saya/diterima/' . $value->id_transaksi) ?>" type="submit" class="btn btn-primary">YA</a>
+                                </div>
+                                <?php echo form_close() ?>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                <?php } ?>
             </div>
         </div>
         <!-- /.card -->

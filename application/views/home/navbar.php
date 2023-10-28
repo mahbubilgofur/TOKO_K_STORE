@@ -15,18 +15,12 @@
                             <div class="header-top-left">
                                 <ul class="phone-wrap">
                                     <?php $nama = $_SESSION['nama'];
-
                                     if (!empty($nama)) {
                                         echo "Selamat datang, $nama!";
                                     } else {
                                         echo "Selamat datang, Pengunjung!";
                                     }
                                     ?>
-                                    <?php if ($this->session->userdata('role_id') == 2) : ?>
-                                        <?= $this->session->userdata('id') ?>
-                                    <?php else : ?>
-                                        <li><span>Belum Login</span></li>
-                                    <?php endif; ?>
                                 </ul>
 
                             </div>

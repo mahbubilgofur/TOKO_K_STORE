@@ -23,6 +23,8 @@ class Admin extends CI_Controller
 		}
 		// Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 		$this->load->model('m_setting');
+		$this->load->model('m_pesanan_masuk');
+		$this->load->model('m_transaksi1');
 	}
 	public function index()
 	{
@@ -36,6 +38,38 @@ class Admin extends CI_Controller
 		$this->load->view('layout/header');
 		$this->load->view('admin/navbar');
 		$this->load->view('layout/content');
+		$this->load->view('layout/footer');
+	}
+	public function kirim($id_transaksi)
+	{
+		$data = array(
+			'id_transaksi' => $id_transaksi,
+			'no_resi' => $this->input->post('no_resi'),
+			'status_order' => '2'
+		);
+		$this->m_pesanan_masuk->update_order($data);
+		$this->session->set_flashdata('pesan', 'Pesanan Berhasil Dikirim!!!');
+		redirect('admin/pesanan_masuk');
+	}
+	public function proses($id_transaksi)
+	{
+		$data = array(
+			'id_transaksi' => $id_transaksi,
+			'status_order' => '1'
+		);
+		$this->m_pesanan_masuk->update_order($data);
+		$this->session->set_flashdata('pesan', 'Pesanan Berhasil Diperoses/Dikemas !!!');
+		redirect('admin/pesanan_masuk');
+	}
+	public function pesanan_masuk()
+	{
+		$pesanan_dikirim = $this->m_pesanan_masuk->pesanan_dikirim();
+		$pesanan_diproses = $this->m_pesanan_masuk->pesanan_diproses();
+		$pesanan = $this->m_pesanan_masuk->pesanan();
+		$DATA = array('pesanan' => $pesanan, 'pesanan_diproses' => $pesanan_diproses, 'pesanan_dikirim' => $pesanan_dikirim);
+		$this->load->view('layout/header');
+		$this->load->view('admin/navbar');
+		$this->load->view('pesananmasuk/content', $DATA, false);
 		$this->load->view('layout/footer');
 	}
 	public function setting()
