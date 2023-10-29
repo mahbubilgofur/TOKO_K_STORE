@@ -33,51 +33,29 @@
                     <div class="tab-content">
                         <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                             <div class="product-area shop-product-area">
-
                                 <div class="row">
-                                    <?php foreach ($produk as $row) { ?>
-                                        <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                            <!-- single-product-wrap start -->
-                                            <div class="single-product-wrap">
-                                                <div class="product-image">
-                                                    <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
-                                                        <img src="<?= base_url('gambarproduk/' . $row->gambar); ?>">
-                                                    </a>
-                                                    <span class="sticker">New</span>
-                                                </div>
-                                                <div class="product_desc">
-                                                    <div class="product_desc_info">
-                                                        <div class="product-review">
-                                                            <h5 class="manufacturer">
-                                                                <a href="product-details.html">Graphic Corner</a>
-                                                            </h5>
-                                                            <div class="rating-box">
-                                                                <ul class="rating">
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <h4><a class="product_name" href="<?= base_url('home/detail') ?>"><?php echo $row->nama ?></a></h4>
-                                                        <div class="price-box">
-                                                            <span class="new-price"><?php echo $row->harga ?></span>
-                                                        </div>
+                                    <?php if (empty($produk)) : ?>
+                                        <h2>Produk yang Anda cari tidak ditemukan</h2>
+                                    <?php else : ?>
+                                        <?php foreach ($produk as $row) : ?>
+                                            <div class="product-item men col-lg-4 col-md-4 col-sm-6">
+                                                <div class="product discount product_filter">
+                                                    <div class="product_image">
+                                                        <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
+                                                            <img src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="<?= $row->nama ?>" style=" height: 200px;">
+                                                        </a>
                                                     </div>
-                                                    <div class="add-actions">
-                                                        <ul class="add-actions-link">
-                                                            <li class="add-cart active"><a href="shopping-cart.html">Add to cart</a></li>
-                                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
-                                                            <li><a class="links-details" href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>
-                                                        </ul>
+                                                    <div class="favorite favorite_left"></div>
+                                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+                                                    <div class="product_info">
+                                                        <h6 class="product_name"><a href="single.html"><?php echo $row->nama ?></a></h6>
+                                                        <div class="product_price">RP.<?= number_format($row->harga, 0) ?></div>
                                                     </div>
                                                 </div>
+                                                <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                                             </div>
-                                            <!-- single-product-wrap end -->
-                                        </div>
-                                    <?php } ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </div>
 
                             </div>

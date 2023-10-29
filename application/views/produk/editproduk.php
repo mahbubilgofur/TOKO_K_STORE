@@ -95,16 +95,14 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>ID VARIASIPRODUK</label>
-                                        <select class="form-control" name="id_variasiproduk" required>
-                                            <option value="">Pilih Kategori</option>
-                                            <?php foreach ($getvariasi as $row) { ?>
-                                                <option value="<?= $row->id_variasiproduk; ?>" <?php if ($row->id_variasiproduk == $data_produk->id_variasiproduk) echo 'selected'; ?>>
-                                                    <?= $row->nama; ?>
-                                                </option>
-                                            <?php } ?>
-                                        </select>
+                                        <label>BERAT</label>
+                                        <input type="text" class="form-control" name="berat" placeholder="BERAT" required value="<?php echo $data_produk->berat; ?>">
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label>STOK</label>
+                                        <input type="text" class="form-control" name="stok" placeholder="STOK" required value="<?php echo $data_produk->stok; ?>">
+                                    </div>
+                                   
 
                                 </div>
                                 <!-- Tampilkan gambar yang akan diunggah (opsional) -->

@@ -12,8 +12,8 @@ class Belanja extends CI_Controller
         $role_id = $this->session->userdata('role_id');
 
         // Menambahkan kondisi untuk role_id
-        if ($role_id == 2) {
-            redirect('home');
+        if ($role_id == 1) {
+            redirect('admin');
         }
         $this->load->model('m_setting');
         $this->load->model('m_produk');
@@ -43,20 +43,30 @@ class Belanja extends CI_Controller
             if ($produk) {
                 // Data produk ditemukan, lanjutkan dengan menambahkannya ke keranjang
 
-                $data = array(
-                    'id'      => $produk->id_produk,
-                    'qty'     => 1,
-                    'price'   => $produk->harga,
-                    'name'    => $produk->nama,
-                    'options' => array('gambar1' => $produk->gambar1, 'berat' => $produk->berat)
-                );
+                // Ambil nilai qty dari inputan formulir
+                $qty = $this->input->post('qty');
+                if ($qty && is_numeric($qty) && $qty > 0) {
+                    // Qty valid, lanjutkan dengan menambahkannya ke keranjang
+                    $data = array(
+                        'id'      => $produk->id_produk,
+                        'qty'     => $qty,
+                        'price'   => $produk->harga,
+                        'name'    => $produk->nama,
+                        'options' => array('gambar1' => $produk->gambar1, 'berat' => $produk->berat)
+                    );
 
-                $this->cart->insert($data);
+                    $this->cart->insert($data);
 
-                // Setelah menambahkan produk ke keranjang, Anda bisa melakukan apa yang diperlukan, seperti menampilkan pesan sukses atau mengarahkan ke halaman lain
-                // Contoh:
-                $this->session->set_flashdata('message', 'Produk berhasil ditambahkan ke keranjang.');
-                redirect('home/detail/' . $produk_id);
+                    // Setelah menambahkan produk ke keranjang, Anda bisa melakukan apa yang diperlukan, seperti menampilkan pesan sukses atau mengarahkan ke halaman lain
+                    // Contoh:
+                    $this->session->set_flashdata('message', 'Produk berhasil ditambahkan ke keranjang.');
+                    redirect('home/detail/' . $produk_id);
+                } else {
+                    // Qty tidak valid, tampilkan pesan kesalahan atau mengarahkan ke halaman lain
+                    // Contoh:
+                    $this->session->set_flashdata('error', 'Qty tidak valid.');
+                    redirect('home/detail/' . $produk_id);
+                }
             } else {
                 // Produk tidak ditemukan, Anda bisa menangani ini dengan menampilkan pesan kesalahan atau mengarahkan ke halaman lain
                 // Contoh:
@@ -68,6 +78,7 @@ class Belanja extends CI_Controller
             redirect('login_user'); // Gantilah 'login_user' dengan URL sesuai dengan halaman login Anda
         }
     }
+
 
 
     public function get_total_items()

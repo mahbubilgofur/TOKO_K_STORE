@@ -604,6 +604,7 @@
 </div>
 <!-- Body Wrapper End Here -->
 <!-- jQuery-V1.12.4 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= base_url() ?>template/js/vendor/jquery-1.12.4.min.js"></script>
 <!-- Popper js -->
 <script src="<?= base_url() ?>template/js/vendor/popper.min.js"></script>

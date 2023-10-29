@@ -1,7 +1,10 @@
 <div class="breadcrumb-area">
     <div class="container">
         <div class="breadcrumb-content">
-
+            <ul>
+                <li><a href="<?= base_url('home') ?>">Home</a></li>
+                <li class="active"><?= $produk['nama']; ?></li>
+            </ul>
         </div>
     </div>
 </div>
@@ -9,11 +12,10 @@
 <!-- content-wraper start -->
 <div class="content-wraper">
     <div class="container">
-        <form action="" method=" post">
+        <form action="" method="post">
             <?php
-            echo form_open('belanja/add');
+            echo form_open('belanja/add'); // Form action akan mengarahkan ke metode 'add' pada controller 'belanja'.
             echo form_hidden('id', $produk['id_produk']);
-            echo form_hidden('qty', 1);
             echo form_hidden('price', $produk['harga']);
             echo form_hidden('name', $produk['nama']);
             echo form_hidden('redirect_page', str_replace('index.php/', '', current_url()));
@@ -24,39 +26,39 @@
                     <div class="product-details-left">
                         <div class="product-details-images slider-navigation-1">
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
+                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
                                     <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
                                 </a>
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar2']); ?>" alt="product image">
                                 </a>
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar3']); ?>" alt="product image">
                                 </a>
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar4']); ?>" alt="product image">
                                 </a>
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
+                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
+                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar5']); ?>" alt="product image">
                                 </a>
                             </div>
 
                         </div>
                         <div class="product-details-thumbs slider-thumbs-1">
-                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos1.jpg" alt="product image thumb"></div>
-                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos2.png" alt="product image thumb"></div>
-                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos4.jpeg" alt="product image thumb"></div>
-                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos5.jpeg" alt="product image thumb"></div>
-                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/kaos6.jpeg" alt="product image thumb"></div>
-                            <div class="sm-image"><img src="<?= base_url() ?>template/images/product/small-size/koas33.jpg" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar2']); ?>" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar3']); ?>" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar4']); ?>" alt="product image thumb"></div>
+                            <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar5']); ?>" alt="product image thumb"></div>
+
                         </div>
                     </div>
                     <!--// Product Details Left -->
@@ -79,7 +81,7 @@
                                 </ul>
                             </div>
                             <div class="price-box pt-20">
-                                <span class="new-price new-price-2">RP.<?= $produk['harga']; ?></span>
+                                <span class="new-price new-price-2">RP.<?= number_format($produk['harga']); ?></span>
                             </div>
                             <div class="product-desc">
                                 <p>
@@ -128,10 +130,10 @@
                             </div>
                             <div class="single-add-to-cart">
                                 <form action="#" class="cart-quantity">
-                                    <h6>Quantity</h6>
+                                    <h6>JUMLAH</h6>
                                     <div class="quantity">
-                                        <div class=" cart-plus-minus">
-                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                        <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box" type="number" id="qty" value="1" min="1">
                                             <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                             <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                         </div>
@@ -141,11 +143,13 @@
                                         <div class="product-social-sharing pt-25">
                                             <ul>
                                                 <li class="button1" style="width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: white; border: 1px solid orange;">
-                                                    <a id="aku" href="<?= base_url('belanja/add/' . $produk['id_produk']) ?>">
+                                                    <a id="addToCartButton" href="#" data-produk-id="<?= $produk['id_produk'] ?>">
                                                         <i class="fa fa-cart-shopping" style="color: orange;"></i>
                                                         <span style="color: orange;">Tambahkan ke keranjang</span>
                                                     </a>
                                                 </li>
+
+
                                                 <li class="button1" style=" margin-left: 40px; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: orange;">
                                                     <a href="#" style="font-size: 15px;">
                                                         <i></i>
@@ -156,9 +160,9 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <?php echo form_close(); ?>
                                 </form>
                             </div>
-                            <?php echo form_close(); ?>
                             <div class="product-additional-info pt-25">
                                 <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
                                 <div class="product-social-sharing pt-25">
@@ -437,4 +441,42 @@
         color: #fff;
         /* Warna teks tombol saat dihover */
     }
-</style>z
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#addToCartButton").click(function(event) {
+            event.preventDefault(); // Mencegah pergi ke URL "#"
+
+            var produkID = $(this).data('produk-id');
+            var qty = $("#qty").val(); // Mengambil nilai qty dari elemen input
+
+            $.ajax({
+                url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>', // Ganti dengan URL yang sesuai
+                method: "POST",
+                data: {
+                    qty: qty
+                },
+                success: function(response) {
+                    location.reload();
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'BERHASIL DITAMBAHKAN DI KERANJANG',
+                        showConfirmButton: false,
+                        timer: 1000,
+
+                    })
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href="">Why do I have this issue?</a>'
+                    });
+                }
+            });
+        });
+    });
+</script>

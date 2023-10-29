@@ -1,4 +1,4 @@
-<div class="breadcrumb-area">
+<!-- <div class="breadcrumb-area">
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
@@ -6,7 +6,7 @@
                 <li class="active">Checkout</li>
             </ul>
         </div>
-    </div>
+    </div> -->
 </div>
 <!-- Li's Breadcrumb Area End Here -->
 <!--Checkout Area Strat-->
@@ -38,7 +38,6 @@
                                     <th class="li-product-thumbnail">GAMBAR</th>
                                     <th class="li-product-name">PRODUK</th>
                                     <th class="li-product-price">HARGA</th>
-                                    <th class="li-product-quantity">JUMLAH</th>
                                     <th class="li-product-subtotal">TOTAL HARGA</th>
                                 </tr>
                                 <?php $i = 1; ?>
@@ -61,9 +60,6 @@
                                         </td>
                                         <td class="li-product-price">
                                             <span class="amount">Rp.<?php echo $this->cart->format_number($item['price']); ?></span>
-                                        </td>
-                                        <td>
-                                            <span class="amount" id="total-jumlah-produk"></span>
                                         </td>
                                         <td class="li-product-subtotal">
                                             <span class="amount">

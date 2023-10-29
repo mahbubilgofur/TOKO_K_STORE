@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                             <form action="<?= base_url('home/search') ?>" method="get" class="hm-searchbox">
-                                <input type="text" name="keyword" placeholder="Enter your search key ...">
+                                <input type="text" name="keyword" placeholder="CARI PRODUK ...">
                                 <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                             </form>
 
@@ -59,12 +59,14 @@
                                     <li class="hm-minicart">
                                         <?php if ($this->session->userdata('role_id') == 2) : ?>
                                             <div class="hm-minicart-trigger">
-                                                <i class="fa-solid fa-user"></i>
-                                                <span class="item-text">
+                                                <i class="fas fa-sign-in-alt"></i> <span class="item-text">
+                                                    <?php echo $this->session->userdata('nama'); ?>
                                                 </span>
                                             </div>
                                             <span></span>
+
                                             <div class="minicart">
+
                                                 <div class="minicart-button">
                                                     <a href="shopping-cart.html" class="li-button li-button-fullwidth">
                                                         <span>Profil</span>

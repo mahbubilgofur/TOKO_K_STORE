@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="<?= base_url() ?>template/js/vendor/modernizr-2.8.3.min.js"></script>
 
+
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>coloshop-master/styles/bootstrap4/bootstrap.min.css">
   <link href="<?= base_url() ?>coloshop-master/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>coloshop-master/plugins/OwlCarousel2-2.2.1/owl.carousel.css">

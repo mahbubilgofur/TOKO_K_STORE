@@ -17,8 +17,10 @@ class Home extends CI_Controller
 
 		// Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 		$this->load->model('m_produk');
+		$this->load->model('m_setting');
 		$this->load->model('m_user');
 		$this->load->model('m_kategori');
+		$this->load->model('m_pencarian');
 	}
 	public function index()
 	{
@@ -26,7 +28,6 @@ class Home extends CI_Controller
 		$queryproduk = $this->m_produk->getDataproduk1();
 		$getKategori = $this->m_produk->getKategori();
 		$getKategori1 = $this->m_produk->getcariKategori();
-		$getuser = $this->m_produk->getuser();
 		$getuser = $this->m_produk->getuser();
 
 		// Inisialisasi array untuk menyimpan detail produk dalam keranjang
@@ -65,6 +66,19 @@ class Home extends CI_Controller
 		$this->load->view('home/footer');
 	}
 
+
+	public function search()
+	{
+		$keyword = $this->input->get('keyword');
+
+		// Panggil metode cari_produk dari model
+		$data['produk'] = $this->m_pencarian->cari_produk($keyword);
+
+		$this->load->view('home/header');
+		$this->load->view('home/navbar', $data);
+		$this->load->view('homekategori/content', $data);
+		$this->load->view('home/footer');
+	}
 	public function homekategori($id_kategori)
 	{
 		$this->load->model('m_produk'); // Load model m_produk
@@ -76,24 +90,6 @@ class Home extends CI_Controller
 		$this->load->view('home/footer');
 	}
 
-	public function search()
-	{
-		// Ambil kata kunci pencarian dari input GET
-		$keyword = $this->input->get('keyword');
-
-		// Lakukan pencarian data dalam tabel tbl_kategori berdasarkan nama
-		$kategori_result = $this->m_kategori->searchKategoriByNama($keyword);
-
-		if (!empty($kategori_result)) {
-			// Jika ada hasil yang sesuai, ambil nama kategori pertama
-			$nama_kategori = $kategori_result[0]->nama;
-
-			// Redirect pengguna ke halaman home/kategori/<nama_kategori> dengan parameter nama kategori
-			redirect('home/' . $nama_kategori);
-		} else {
-			// Tidak ada hasil yang sesuai, lakukan penanganan sesuai kebutuhan Anda
-		}
-	}
 
 	public function detail($id_produk)
 	{
@@ -103,7 +99,6 @@ class Home extends CI_Controller
 		$produk = $this->m_produk->getDataproduk();
 		$queryproduk = $this->m_produk->getDataproduk1();
 		$getKategori = $this->m_produk->getKategori();
-		$getVariasi = $this->m_produk->getVariasi();
 
 		// Inisialisasi array untuk menyimpan detail produk dalam keranjang
 		$data['produk_keranjang'] = array();
@@ -130,7 +125,6 @@ class Home extends CI_Controller
 			'data_produk' => $produk,
 			'queryproduk' => $queryproduk,
 			'getketegori' => $getKategori,
-			'getvariasi' => $getVariasi,
 			'produk_keranjang' => $data['produk_keranjang'], // Data keranjang
 		);
 		if ($data['produk']) {

@@ -97,7 +97,7 @@
                                     <div class="product_price">RP.<?= number_format($row->harga, 0) ?></div>
                                 </div>
                             </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                            <div class="red_button add_to_cart_button"><a href="#">PRODUK SERUPA</a></div>
                         </div>
                         <!-- End of Product -->
                     <?php } ?>

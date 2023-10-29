@@ -2,8 +2,8 @@
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Shopping Cart</li>
+                <li><a href="<?= base_url('home') ?>">Home</a></li>
+                <li class="active">KERANJANG</li>
             </ul>
         </div>
     </div>
@@ -42,7 +42,7 @@
                                         <td class="li-product-remove"><a href="<?= base_url('belanja/hapus/' . $item['rowid']) ?>"><i class="fa fa-times"></i></a></td>
                                         <td class="li-product-thumbnail">
                                             <a href="#">
-                                                <img src="<?= base_url('gambarproduk/' . $item['options']['gambar1']); ?>" alt="<?= $item['name']; ?>" width="50" height="50">
+                                                <img src="<?= base_url('gambarproduk/' . $item['options']['gambar1']); ?>" alt="" width="50" height="50">
                                             </a>
                                         </td>
                                         <td class="li-product-name">
@@ -82,11 +82,10 @@
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
                                 <ul>
-                                    <li>Total Harga: <span id="total-keseluruhan">Rp.<?php echo $this->cart->format_number($this->cart->total()); ?></span></li>
-                                    <li>Jumlah Produk: <span id="total-jumlah-produk"></span></li>
                                     <li>Berat:<span id="total-berat"><?= $total_berat; ?> gram</span></li>
+                                    <li>Total Harga: <span id="total-keseluruhan">Rp.<?php echo $this->cart->format_number($this->cart->total()); ?></span></li>
                                 </ul>
-                                <a href="#">checkout</a>
+                                <a href="<?= base_url('belanja/checkout') ?>">checkout</a>
                                 <?php echo form_close(); ?>
                             </div>
                         </div>

@@ -5,10 +5,9 @@ class M_produk extends CI_Model
     public function getDataproduk()
     {
 
-        $this->db->select('tbl_produk.*, tbl_kategori.nama as nama_kategori,tbl_variasiproduk.jenis_variasi as nama_variasi');
-        $this->db->from('tbl_produk', 'tbl_kategori', 'tbl_variasiproduk');
+        $this->db->select('tbl_produk.*, tbl_kategori.nama as nama_kategori');
+        $this->db->from('tbl_produk', 'tbl_kategori');
         $this->db->join('tbl_kategori', 'tbl_produk.id_kategori = tbl_kategori.id_kategori');
-        $this->db->join('tbl_variasiproduk', 'tbl_produk.id_variasiproduk = tbl_variasiproduk.id_variasiproduk');
         $query = $this->db->get();
         return $query->result();
     }
@@ -65,24 +64,23 @@ class M_produk extends CI_Model
         $query = $this->db->get('tbl_kategori');
         return $query->result_array();
     }
-    public function getVariasi()
-    {
-        $this->db->select('id_variasiproduk, jenis_variasi');
-        $this->db->from('tbl_variasiproduk');
-        $query = $this->db->get();
-        return $query->result();
-    }
     public function getProdukById($id_produk)
     {
         // Query database untuk mengambil data produk berdasarkan id_produk
-        $query = $this->db->get_where('tbl_produk', array('id_produk' => $id_produk));
+        $this->db->select('tbl_produk.*, tbl_kategori.nama');
+        $this->db->from('tbl_produk');
+        $this->db->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_produk.id_kategori');
+        $this->db->where('tbl_produk.id_produk', $id_produk);
+
+        $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
-            return $query->row_array(); // Mengembalikan data produk dalam bentuk array jika ditemukan
+            return $query->row_array(); // Mengembalikan data produk beserta nama kategori dalam bentuk array jika ditemukan
         } else {
             return false; // Mengembalikan false jika produk tidak ditemukan
         }
     }
+
     public function getProdukOlahragaByIdKategori()
     {
         $this->db->select('*');
