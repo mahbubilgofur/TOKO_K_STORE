@@ -142,6 +142,7 @@
                                     <div class="product-additional-info " style="margin-left: 20px;">
                                         <div class="product-social-sharing pt-25">
                                             <ul>
+
                                                 <li class="button1" style="width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: white; border: 1px solid orange;">
                                                     <a id="addToCartButton" href="#" data-produk-id="<?= $produk['id_produk'] ?>">
                                                         <i class="fa fa-cart-shopping" style="color: orange;"></i>
@@ -448,35 +449,42 @@
         $("#addToCartButton").click(function(event) {
             event.preventDefault(); // Mencegah pergi ke URL "#"
 
-            var produkID = $(this).data('produk-id');
-            var qty = $("#qty").val(); // Mengambil nilai qty dari elemen input
+            // Gantilah ini dengan cara yang sesuai untuk mendapatkan nilai 'role_id' dari pengguna.
+            var role_id = 2; // Misalnya, Anda mengatur role_id dengan nilai 2.
 
-            $.ajax({
-                url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>', // Ganti dengan URL yang sesuai
-                method: "POST",
-                data: {
-                    qty: qty
-                },
-                success: function(response) {
-                    location.reload();
-                    Swal.fire({
-                        position: 'top-center',
-                        icon: 'success',
-                        title: 'BERHASIL DITAMBAHKAN DI KERANJANG',
-                        showConfirmButton: false,
-                        timer: 1000,
+            if (role_id === 2) {
+                // Role ID sama dengan 2, arahkan pengguna ke halaman login_user
+                window.location.href = '<?= base_url('login_user') ?>'; // Gantilah 'URL_Login_User' dengan URL login_user yang sesuai.
+            } else {
+                var produkID = $(this).data('produk-id');
+                var qty = $("#qty").val(); // Mengambil nilai qty dari elemen input
 
-                    })
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href="">Why do I have this issue?</a>'
-                    });
-                }
-            });
+                $.ajax({
+                    url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>', // Ganti dengan URL yang sesuai
+                    method: "POST",
+                    data: {
+                        qty: qty
+                    },
+                    success: function(response) {
+                        location.reload();
+                        Swal.fire({
+                            position: 'top-center',
+                            icon: 'success',
+                            title: 'BERHASIL DITAMBAHKAN DI KERANJANG',
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href="">Why do I have this issue?</a>'
+                        });
+                    }
+                });
+            }
         });
     });
 </script>

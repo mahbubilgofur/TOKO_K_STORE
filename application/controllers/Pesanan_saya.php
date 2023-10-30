@@ -15,10 +15,6 @@ class Pesanan_saya extends CI_Controller
         // Mendapatkan role_id dari sesi
         $role_id = $this->session->userdata('role_id');
 
-        // Menambahkan kondisi untuk role_id
-        if ($role_id == 1) {
-            // Jika role_id adalah 2, arahkan ke halaman tertentu atau berikan pesan kesalahan
-            redirect('admin');
         }
         $this->load->model('m_setting');
         $this->load->model('m_pesanan_masuk');

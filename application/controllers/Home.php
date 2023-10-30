@@ -10,10 +10,6 @@ class Home extends CI_Controller
 		// Mendapatkan role_id dari sesi
 		$role_id = $this->session->userdata('role_id');
 
-		// Menambahkan kondisi untuk role_id
-		if ($role_id == 1) {
-			redirect('admin');
-		}
 
 		// Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 		$this->load->model('m_produk');
