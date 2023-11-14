@@ -143,8 +143,9 @@
                                         <div class="product-social-sharing pt-25">
                                             <ul>
 
+
                                                 <li class="button1" style="width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: white; border: 1px solid orange;">
-                                                    <a id="addToCartButton" href="#" data-produk-id="<?= $produk['id_produk'] ?>">
+                                                    <a id="addToCartButton" href="<?= base_url('belanja/add/' . $produk['id_produk']) ?>">
                                                         <i class="fa fa-cart-shopping" style="color: orange;"></i>
                                                         <span style="color: orange;">Tambahkan ke keranjang</span>
                                                     </a>
@@ -443,48 +444,49 @@
         /* Warna teks tombol saat dihover */
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $("#addToCartButton").click(function(event) {
-            event.preventDefault(); // Mencegah pergi ke URL "#"
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('#addToCartButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Menghentikan aksi bawaan dari tombol submit
 
-            // Gantilah ini dengan cara yang sesuai untuk mendapatkan nilai 'role_id' dari pengguna.
-            var role_id = 2; // Misalnya, Anda mengatur role_id dengan nilai 2.
-
-            if (role_id === 2) {
-                // Role ID sama dengan 2, arahkan pengguna ke halaman login_user
-                window.location.href = '<?= base_url('login_user') ?>'; // Gantilah 'URL_Login_User' dengan URL login_user yang sesuai.
-            } else {
-                var produkID = $(this).data('produk-id');
-                var qty = $("#qty").val(); // Mengambil nilai qty dari elemen input
-
-                $.ajax({
-                    url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>', // Ganti dengan URL yang sesuai
-                    method: "POST",
-                    data: {
-                        qty: qty
-                    },
-                    success: function(response) {
-                        location.reload();
-                        Swal.fire({
-                            position: 'top-center',
-                            icon: 'success',
-                            title: 'BERHASIL DITAMBAHKAN DI KERANJANG',
-                            showConfirmButton: false,
-                            timer: 1000,
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href="">Why do I have this issue?</a>'
-                        });
-                    }
-                });
+            // Periksa apakah pengguna telah login dengan role_id 2
+            var role_id = <?php echo $this->session->userdata('role_id'); ?>;
+            if (role_id !== 2) {
+                // Jika pengguna belum login atau rolenya tidak sesuai, arahkan ke halaman login_user
+                window.location.href = '<?= base_url('login_user'); ?>';
+                return;
             }
+
+            var produkID = $(this).data('produk-id');
+            var qty = $("#qty").val(); // Mengambil nilai qty dari elemen input
+
+            $.ajax({
+                url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>', // Ganti dengan URL yang sesuai
+                method: "POST",
+                data: {
+                    qty: qty
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Produk Ditambahkan ke Keranjang',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function() {
+                        location.reload(); // Refresh halaman setelah 1.5 detik
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href="">Why do I have this issue?</a>'
+                    });
+                }
+            });
         });
     });
 </script>

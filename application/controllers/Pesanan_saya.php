@@ -14,8 +14,10 @@ class Pesanan_saya extends CI_Controller
 
         // Mendapatkan role_id dari sesi
         $role_id = $this->session->userdata('role_id');
-
+        if ($role_id == 1) {
+            redirect('admin');
         }
+
         $this->load->model('m_setting');
         $this->load->model('m_pesanan_masuk');
         $this->load->model('m_transaksi1');

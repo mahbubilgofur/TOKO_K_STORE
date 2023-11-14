@@ -6,11 +6,13 @@ class Home extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
 		// Mendapatkan role_id dari sesi
 		$role_id = $this->session->userdata('role_id');
 
-
+		// Menambahkan kondisi untuk role_id
+		if ($role_id == 1) {
+			redirect('admin');
+		}
 		// Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 		$this->load->model('m_produk');
 		$this->load->model('m_setting');
@@ -46,7 +48,6 @@ class Home extends CI_Controller
 				}
 			}
 		}
-
 		$DATA = array(
 			'data_produk' => $produk,
 			'queryproduk' => $queryproduk,

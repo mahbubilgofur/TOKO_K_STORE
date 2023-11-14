@@ -5,17 +5,22 @@ class Belanja extends CI_Controller
 {
     public function __construct()
     {
-
         parent::__construct();
+        // Mendapatkan role_id dari sesi
+        $role_id = $this->session->userdata('role_id');
 
+        // Menambahkan kondisi untuk role_id
+        if ($role_id == 1) {
+            redirect('admin');
+        }
         $this->load->model('m_setting');
         $this->load->model('m_produk');
         $this->load->model('m_user');
         $this->load->model('m_transaksi1');
         $this->load->library('cart');
         $this->load->helper('form');
+        $this->load->library('session');
     }
-
     public function index()
     {
         $this->load->view('home/header');

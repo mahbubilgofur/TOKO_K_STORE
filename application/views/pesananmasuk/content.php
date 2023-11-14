@@ -91,7 +91,7 @@
                                                             <th>Rp.<?= number_format($value->total_bayar, 0) ?></th>
                                                         </tr>
                                                     </table>
-                                                    <img src="<?= base_url('file_bukti_pembayaran/' . $value->bukti_bayar) ?>" alt="">
+                                                    <img src="<?= base_url('file_bukti_pembayaran/' . $value->bukti_bayar) ?>" alt="" width="100%" height="100%" style="object-fit: cover;">
                                                 </div>
                                                 <!-- <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
