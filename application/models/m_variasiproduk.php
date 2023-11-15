@@ -44,19 +44,31 @@ class M_variasiproduk extends CI_Model
     }
     public function getDatavariasiproduk1()
     {
-        $this->db->select('RIGHT(tbl_variasiproduk.id_variasiproduk,5) as id_variasiproduk', FALSE);
-        $this->db->order_by('id_variasiproduk', 'DESC');
-        $this->db->limit(1);
+        $this->db->select('MAX(RIGHT(tbl_variasiproduk.id_variasiproduk, 5)) as max_id', FALSE);
         $query = $this->db->get('tbl_variasiproduk');
-        if ($query->num_rows() <> 0) {
-            $data = $query->row();
-            $kode = intval($data->id_variasiproduk) + 1;
+        $result = $query->row();
+
+        if ($result->max_id !== null) {
+            $next_id = intval($result->max_id) + 1;
         } else {
-            $kode = 1;
+            $next_id = 1;
         }
-        $batas = str_pad($kode, 5, "0", STR_PAD_LEFT);
-        $kodetampil = "VAR" . $batas;
-        return $kodetampil;
+
+        $formatted_id = 'VAR' . str_pad($next_id, 5, "0", STR_PAD_LEFT);
+        return $formatted_id;
+    }
+
+    public function get_last_variasi_id()
+    {
+        $this->db->select_max('id_variasiproduk');
+        $query = $this->db->get('tbl_variasiproduk');
+
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->id_variasiproduk;
+        } else {
+            return 0;
+        }
     }
 
     public function data_produk()
@@ -74,22 +86,26 @@ class M_variasiproduk extends CI_Model
     {
         $this->db->insert('tbl_variasiproduk', $data_variasi);
     }
-    // Menyimpan informasi gambar 1-5 ke dalam tabel variasi_produk
-    public function save_gambar_variasi($id_variasiproduk, $gambar1, $gambar2, $gambar3, $gambar4, $gambar5)
+    public function insert_batch_variasi_produk($data)
     {
-        $data_gambar = array(
-            'id_variasiproduk' => $id_variasiproduk,
-            'gambar1' => $gambar1,
-            'gambar2' => $gambar2,
-            'gambar3' => $gambar3,
-            'gambar4' => $gambar4,
-            'gambar5' => $gambar5
-        );
-        $this->db->insert('tbl_variasiproduk', $data_gambar);
+        $this->db->insert_batch('tbl_variasiproduk', $data);
     }
     public function update_gambar_variasi($id_variasiproduk, $nama_gambar)
     {
         $this->db->where('id_variasiproduk', $id_variasiproduk);
         $this->db->update('tbl_variasi_produk', array('gambar' => $nama_gambar));
+    }
+    public function getGambarProdukById($id_produk, $gambar_terpilih)
+    {
+        // Mengambil nama gambar produk berdasarkan ID dari tabel tbl_produk
+        $this->db->select($gambar_terpilih); // Gunakan parameter yang diberikan (gambar1, gambar2, gambar3, dll.)
+        $this->db->where('id_produk', $id_produk);
+        $query = $this->db->get('tbl_produk');
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->$gambar_terpilih;
+        } else {
+            return NULL;
+        }
     }
 }

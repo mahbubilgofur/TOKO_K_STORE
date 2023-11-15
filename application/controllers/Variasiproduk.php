@@ -36,22 +36,21 @@ class Variasiproduk extends CI_Controller
         $this->load->view('layout/footer');
     }
 
-
     public function input_variasi()
     {
-        // Load model
         $this->load->model('M_variasiproduk');
         $data['data_variasiproduk'] = $this->M_variasiproduk->getDatavariasiproduk();
-        // Data untuk ditampilkan di view
         $data['data_variasi'] = $this->M_variasiproduk->getDatavariasiproduk1();
         $data['data_produk'] = $this->M_variasiproduk->get_all_produk();
 
         // Validasi form
         $this->form_validation->set_rules('id_variasiproduk', 'ID VARIASI', 'required');
         $this->form_validation->set_rules('id_produk', 'ID PRODUK', 'required');
-        $this->form_validation->set_rules('warna', 'WARNA', 'required');
-        $this->form_validation->set_rules('ukuran', 'UKURAN', 'required');
-        $this->form_validation->set_rules('stok', 'STOK', 'required|numeric');
+        for ($i = 1; $i <= 5; $i++) {
+            $this->form_validation->set_rules("warna$i", "Warna $i", 'required');
+            $this->form_validation->set_rules("ukuran$i", "Ukuran $i", 'required');
+            $this->form_validation->set_rules("stok$i", "Stok $i", 'required|numeric');
+        }
         $this->form_validation->set_rules('gambar_terpilih', 'Gambar Terpilih', 'required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -61,25 +60,42 @@ class Variasiproduk extends CI_Controller
             $this->load->view('layout/footer');
         } else {
             // Jika validasi berhasil, proses input ke database
-            $id_variasiproduk = $this->input->post('id_variasiproduk');
             $id_produk = $this->input->post('id_produk');
-            $warna = $this->input->post('warna');
-            $ukuran = $this->input->post('ukuran');
-            $stok = $this->input->post('stok');
             $gambar_terpilih = $this->input->post('gambar_terpilih');
 
+            // Mendapatkan nama file gambar dari tbl_produk
+            $gambar_produk = $this->getGambarProdukById($id_produk, $gambar_terpilih);
+
+            // Menyimpan gambar di folder ./gambarvariasi/
+            $gambar_variasi = $this->saveGambarVariasi($gambar_produk, $gambar_terpilih);
+
             // Data untuk disimpan ke dalam tabel variasi_produk
-            $data_variasi = array(
-                'id_variasiproduk' => $id_variasiproduk,
-                'id_produk' => $id_produk,
-                'warna' => $warna,
-                'ukuran' => $ukuran,
-                'stok' => $stok,
-                'gambar' => $gambar_terpilih
-            );
+            $data_variasi = array();
+
+            // Ambil ID variasi terakhir dari model
+            $last_id_variasi = $this->M_variasiproduk->get_last_variasi_id();
+
+            for ($i = 1; $i <= 5; $i++) {
+                $warna = $this->input->post("warna$i");
+                $ukuran = strtoupper($this->input->post("ukuran$i")); // Mengubah ukuran menjadi huruf kapital
+                $stok = $this->input->post("stok$i");
+
+                // Membuat ID variasi baru dengan nomor yang diincrement
+                $new_number = intval(substr($last_id_variasi, 3)) + $i;
+                $new_id_variasi = 'VAR' . str_pad($new_number, 5, '0', STR_PAD_LEFT);
+
+                $data_variasi[] = array(
+                    'id_variasiproduk' => $new_id_variasi,
+                    'id_produk' => $id_produk,
+                    'warna' => ucfirst(strtolower($warna)),
+                    'ukuran' => $ukuran,
+                    'stok' => $stok,
+                    'gambar' => $gambar_variasi,
+                );
+            }
 
             // Simpan informasi variasi_produk ke database
-            $this->M_variasiproduk->insert_variasi_produk($data_variasi);
+            $this->M_variasiproduk->insert_batch_variasi_produk($data_variasi);
 
             // Redirect dengan pesan sukses
             $this->session->set_flashdata('success', 'Data variasi_produk berhasil disimpan');
@@ -87,6 +103,110 @@ class Variasiproduk extends CI_Controller
         }
     }
 
+    // public function input_variasi()
+    // {
+    // // Load model
+    // $this->load->model('M_variasiproduk');
+    // $data['data_variasiproduk'] = $this->M_variasiproduk->getDatavariasiproduk();
+    // // Data untuk ditampilkan di view
+    // $data['data_variasi'] = $this->M_variasiproduk->getDatavariasiproduk1();
+    // $data['data_produk'] = $this->M_variasiproduk->get_all_produk();
+
+    //     // Validasi form
+    //     $this->form_validation->set_rules('id_variasiproduk', 'ID VARIASI', 'required');
+    //     $this->form_validation->set_rules('id_produk', 'ID PRODUK', 'required');
+    //     $this->form_validation->set_rules('warna', 'WARNA', 'required');
+    //     $this->form_validation->set_rules('ukuran', 'UKURAN', 'required');
+    //     $this->form_validation->set_rules('stok', 'STOK', 'required|numeric');
+    //     $this->form_validation->set_rules('gambar_terpilih', 'Gambar Terpilih', 'required');
+
+    //     if ($this->form_validation->run() == FALSE) {
+    //         $this->load->view('layout/header');
+    //         $this->load->view('admin/navbar');
+    //         $this->load->view('variasiproduk/viewvariasiproduk', $data);
+    //         $this->load->view('layout/footer');
+    //     } else {
+    //         // Jika validasi berhasil, proses input ke database
+    //         $id_variasiproduk = $this->input->post('id_variasiproduk');
+    //         $id_produk = $this->input->post('id_produk');
+    //         $warna = ucfirst(strtolower($this->input->post('warna')));
+    //         $ukuran = $this->input->post('ukuran');
+    //         $stok = $this->input->post('stok');
+    //         $gambar_terpilih = $this->input->post('gambar_terpilih');
+
+    //         // Mendapatkan nama file gambar dari tbl_produk
+    //         $gambar_produk = $this->getGambarProdukById($id_produk, $gambar_terpilih);
+
+    //         // Menyimpan gambar di folder ./gambarvariasi/
+    //         $gambar_variasi = $this->saveGambarVariasi($gambar_produk, $gambar_terpilih);
+
+    //         // Data untuk disimpan ke dalam tabel variasi_produk
+    //         $data_variasi = array(
+    //             'id_variasiproduk' => $id_variasiproduk,
+    //             'id_produk' => $id_produk,
+    //             'warna' => $warna,
+    //             'ukuran' => $ukuran,
+    //             'stok' => $stok,
+    //             'gambar' => $gambar_variasi
+    //         );
+
+    //         // Simpan informasi variasi_produk ke database
+    //         $this->M_variasiproduk->insert_variasi_produk($data_variasi);
+
+    //         // Redirect dengan pesan sukses
+    //         $this->session->set_flashdata('success', 'Data variasi_produk berhasil disimpan');
+    //         redirect('variasiproduk');
+    //     }
+    // }
+    // private function saveGambarVariasi($gambar_produk, $gambar_terpilih)
+    // {
+    //     $source_path = './gambarproduk/' . $gambar_produk;
+    //     $destination_path = './gambarvariasi/';
+
+    //     $new_filename = uniqid() . '_' . basename($gambar_terpilih);
+
+    //     // Menambahkan kondisi untuk menangani kasus jika gambar tidak ada
+    //     if (file_exists($source_path)) {
+    //         if (copy($source_path, $destination_path . $new_filename)) {
+    //             return $new_filename;
+    //         } else {
+    //             return 'default.jpg';
+    //         }
+    //     } else {
+    //         return 'default.jpg';
+    //     }
+    // }
+    private function saveGambarVariasi($gambar_produk, $gambar_terpilih)
+    {
+        $source_path = './gambarproduk/' . $gambar_produk;
+        $destination_path = './gambarvariasi/';
+
+        log_message('info', 'Source path: ' . $source_path);
+        log_message('info', 'Destination path: ' . $destination_path);
+
+        $new_filename = uniqid() . '_' . basename($gambar_terpilih);
+
+        // Menambahkan kondisi untuk menangani kasus jika gambar tidak ada
+        if (file_exists($source_path)) {
+            if (copy($source_path, $destination_path . $new_filename)) {
+                return $new_filename;
+            } else {
+                log_message('error', 'Gagal menyimpan gambar ke folder variasi');
+                return 'default.jpg';
+            }
+        } else {
+            log_message('error', 'File gambar produk tidak ditemukan');
+            return 'default.jpg';
+        }
+    }
+
+
+
+    // Menambahkan metode untuk mendapatkan nama gambar produk berdasarkan ID
+    private function getGambarProdukById($id_produk, $gambar_terpilih)
+    {
+        return $this->M_variasiproduk->getGambarProdukById($id_produk, $gambar_terpilih);
+    }
     // public function input_variasi()
     // {
     //     // Load model

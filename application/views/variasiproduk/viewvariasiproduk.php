@@ -101,36 +101,53 @@
                                                 <label for="preview">Gambar yang Dipilih:</label>
                                                 <img id="preview" src="#" alt="Preview Gambar" style="max-width: 100px; max-height: 100px;">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="warna">WARNA:</label>
-                                                <select name="warna" class="form-control">
-                                                    <option value="">Pilih warna</option>
-                                                    <option value="merah">Merah</option>
-                                                    <option value="biru">Biru</option>
-                                                    <option value="hijau">Hijau</option>
-                                                    <option value="kuning">Kuning</option>
-                                                    <option value="jingga">Jingga</option>
-                                                    <option value="ungu">Ungu</option>
-                                                    <option value="hitam">Hitam</option>
-                                                    <option value="putih">Putih</option>
-                                                    <option value="abu-abu">Abu-abu</option>
-                                                </select>
-                                            </div>
+                                            <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                                <div class="form-group">
+                                                    <label>Warna</label>
+                                                    <input type="text" class="form-control warna-input" name="warna<?= $i ?>" placeholder="Warna" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Ukuran</label>
+                                                    <input type="text" class="form-control" name="ukuran<?= $i ?>" placeholder="Ukuran" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Stok</label>
+                                                    <input type="number" class="form-control" name="stok<?= $i ?>" placeholder="Stok" required>
+                                                </div>
+                                            <?php endfor; ?>
 
-                                            <div class="form-group">
-                                                <label for="ukuran">UKURAN</label>
-                                                <input type="text" class="form-control" name="ukuran" placeholder="UKURAN" required>
-                                            </div>
+                                            <!-- Tambahkan skrip JavaScript di sini -->
+                                            <script>
+                                                document.addEventListener("DOMContentLoaded", function() {
+                                                    // Ambil elemen input warna pertama
+                                                    var warnaInput1 = document.querySelector('.warna-input');
 
-                                            <div class="form-group">
-                                                <label for="stok">STOK</label>
-                                                <input type="number" class="form-control" name="stok" placeholder="STOK" required>
-                                            </div>
+                                                    // Tambahkan event listener untuk mengisi nilai ke semua input warna
+                                                    warnaInput1.addEventListener('input', function() {
+                                                        var warnaValue = this.value;
+
+                                                        // Ambil semua input warna
+                                                        var warnaInputs = document.querySelectorAll('.warna-input');
+
+                                                        // Iterasi melalui semua input warna dan isi nilai yang sama
+                                                        warnaInputs.forEach(function(input) {
+                                                            input.value = warnaValue;
+                                                        });
+                                                    });
+                                                });
+                                            </script>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary">Save</button>
                                             </div>
                                         </form>
+                                        <!-- Script JavaScript -->
+                                        <script>
+                                            document.getElementById('warna').addEventListener('input', function() {
+                                                this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1).toLowerCase();
+                                            });
+                                        </script>
+
                                         <script>
                                             document.getElementById('id_produk').addEventListener('change', function() {
                                                 var selectedOption = this.options[this.selectedIndex];
@@ -177,7 +194,6 @@
                                                 }
                                             }
                                         </script>
-
 
                                     </div>
                                 </div>
@@ -229,10 +245,3 @@
 </section>
 <!-- /.content -->
 </div>
-<script>
-    document.getElementById('id_produk').addEventListener('change', function() {
-        var selectedOption = this.options[this.selectedIndex];
-        var selectedImage = selectedOption.getAttribute('data-image');
-        document.getElementById('selected-image').src = selectedImage;
-    });
-</script>
