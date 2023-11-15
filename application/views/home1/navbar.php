@@ -1,13 +1,11 @@
 <body>
-
-
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
         <!-- Begin Header Area -->
-        <header class="li-header-4" style="background-color: #006494;">
+        <header class="li-header-4">
             <!-- Begin Header Top Area -->
             <div class="header-top">
                 <div class="container">
@@ -15,15 +13,9 @@
                         <!-- Begin Header Top Left Area -->
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
-                                <li>
-                                    <span>Ikuti Kami</span>
-                                    <a href="#">
-                                        <i class="fab fa-facebook" style="color: white;"></i>
-                                    </a>
-                                    <a href="<?= base_url('login_user') ?>">
-                                        <i class="fa-brands fa-instagram" style="color: white; margin-right: 20px;"></i>
-                                    </a>
-                                </li>
+                                <ul class="phone-wrap">
+
+                                </ul>
 
                             </div>
                         </div>
@@ -50,7 +42,7 @@
                         <div class="col-lg-3">
                             <div class="logo pb-sm-30 pb-xs-50">
                                 <a href="<?= base_url('home') ?>">
-                                    <img src="<?= base_url() ?>assets/gambar_icon/logoo.png" alt="">
+                                    <img src="<?= base_url() ?>assets/gambar_icon/icon3.png" alt="">
                                 </a>
                             </div>
                         </div>

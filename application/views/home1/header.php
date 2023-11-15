@@ -44,14 +44,13 @@
   <!-- Modernizr js -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="<?= base_url() ?>template/js/vendor/modernizr-2.8.3.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <link rel="stylesheet" type="text/css" href="<?= base_url() ?>coloshop-master/styles/bootstrap4/bootstrap.min.css">
+  <link href="<?= base_url() ?>coloshop-master/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url() ?>coloshop-master/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url() ?>coloshop-master/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url() ?>coloshop-master/plugins/OwlCarousel2-2.2.1/animate.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url() ?>coloshop-master/styles/main_styles.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url() ?>coloshop-master/styles/responsive.css">
 
-
-
-  <link rel="icon" type="image/x-icon" href="<?= base_url()?>homepage/assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="<?= base_url()?>homepage/stylesheet" />
 </head>

@@ -31,569 +31,42 @@
                 </div>
                 <div class="shop-products-wrapper">
                     <div class="tab-content">
-                        <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
-                            <div class="product-area shop-product-area">
-                                <div class="row">
-                                    <?php if (empty($produk)) : ?>
-                                        <h2>Produk yang Anda cari tidak ditemukan</h2>
-                                    <?php else : ?>
-                                        <?php foreach ($produk as $row) : ?>
-                                            <div class="product-item men col-lg-4 col-md-4 col-sm-6">
-                                                <div class="product discount product_filter">
-                                                    <div class="product_image">
-                                                        <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
-                                                            <img src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="<?= $row->nama ?>" style=" height: 200px;">
-                                                        </a>
-                                                    </div>
-                                                    <div class="favorite favorite_left"></div>
-                                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
-                                                    <div class="product_info">
-                                                        <h6 class="product_name"><a href="single.html"><?php echo $row->nama ?></a></h6>
-                                                        <div class="product_price">RP.<?= number_format($row->harga, 0) ?></div>
-                                                    </div>
-                                                </div>
-                                                <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                                            </div>
-                                        <?php endforeach; ?>
+                    <section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 ">
+        <?php if (empty($produk)) : ?>
+                <h2>Produk yang Anda cari tidak ditemukan</h2>
+            <?php else : ?>
+                <?php foreach ($produk as $row) : ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-5"> <!-- Ubah jumlah kolom untuk tampilan hp -->
+                    <div class="card h-100" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                        <!-- Product image-->
+                        <div class="card-img-container">
+                        <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
+                            <img class="card-img-top img-fluid" src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" style=" height: 200px;" alt="Product Image" />
+                        </a>
+                        </div>
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder"><?php echo $row->nama ?></h5>
+                                <!-- Product price-->
+                                RP.<?= number_format($row->harga, 0) ?>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('home/detail/' . $row->id_produk); ?>">View options</a></div>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
                                     <?php endif; ?>
-                                </div>
+        </div>
+    </div>
+</section>
 
-                            </div>
-                        </div>
-                        <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/12.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/11.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/10.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/9.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/8.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/7.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/6.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/5.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/4.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/3.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/2.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action mb-xs-30">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row product-layout-list last-child">
-                                        <div class="col-lg-3 col-md-5 ">
-                                            <div class="product-image">
-                                                <a href="<?= base_url('home/detail') ?>">
-                                                    <img src="<?= base_url() ?>template/images/product/small-size/1.jpg" alt="Li's Product Image">
-                                                </a>
-                                                <span class="sticker">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-7">
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a href="product-details.html">Graphic Corner</a>
-                                                        </h5>
-                                                        <div class="rating-box">
-                                                            <ul class="rating">
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <h4><a class="product_name" href="<?= base_url('home/detail') ?>">Hummingbird printed t-shirt</a></h4>
-                                                    <div class="price-box">
-                                                        <span class="new-price">$46.80</span>
-                                                    </div>
-                                                    <p>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Desig</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="shop-add-action">
-                                                <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Add to cart</a></li>
-                                                    <li class="wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a></li>
-                                                    <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Quick view</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="paginatoin-area">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 pt-xs-15">
@@ -623,47 +96,24 @@
                         <h2>FILTER</h2>
                     </div>
                     <div class="filter-sub-area">
-                        <h5 class="filter-sub-titel">Lokasi</h5>
+                        <h5 class="filter-sub-titel">Jenis Barang</h5>
                         <div class="categori-checkbox">
-                            <form action="#">
-                                <input type="text" id="search-input" placeholder="Cari provinsi...">
-                                <ul class="ul" id="provinsi-list">
-                                    <li><input type="checkbox" name="product-categori"><a href="#">ACEH</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">BALI</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">BANTEN</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">BENGKULU</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">DI YOGYAKARTA</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">DKI JAKARTA</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">GORONTALO</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">JAMBI</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">KALIMANTAN BARAT</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">KALIMANTAN SELATAN</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">KALIMANTAN TENGAH</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">KALIMANTAN TIMUR</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">KALIMANTAN UTARA</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">KEPULAUAN BANGKA BELITUNG</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">KEPULAUAN RIAU</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">LAMPUNG</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">MALUKU</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">MALUKU UTARA</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">NUSA TENGGARA BARAT</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">NUSA TENGGARA TIMUR</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">PAPUA</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">PAPUA BARAT</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">RIAU</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">SULAWESI BARAT</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">SULAWESI SELATAN</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">SULAWESI TENGAH</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">SULAWESI TENGGARA</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">SULAWESI UTARA</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">SUMATERA BARAT</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">SUMATERA SELATAN</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">SUMATERA UTARA</a></li>
-                                </ul>
+                        <form action="#">
+                         <input type="text" id="search-input" placeholder="Cari Nama Barang...">
+                         <?php foreach ($produk as $row) : ?>
+                             <ul class="ul" id="barang-list">
+                                 <li>
+                                     <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
+                                         <?php echo strtolower($row->nama); ?>
+                                     </a>
+                                 </li>
+                             </ul>
+                         <?php endforeach; ?>
+                        </form>
 
-                            </form>
                         </div>
                     </div>
+                  
 
                     <div class="filter-sub-area pt-sm-10 pt-xs-10">
                         <h5 class="filter-sub-titel">Size</h5>
@@ -678,6 +128,18 @@
                             </form>
                         </div>
                     </div>
+                    <form action="<?= base_url('produk/filterByPrice'); ?>" method="get" id="filter-form">
+    <div class="form-group">
+        <label for="min-price">Harga Min:</label>
+        <input type="number" id="min-price" name="min-price" min="0" placeholder="Masukkan Harga Min">
+    </div>
+    <div class="form-group">
+        <label for="max-price">Harga Max:</label>
+        <input type="number" id="max-price" name="max-price" min="0" placeholder="Masukkan Harga Max">
+    </div>
+    <button type="submit">Filter</button>
+</form>
+
 
                     <!-- <div class="filter-sub-area pt-sm-10 pt-xs-10">
                         <h5 class="filter-sub-titel">Color</h5>

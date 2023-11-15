@@ -136,7 +136,7 @@ class Login extends CI_Controller
             $message = '<div class="alert alert-success" role="alert">Anda berhasil logout</div>';
             $redirect_url = base_url('login_user');
         } else {
-            // Handle kasus lain jika diperlukan
+            // Handle kasus lain jika diperlukan 
             $message = '<div class="alert alert-success" role="alert">Anda berhasil logout</div>';
             $redirect_url = base_url('login'); // Atur pengalihan default
         }

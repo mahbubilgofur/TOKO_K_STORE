@@ -3690,7 +3690,7 @@ product-item {
 }
 
 .footer-static-middle {
-	background-color: #ffc107;
+	background-color: #006494;
 	width: 100%;
 	height: auto;
 }
@@ -3890,9 +3890,9 @@ product-item {
 /*----------------------------------------*/
 /*  03. Home Page Two
 /*----------------------------------------*/
-.li-header-4 {
-	background: #ffc54d;
-}
+/* .li-header-4 {
+	background: #006494;
+} */
 
 .li-header-4 .header-top {
 	background: transparent;
