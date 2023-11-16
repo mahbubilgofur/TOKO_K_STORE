@@ -47,9 +47,9 @@
                                     <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar3 ?>" alt="Gambar Produk" style="max-width: 15%;">
                                     <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar4 ?>" alt="Gambar Produk" style="max-width: 15%;">
                                     <img src="<?php echo base_url('./gambarproduk/') . $data_produk->gambar5 ?>" alt="Gambar Produk" style="max-width: 15%;">
-     
+
                                 </div>
-                               
+
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>NAMA</label>
@@ -102,7 +102,7 @@
                                         <label>STOK</label>
                                         <input type="text" class="form-control" name="stok" placeholder="STOK" required value="<?php echo $data_produk->stok; ?>">
                                     </div>
-                                   
+
 
                                 </div>
                                 <!-- Tampilkan gambar yang akan diunggah (opsional) -->
@@ -117,46 +117,45 @@
                             </form>
 
                             <script>
-                                    // Fungsi untuk menampilkan gambar saat berkas gambar diunggah
-                                    function previewImage(input, previewId) {
-                                        var previewGambar = document.getElementById(previewId);
+                                // Fungsi untuk menampilkan gambar saat berkas gambar diunggah
+                                function previewImage(input, previewId) {
+                                    var previewGambar = document.getElementById(previewId);
 
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
 
-                                            reader.onload = function(e) {
-                                                previewGambar.src = e.target.result;
-                                                previewGambar.style.display = 'block'; // Tampilkan gambar
-                                            };
+                                        reader.onload = function(e) {
+                                            previewGambar.src = e.target.result;
+                                            previewGambar.style.display = 'block'; // Tampilkan gambar
+                                        };
 
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
+                                        reader.readAsDataURL(input.files[0]);
                                     }
+                                }
 
-                                    // Membaca perubahan pada input berkas gambar
-                                    var inputBerkas1 = document.getElementById('gambar1');
-                                    var inputBerkas2 = document.getElementById('gambar2');
-                                    var inputBerkas3 = document.getElementById('gambar3');
-                                    var inputBerkas4 = document.getElementById('gambar4');
-                                    var inputBerkas5 = document.getElementById('gambar5');
+                                // Membaca perubahan pada input berkas gambar
+                                var inputBerkas1 = document.getElementById('gambar1');
+                                var inputBerkas2 = document.getElementById('gambar2');
+                                var inputBerkas3 = document.getElementById('gambar3');
+                                var inputBerkas4 = document.getElementById('gambar4');
+                                var inputBerkas5 = document.getElementById('gambar5');
 
-                                    inputBerkas1.addEventListener('change', function() {
-                                        previewImage(inputBerkas1, 'preview-gambar');
-                                    });
-                                    inputBerkas2.addEventListener('change', function() {
-                                        previewImage(inputBerkas2, 'preview-gambar');
-                                    });
-                                    inputBerkas3.addEventListener('change', function() {
-                                        previewImage(inputBerkas3, 'preview-gambar');
-                                    });
-                                    inputBerkas4.addEventListener('change', function() {
-                                        previewImage(inputBerkas4, 'preview-gambar');
-                                    });
-                                    inputBerkas5.addEventListener('change', function() {
-                                        previewImage(inputBerkas5, 'preview-gambar');
-                                    });
-
-                                    </script>
+                                inputBerkas1.addEventListener('change', function() {
+                                    previewImage(inputBerkas1, 'preview-gambar');
+                                });
+                                inputBerkas2.addEventListener('change', function() {
+                                    previewImage(inputBerkas2, 'preview-gambar');
+                                });
+                                inputBerkas3.addEventListener('change', function() {
+                                    previewImage(inputBerkas3, 'preview-gambar');
+                                });
+                                inputBerkas4.addEventListener('change', function() {
+                                    previewImage(inputBerkas4, 'preview-gambar');
+                                });
+                                inputBerkas5.addEventListener('change', function() {
+                                    previewImage(inputBerkas5, 'preview-gambar');
+                                });
+                            </script>
 
 
                         </div>

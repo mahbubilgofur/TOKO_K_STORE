@@ -120,7 +120,7 @@
                                                     <input type="text" class="form-control" name="stok" placeholder="STOK" required value="<?= set_value('stok'); ?>">
                                                 </div>
 
-                                               
+
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <span id="preview-gambar-container">
@@ -133,53 +133,52 @@
                                             </div>
                                         </form>
 
-                                     <script>
-                                    // Fungsi untuk menampilkan gambar saat berkas gambar diunggah
-                                    function previewImage(input, previewId) {
-                                        var previewGambar = document.getElementById(previewId);
+                                        <script>
+                                            // Fungsi untuk menampilkan gambar saat berkas gambar diunggah
+                                            function previewImage(input, previewId) {
+                                                var previewGambar = document.getElementById(previewId);
 
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
+                                                if (input.files && input.files[0]) {
+                                                    var reader = new FileReader();
 
-                                            reader.onload = function(e) {
-                                                previewGambar.src = e.target.result;
-                                                previewGambar.style.display = 'block'; // Tampilkan gambar
-                                            };
+                                                    reader.onload = function(e) {
+                                                        previewGambar.src = e.target.result;
+                                                        previewGambar.style.display = 'block'; // Tampilkan gambar
+                                                    };
 
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
-                                    }
+                                                    reader.readAsDataURL(input.files[0]);
+                                                }
+                                            }
 
-                                    // Membaca perubahan pada input berkas gambar
-                                    var inputBerkas1 = document.getElementById('gambar1');
-                                    var inputBerkas2 = document.getElementById('gambar2');
-                                    var inputBerkas3 = document.getElementById('gambar3');
-                                    var inputBerkas4 = document.getElementById('gambar4');
-                                    var inputBerkas5 = document.getElementById('gambar5');
+                                            // Membaca perubahan pada input berkas gambar
+                                            var inputBerkas1 = document.getElementById('gambar1');
+                                            var inputBerkas2 = document.getElementById('gambar2');
+                                            var inputBerkas3 = document.getElementById('gambar3');
+                                            var inputBerkas4 = document.getElementById('gambar4');
+                                            var inputBerkas5 = document.getElementById('gambar5');
 
-                                    inputBerkas1.addEventListener('change', function() {
-                                        previewImage(inputBerkas1, 'preview-gambar');
-                                    });
-                                    inputBerkas2.addEventListener('change', function() {
-                                        previewImage(inputBerkas2, 'preview-gambar');
-                                    });
-                                    inputBerkas3.addEventListener('change', function() {
-                                        previewImage(inputBerkas3, 'preview-gambar');
-                                    });
-                                    inputBerkas4.addEventListener('change', function() {
-                                        previewImage(inputBerkas4, 'preview-gambar');
-                                    });
-                                    inputBerkas5.addEventListener('change', function() {
-                                        previewImage(inputBerkas5, 'preview-gambar');
-                                    });
+                                            inputBerkas1.addEventListener('change', function() {
+                                                previewImage(inputBerkas1, 'preview-gambar');
+                                            });
+                                            inputBerkas2.addEventListener('change', function() {
+                                                previewImage(inputBerkas2, 'preview-gambar');
+                                            });
+                                            inputBerkas3.addEventListener('change', function() {
+                                                previewImage(inputBerkas3, 'preview-gambar');
+                                            });
+                                            inputBerkas4.addEventListener('change', function() {
+                                                previewImage(inputBerkas4, 'preview-gambar');
+                                            });
+                                            inputBerkas5.addEventListener('change', function() {
+                                                previewImage(inputBerkas5, 'preview-gambar');
+                                            });
+                                        </script>
 
-                                    </script>
-                                    
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <!-- akhir Modal -->
+                        <!-- akhir Modal -->
 
 
                         <table id="example1" class="table table-bordered table-striped">
@@ -225,7 +224,7 @@
                                         <td><?php echo $row->nama_kategori ?></td>
                                         <td><?php echo $row->berat ?></td>
                                         <td><?php echo $row->stok ?></td>
-                                     
+
                                         <td>
                                             <a href="<?php echo base_url('produk/update/') . $row->id_produk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="<?php echo base_url('produk/delete/') . $row->id_produk ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

@@ -91,42 +91,126 @@
                             </div>
                             <div class="flex rY0UiC j9be9C">
                                 <div class="flex flex-column">
+                                    <!-- Tampilan warna -->
                                     <section class="flex items-center" style="margin-bottom: 24px; align-items: baseline;">
                                         <h3 class="oN9nMU">Warna</h3>
                                         <div class="flex items-center bR6mEk">
-                                            <button class="hUWqqt _69cHHm" aria-label="Hitam" aria-disabled="false">
-                                                <img class="I2jugL" src="<?= base_url() ?>template/images/product/small-size/kaos2.png">
-                                                Hitam
-                                            </button>
-                                            <button class="hUWqqt _69cHHm" aria-label="Abu Tua" aria-disabled="false">
-                                                <img class="I2jugL" src="">
-                                                Abu Tua
-                                            </button>
-                                            <button class="hUWqqt _69cHHm" aria-label="Abu Tua" aria-disabled="false">
-                                                <img class="I2jugL" src="">
-                                                Merah
-                                            </button>
-                                            <button class="hUWqqt _69cHHm" aria-label="Abu Tua" aria-disabled="false">
-                                                <img class="I2jugL" src="<?= base_url() ?>template/images/product/small-size/kaos1.jpg">
-                                                Biru
-                                            </button>
-
+                                            <?php $unique_colors = array_unique(array_column($variasi_produk, 'warna')); ?>
+                                            <?php foreach ($unique_colors as $color) : ?>
+                                                <?php $first_variation = current(array_filter($variasi_produk, function ($variasi) use ($color) {
+                                                    return $variasi->warna == $color;
+                                                })); ?>
+                                                <button type="button" class="hUWqqt warna-btn" aria-label="<?= $color ?>" aria-disabled="false" data-warna="<?= $color ?>">
+                                                    <img class="I2jugL" src="<?= base_url() ?>gambarvariasi/<?= $first_variation->gambar ?>">
+                                                    <?= $color ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </section>
+
+                                    <!-- Tampilan ukuran -->
                                     <section class="flex items-center" style="margin-bottom: 24px; align-items: baseline;">
                                         <h3 class="oN9nMU">Ukuran</h3>
                                         <div class="flex items-center bR6mEk">
-                                            <button class="hUWqqt" aria-label="XS" aria-disabled="false">XS</button>
-                                            <button class="hUWqqt" aria-label="S" aria-disabled="false">S</button>
-                                            <button class="hUWqqt" aria-label="M" aria-disabled="false">M</button>
-                                            <button class="hUWqqt" aria-label="L" aria-disabled="false">L</button>
-                                            <button class="hUWqqt" aria-label="XL" aria-disabled="false">XL</button>
-                                            <button class="hUWqqt" aria-label="XXL" aria-disabled="false">XXL</button>
-
+                                            <?php $unique_sizes = array_unique(array_column($variasi_produk, 'ukuran')); ?>
+                                            <?php foreach ($unique_sizes as $size) : ?>
+                                                <button type="button" class="hUWqqt ukuran-btn" aria-label="<?= $size ?>" aria-disabled="false" data-ukuran="<?= $size ?>">
+                                                    <?= $size ?>
+                                                </button>
+                                            <?php endforeach; ?>
                                         </div>
                                     </section>
 
+                                    <!-- Tampilan stok -->
+                                    <section class="flex items-center" style="margin-bottom: 24px; align-items: baseline;">
+                                        <h3 class="oN9nMU">Stok</h3>
+                                        <div class="flex items-center bR6mEk">
+                                            <span class="stok-label">STOK: 0</span>
+                                        </div>
+                                    </section>
+
+                                    <!-- Skrip jQuery -->
+                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                                    <!-- Skrip JavaScript -->
+                                    <script>
+                                        var warnaButtons = document.querySelectorAll('.warna-btn');
+                                        var ukuranButtons = document.querySelectorAll('.ukuran-btn');
+
+                                        // Variabel untuk menyimpan pilihan warna dan ukuran
+                                        var warnaTerpilih = null;
+                                        var ukuranTerpilih = null;
+
+                                        // Fungsi untuk menangani klik pada tombol warna
+                                        function handleWarnaClick(event) {
+                                            event.preventDefault();
+
+                                            // Menghapus centang dari tombol warna yang sebelumnya dipilih
+                                            if (warnaTerpilih !== null) {
+                                                document.querySelector('.warna-btn[data-warna="' + warnaTerpilih + '"]').classList.remove('selected');
+                                            }
+
+                                            warnaTerpilih = event.currentTarget.getAttribute('data-warna');
+                                            updateStok();
+
+                                            // Menambah centang pada tombol warna yang baru dipilih
+                                            event.currentTarget.classList.add('selected');
+                                        }
+
+                                        // Fungsi untuk menangani klik pada tombol ukuran
+                                        function handleUkuranClick(event) {
+                                            event.preventDefault();
+
+                                            // Menghapus centang dari tombol ukuran yang sebelumnya dipilih
+                                            if (ukuranTerpilih !== null) {
+                                                document.querySelector('.ukuran-btn[data-ukuran="' + ukuranTerpilih + '"]').classList.remove('selected');
+                                            }
+
+                                            ukuranTerpilih = event.currentTarget.getAttribute('data-ukuran');
+                                            updateStok();
+
+                                            // Menambah centang pada tombol ukuran yang baru dipilih
+                                            event.currentTarget.classList.add('selected');
+                                        }
+
+                                        // Fungsi untuk memperbarui tampilan stok sesuai dengan pilihan warna dan ukuran
+                                        function updateStok() {
+                                            if (warnaTerpilih !== null && ukuranTerpilih !== null) {
+                                                // Menggunakan Ajax untuk mengambil stok dari server
+                                                $.ajax({
+                                                    url: '<?= base_url('home/get_stok') ?>', // Sesuaikan dengan URL controller Anda
+                                                    type: 'POST',
+                                                    data: {
+                                                        warna: warnaTerpilih,
+                                                        ukuran: ukuranTerpilih
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function(response) {
+                                                        // Memperbarui tampilan stok di halaman
+                                                        console.log('Stok Terpilih:', response.stok);
+                                                        $('.stok-label').text('STOK: ' + response.stok);
+                                                    },
+                                                    error: function(xhr, status, error) {
+                                                        console.error('Error:', error);
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                        // Event listener untuk setiap tombol warna
+                                        warnaButtons.forEach(function(button) {
+                                            button.addEventListener('click', handleWarnaClick);
+                                        });
+
+                                        // Event listener untuk setiap tombol ukuran
+                                        ukuranButtons.forEach(function(button) {
+                                            button.addEventListener('click', handleUkuranClick);
+                                        });
+                                    </script>
+
+
                                 </div>
+
                             </div>
                             <div class="single-add-to-cart">
                                 <form action="#" class="cart-quantity">
@@ -399,6 +483,12 @@
 
 <!-- ini css untuk Ukuran -->
 <style>
+    /* Gaya centang pada tombol warna dan ukuran yang dipilih */
+    .hUWqqt.selected {
+        border: 2px solid #4CAF50;
+        /* Ganti dengan warna border yang diinginkan */
+    }
+
     /* Gaya untuk section */
     section.flex.items-center {
         margin-bottom: 24px;
@@ -442,6 +532,63 @@
         /* Warna latar belakang tombol saat dihover */
         color: #fff;
         /* Warna teks tombol saat dihover */
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .items-center {
+        align-items: center;
+    }
+
+    .bR6mEk {
+        margin-right: 10px;
+    }
+
+    .hUWqqt {
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+    .stok-label {
+        margin-right: 10px;
+    }
+
+    .selected {
+        border: 2px solid #00f;
+    }
+
+    .hUWqqt {
+        /* Gaya tombol normal */
+        background-color: #e0e0e0;
+        /* Ganti dengan warna latar belakang default */
+        color: #000;
+        /* Ganti dengan warna teks default */
+        transition: background-color 0.3s, color 0.3s;
+        /* Efek transisi untuk perubahan warna */
+
+        /* Gaya tombol saat di-hover */
+        &:hover {
+            background-color: #ccc;
+            /* Ganti dengan warna latar belakang saat di-hover */
+            color: #fff;
+            /* Ganti dengan warna teks saat di-hover */
+        }
+
+        /* Gaya tombol saat diklik */
+        &:active {
+            background-color: #999;
+            /* Ganti dengan warna latar belakang saat diklik */
+            color: #fff;
+            /* Ganti dengan warna teks saat diklik */
+        }
+
+        /* Menambahkan style ketika tombol dalam keadaan aktif */
+        &.active {
+            background-color: rgb(61, 61, 61);
+            color: white;
+        }
     }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -490,3 +637,48 @@
         });
     });
 </script>
+<!-- <script>
+    var warnaButtons = document.querySelectorAll('.warna-btn');
+    var ukuranButtons = document.querySelectorAll('.ukuran-btn');
+
+    // Variable untuk menyimpan pilihan warna dan ukuran
+    var warnaTerpilih = null;
+    var ukuranTerpilih = null;
+
+    // Function untuk menangani klik pada tombol warna
+    function handleWarnaClick(event) {
+        event.preventDefault();
+
+        warnaTerpilih = event.currentTarget.getAttribute('aria-label');
+        updateStok();
+    }
+
+    // Function untuk menangani klik pada tombol ukuran
+    function handleUkuranClick(event) {
+        event.preventDefault();
+
+        ukuranTerpilih = event.currentTarget.getAttribute('data-ukuran');
+        updateStok();
+    }
+
+    // Function untuk memperbarui tampilan stok sesuai dengan pilihan warna dan ukuran
+    function updateStok() {
+        if (warnaTerpilih !== null && ukuranTerpilih !== null) {
+            // TODO: Lakukan tindakan selanjutnya, seperti memperbarui stok sesuai warnaTerpilih dan ukuranTerpilih
+            // Misalnya, memanggil fungsi AJAX untuk mengambil stok dari server
+            // dan memperbarui tampilan stok di halaman
+            console.log('Warna Terpilih:', warnaTerpilih);
+            console.log('Ukuran Terpilih:', ukuranTerpilih);
+        }
+    }
+
+    // Tambahkan event listener untuk setiap tombol warna
+    warnaButtons.forEach(function(button) {
+        button.addEventListener('click', handleWarnaClick);
+    });
+
+    // Tambahkan event listener untuk setiap tombol ukuran
+    ukuranButtons.forEach(function(button) {
+        button.addEventListener('click', handleUkuranClick);
+    });
+</script> -->

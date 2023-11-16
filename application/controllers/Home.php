@@ -15,6 +15,7 @@ class Home extends CI_Controller
 		}
 		// Jika role_id adalah 1 atau jenis lain yang diizinkan, biarkan pengguna melanjutkan
 		$this->load->model('m_produk');
+		$this->load->model('m_variasiproduk');
 		$this->load->model('m_setting');
 		$this->load->model('m_user');
 		$this->load->model('m_kategori');
@@ -92,6 +93,9 @@ class Home extends CI_Controller
 	{
 		// Mengambil data produk berdasarkan $id_produk dari model Anda
 		$this->load->model('m_produk'); // Ganti 'm_produk' dengan nama model Anda
+		$data['variasi_produk'] = $this->m_variasiproduk->get_variasi_produk_by_id_produk($id_produk);
+		$data['warna_produk'] = $this->m_variasiproduk->get_warna_produk_by_id_produk($id_produk);
+
 		$data['produk'] = $this->m_produk->getProdukById($id_produk);
 		$produk = $this->m_produk->getDataproduk();
 		$queryproduk = $this->m_produk->getDataproduk1();
@@ -133,7 +137,22 @@ class Home extends CI_Controller
 			// Handle jika produk tidak ditemukan
 			show_404(); // Menampilkan halaman 404 Not Found
 		}
+	} // Metode AJAX untuk mendapatkan stok berdasarkan warna dan ukuran
+	// Controller: home.php
+	// Controller
+	public function get_stok()
+	{
+		$warna = $this->input->post('warna');
+		$ukuran = $this->input->post('ukuran');
+
+		// Panggil model untuk mendapatkan stok
+		$stok = $this->m_variasiproduk->get_stok($warna, $ukuran);
+
+		// Kembalikan stok sebagai response
+		echo json_encode(['stok' => $stok]);
 	}
+
+
 	// public function remove_cart_item($id_produk)
 	// {
 	// 	$this->load->library('session');

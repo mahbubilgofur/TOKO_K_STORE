@@ -67,7 +67,7 @@ class Variasiproduk extends CI_Controller
             $gambar_produk = $this->getGambarProdukById($id_produk, $gambar_terpilih);
 
             // Menyimpan gambar di folder ./gambarvariasi/
-            $gambar_variasi = $this->saveGambarVariasi($gambar_produk, $gambar_terpilih);
+            $gambar_variasi = $this->saveGambarVariasi($gambar_produk);
 
             // Data untuk disimpan ke dalam tabel variasi_produk
             $data_variasi = array();
@@ -176,26 +176,21 @@ class Variasiproduk extends CI_Controller
     //         return 'default.jpg';
     //     }
     // }
-    private function saveGambarVariasi($gambar_produk, $gambar_terpilih)
+
+
+    // Menambahkan metode untuk menyimpan gambar ke folder variasi
+    private function saveGambarVariasi($gambar_produk)
     {
         $source_path = './gambarproduk/' . $gambar_produk;
         $destination_path = './gambarvariasi/';
 
-        log_message('info', 'Source path: ' . $source_path);
-        log_message('info', 'Destination path: ' . $destination_path);
+        $extension = pathinfo($gambar_produk, PATHINFO_EXTENSION);
+        $new_filename = uniqid() . '_gambar_produk.' . $extension;
 
-        $new_filename = uniqid() . '_' . basename($gambar_terpilih);
-
-        // Menambahkan kondisi untuk menangani kasus jika gambar tidak ada
-        if (file_exists($source_path)) {
-            if (copy($source_path, $destination_path . $new_filename)) {
-                return $new_filename;
-            } else {
-                log_message('error', 'Gagal menyimpan gambar ke folder variasi');
-                return 'default.jpg';
-            }
+        if (copy($source_path, $destination_path . $new_filename)) {
+            return $new_filename;
         } else {
-            log_message('error', 'File gambar produk tidak ditemukan');
+            log_message('error', 'Gagal menyimpan gambar ke folder variasi');
             return 'default.jpg';
         }
     }

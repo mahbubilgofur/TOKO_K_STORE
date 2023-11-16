@@ -108,4 +108,34 @@ class M_variasiproduk extends CI_Model
             return NULL;
         }
     }
+    public function get_variasi_produk_by_id_produk($id_produk)
+    {
+        $this->db->where('id_produk', $id_produk);
+        return $this->db->get('tbl_variasiproduk')->result();
+    }
+
+    public function get_warna_produk_by_id_produk($id_produk)
+    {
+        $this->db->distinct();
+        $this->db->select('warna');
+        $this->db->where('id_produk', $id_produk);
+        return $this->db->get('tbl_variasiproduk')->result();
+    }
+
+    public function get_stok($warna, $ukuran)
+    {
+        // Gantilah 'tbl_variasiproduk' sesuai dengan nama tabel Anda
+        $this->db->select('stok');
+        $this->db->where('warna', $warna);
+        $this->db->where('ukuran', $ukuran);
+        $query = $this->db->get('tbl_variasiproduk');
+
+        // Jika data ditemukan, kembalikan stok
+        if ($query->num_rows() > 0) {
+            return $query->row()->stok;
+        }
+
+        // Jika tidak ada data, kembalikan 0 (atau nilai yang sesuai)
+        return 0;
+    }
 }
