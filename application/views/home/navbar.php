@@ -76,9 +76,6 @@
                                             <div class="minicart">
 
                                                 <div class="minicart-button">
-                                                    <a href="shopping-cart.html" class="li-button li-button-fullwidth">
-                                                        <span>Profil</span>
-                                                    </a>
                                                     <a href="<?= base_url('pesanan_saya') ?>" class="li-button li-button-fullwidth">
                                                         <span>Pesanan Saya</span>
                                                     </a>
@@ -124,7 +121,9 @@
                                                 <?php endforeach; ?>
                                             </ul>
                                         <?php else : ?>
-                                            <p>Keranjang belanja Anda kosong.</p>
+                                            <a href="<?= base_url('belanja') ?>" class="li-button li-button-dark li-button-fullwidth li-button-sm">
+                                                <span>Belum Ada Produk</span>
+                                            </a>
                                         <?php endif; ?>
 
                                         <?php if ($this->cart->total_items() > 0) : ?>

@@ -14,11 +14,12 @@
     <div class="container">
         <form action="" method="post">
             <?php
-            echo form_open('belanja/add'); // Form action akan mengarahkan ke metode 'add' pada controller 'belanja'.
+            echo form_open('belanja/add', 'id="addToCartForm"'); // Form action akan mengarahkan ke metode 'add' pada controller 'belanja'.
             echo form_hidden('id', $produk['id_produk']);
             echo form_hidden('price', $produk['harga']);
             echo form_hidden('name', $produk['nama']);
             echo form_hidden('redirect_page', str_replace('index.php/', '', current_url()));
+            echo form_close();
             ?>
             <div class="row single-product-area">
                 <div class="col-lg-5 col-md-6">
@@ -237,7 +238,7 @@
 
 
                                                 <li class="button1" style=" margin-left: 40px; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: orange;">
-                                                    <a href="#" style="font-size: 15px;">
+                                                    <a id="checkoutButton" href="<?= base_url('belanja/add/' . $produk['id_produk']) ?>" style="font-size: 15px;">
                                                         <i></i>
                                                         <span style="color: white;">CHECKOUT</span>
                                                     </a>
@@ -595,10 +596,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
-        document.querySelector('#addToCartButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Menghentikan aksi bawaan dari tombol submit
+        // Tombol Tambahkan ke Keranjang
+        $('#addToCartButton').on('click', function() {
+            addToCart(false); // false menunjukkan bahwa ini bukan checkout
+        });
 
-            // Periksa apakah pengguna telah login dengan role_id 2
+        // Tombol Checkout
+        $('#checkoutButton').on('click', function() {
+            addToCart(true); // true menunjukkan bahwa ini checkout
+        });
+
+        function addToCart(isCheckout) {
             var role_id = <?php echo $this->session->userdata('role_id'); ?>;
             if (role_id !== 2) {
                 // Jika pengguna belum login atau rolenya tidak sesuai, arahkan ke halaman login_user
@@ -606,24 +614,29 @@
                 return;
             }
 
-            var produkID = $(this).data('produk-id');
             var qty = $("#qty").val(); // Mengambil nilai qty dari elemen input
 
             $.ajax({
-                url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>', // Ganti dengan URL yang sesuai
+                url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>',
                 method: "POST",
                 data: {
-                    qty: qty
+                    qty: qty,
+                    is_checkout: isCheckout // Menambahkan properti is_checkout ke dalam data
                 },
                 success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Produk Ditambahkan ke Keranjang',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(function() {
-                        location.reload(); // Refresh halaman setelah 1.5 detik
-                    });
+                    if (isCheckout) {
+                        // Redirect ke halaman belanja jika itu checkout
+                        window.location.href = '<?= base_url('belanja'); ?>';
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Produk Ditambahkan ke Keranjang',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function() {
+                            location.reload(); // Refresh halaman setelah 1.5 detik
+                        });
+                    }
                 },
                 error: function(xhr, status, error) {
                     Swal.fire({
@@ -634,7 +647,7 @@
                     });
                 }
             });
-        });
+        }
     });
 </script>
 <!-- <script>

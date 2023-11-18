@@ -1,10 +1,11 @@
 <div class="breadcrumb-area">
     <div class="container">
         <div class="breadcrumb-content">
-            <ul>
-                <li><a href="<?= base_url('home') ?>">Home</a></li>
-                <li class="active">KERANJANG</li>
-            </ul>
+            <?php if ($this->cart->total_items() > 0) : ?>
+                <ul>
+                    <li><a href="<?= base_url('home') ?>">Home</a></li>
+                    <li class="active">KERANJANG</li>
+                </ul>
         </div>
     </div>
 </div>
@@ -49,8 +50,13 @@
                                             <a href="#"><?= $item['name']; ?></a>
                                         </td>
                                         <td class="li-product-price">
-                                            <span class="amount">Rp.<?php echo $this->cart->format_number($item['price']); ?></span>
+                                            <?php
+                                            $price = $item['price'];
+                                            $formattedPrice = 'Rp. ' . number_format($price, 0, ',', '.');
+                                            ?>
+                                            <span class="amount"><?= $formattedPrice; ?></span>
                                         </td>
+
                                         <td class="li-product-quantity">
                                             <input class="cart-quantity" data-row-id="<?= $item['rowid']; ?>" type="number" min="1" max="20" value="<?= $item['qty']; ?>">
                                         </td>
@@ -82,11 +88,68 @@
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
                                 <ul>
-                                    <li>Berat:<span id="total-berat"><?= $total_berat; ?> gram</span></li>
+                                    <li>Berat:<span id="hitungTotalBerat"><?= $total_berat; ?> gram</span></li>
                                     <li>Total Harga: <span id="total-keseluruhan">Rp.<?php echo $this->cart->format_number($this->cart->total()); ?></span></li>
                                 </ul>
-                                <a href="<?= base_url('belanja/checkout') ?>">checkout</a>
-                                <?php echo form_close(); ?>
+                                <!-- Tampilkan daftar produk dalam keranjang -->
+                                <!-- ... kode HTML untuk menampilkan produk ... -->
+
+                                <!-- Tampilkan tombol checkout jika keranjang tidak kosong -->
+                                <a href="<?= base_url('belanja/checkout') ?>">Checkout</a>
+                            <?php else : ?>
+
+
+                                <div class="static-top-wrap">
+                                    <div class="container" style="padding-bottom: 120px; display: flex; align-items: center; justify-content: center;">
+                                        <div class="row">
+                                            <div class="col-lg-12" style="text-align: center;display: flex; align-items: center; justify-content: center; flex-direction: column; 	margin-top: 100px;">
+                                                <h2>Keranjang belanja Anda kosong</h2>
+                                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('home') ?>">Belanja Sekarang</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h5>KAMU MUNGKIN JUGA SUKA</h5>
+
+                                <section class="py-5">
+                                    <div class="container px-4 px-lg-5 mt-5">
+                                        <div class="row gx-4 gx-lg-5 ">
+                                            <?php foreach ($data_produk as $row) { ?>
+                                                <div class="col-lg-3 col-md-4 col-sm-6 mb-5"> <!-- Ubah jumlah kolom untuk tampilan hp -->
+                                                    <div class="card h-100" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                                                        <!-- Product image-->
+                                                        <div class="card-img-container">
+                                                            <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
+                                                                <img class="card-img-top img-fluid" src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="Product Image" />
+                                                            </a>
+                                                        </div>
+                                                        <!-- Product details-->
+                                                        <div class="card-body p-4">
+                                                            <div class="text-center">
+                                                                <!-- Product name-->
+                                                                <h5 class="fw-bolder"><?php echo $row->nama ?></h5>
+                                                                <!-- Product price-->
+                                                                RP.<?= number_format($row->harga, 0) ?>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Product actions-->
+                                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('home/detail/' . $row->id_produk); ?>">View options</a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- Tampilkan pesan keranjang kosong jika keranjang kosong -->
+
+                            <?php endif; ?>
+
+                            <?php echo form_close(); ?>
                             </div>
                         </div>
                     </div>
@@ -95,15 +158,69 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Ketika nilai input jumlah berubah
+        // Event listener for quantity change
         $('.cart-quantity').on('change', function() {
             var rowId = $(this).data('row-id');
             var newQty = $(this).val();
 
-            // Kirim permintaan Ajax untuk memperbarui keranjang dengan jumlah yang baru
+            // Ajax request to update cart quantity
+            $.ajax({
+                type: 'POST',
+                url: 
+                data: {
+                    row_id: rowId,
+                    new_qty: newQty
+                },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    // Update specific elements based on the response
+                    $('span.subtotal[data-row-id="' + rowId + '"]').text('Rp.' + data.total_harga);
+
+                    // Update weight for the specific row
+                    $('.berat[data-row-id="' + rowId + '"]').text(data.total_berat);
+
+                    // Call the function to update total weight and total price
+                    updateTotals();
+                },
+                error: function() {
+                    alert('Terjadi kesalahan saat memperbarui jumlah produk.');
+                }
+            });
+        });
+
+        // Function to update total weight and total price
+        function updateTotals() {
+            // Calculate and update total weight for all products
+            var totalBerat = 0;
+            $('.berat').each(function() {
+                var beratValue = parseFloat($(this).text());
+                totalBerat += !isNaN(beratValue) ? beratValue : 0;
+            });
+            $('#hitungTotalBerat').text(totalBerat + ' gram');
+
+            // Calculate and update total price for all products
+            var totalPrice = 0;
+            $('span.subtotal').each(function() {
+                var subtotalText = $(this).text().replace('Rp.', '').replace(',', '');
+                var subtotalValue = parseFloat(subtotalText);
+                totalPrice += !isNaN(subtotalValue) ? subtotalValue : 0;
+            });
+            $('#total-keseluruhan').text('Rp.' + totalPrice.toFixed(2));
+        }
+    });
+</script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Event listener for quantity change
+        $('.cart-quantity').on('change', function() {
+            var rowId = $(this).data('row-id');
+            var newQty = $(this).val();
+
+            // Ajax request to update cart quantity
             $.ajax({
                 type: 'POST',
                 url: '<?= base_url('belanja/update_qty'); ?>',
@@ -112,20 +229,52 @@
                     new_qty: newQty
                 },
                 success: function(response) {
-                    // Response berisi total harga dan total berat yang diperbarui
                     var data = JSON.parse(response);
-                    $('span.subtotal[data-row-id="' + rowId + '"]').text('RP.' + data.total_harga);
+                    // Update specific elements based on the response
+                    $('span.subtotal[data-row-id="' + rowId + '"]').text('Rp.' + data.total_harga);
 
-                    // Perbarui total berat untuk setiap elemen
+                    // Update weight for the specific row
                     $('.berat[data-row-id="' + rowId + '"]').text(data.total_berat);
 
-                    // Hitung total berat untuk semua produk dan perbarui elemen tampilan total berat
-                    hitungTotalBerat();
+                    // Call the function to update total weight and total price
+                    updateTotals();
                 },
                 error: function() {
                     alert('Terjadi kesalahan saat memperbarui jumlah produk.');
                 }
             });
         });
+
+        function updateTotals() {
+            var totalBerat = 0;
+            $('.berat').each(function() {
+                var beratValue = parseFloat($(this).text());
+                totalBerat += !isNaN(beratValue) ? beratValue : 0;
+            });
+            $('#hitungTotalBerat').text(totalBerat + ' gram');
+            // Ajax request to get updated total from the server
+            $.ajax({
+                type: 'GET', // or 'POST' depending on your backend implementation
+                url: '<?= base_url('belanja/get_total'); ?>',
+                dataType: 'json',
+                success: function(response) {
+                    // Update total price element
+                    var formattedTotal = formatRupiah(response.total, 'Rp. ');
+                    $('#total-keseluruhan').text(formattedTotal);
+                },
+                error: function() {
+                    alert('Terjadi kesalahan saat memperbarui total harga.');
+                }
+            });
+        }
+
+        // Call the function to initially update totals
+        updateTotals();
+
+        // Function to format number as Indonesian Rupiah
+        function formatRupiah(angka, prefix) {
+            var numberString = angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return prefix + numberString;
+        }
     });
 </script>

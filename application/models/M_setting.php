@@ -20,6 +20,11 @@ class M_setting extends CI_Model
         }
         return null;
     }
+    public function calculate_total()
+    {
+        $total = $this->cart->total();
+        return $total;
+    }
     public function edit($data)
     {
         $this->db->where('id', $data['id']);

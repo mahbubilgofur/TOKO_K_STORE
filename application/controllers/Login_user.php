@@ -119,6 +119,7 @@ class Login_user extends CI_Controller
         // Hapus data sesi
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('role_id');
+        $this->cart->destroy();
 
         // Set pesan sesuai dengan role_id
         if ($role_id == 1) {
