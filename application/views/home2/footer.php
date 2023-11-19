@@ -5,90 +5,69 @@
 
     <!-- Footer Static Top Area End Here -->
     <!-- Begin Footer Static Middle Area -->
-    <div class="footer-static-middle">
+    <div class="footer-static-middle" style="background-color: #006494;">
         <div class="container">
             <div class="footer-logo-wrap pt-50 pb-35">
                 <div class="row">
                     <!-- Begin Footer Logo Area -->
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-logo">
-                            <div class="col-lg-3">
-                                <div class="logo pb-sm-30 pb-xs-50" style="width: 250px; height: 150px;">
-                                    <a href="<?= base_url('home') ?>">
-                                        <img src="<?= base_url() ?>assets/gambar_icon/icon33.png" alt="" style="width: 100%; height: 100%;">
-                                    </a>
-                                </div>
+                        <div class="col-lg-3">
+                                                   <div class="logo pb-sm-30 pb-xs-50" style="width: 250px; height: 150px;">
+                                <a href="<?= base_url('home') ?>">
+                                    <img src="<?= base_url() ?>assets/gambar_icon/logoo.png" alt="">
+                                </a>
                             </div>
+                        </div>
+                           
+                        </div>
+                       
+                    </div>
+                    <!-- Footer Logo Area End Here -->                 <!-- Alamat -->
+<div class="col-lg-2 col-md-3 col-sm-6">
+    <div class="footer-block">
+        <h3 class="footer-block-title" style="color: #fff;"><i class="fa fa-map-marker"></i> Alamat</h3>
+        <ul>
+            <li style="color: #fff;">160 Pennsylvania Ave NW, Washington, Castle, PA 16101-5161</li>
+        </ul>
+    </div>
+</div>
 
-                        </div>
+<!-- Telepon -->
+<div class="col-lg-2 col-md-3 col-sm-6">
+    <div class="footer-block">
+        <h3 class="footer-block-title" style="color: #fff;"><i class="fa fa-phone"></i> Telepon</h3>
+        <ul>
+            <li style="color: #fff;">+62 896-2715-9368</li>
+        </ul>
+    </div>
+</div>
 
-                    </div>
-                    <!-- Footer Logo Area End Here -->
-                    <!-- Begin Footer Block Area -->
-                    <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div class="footer-block">
-                            <h3 class="footer-block-title"><i class="fa fa-map-marker"></i> Alamat</h3>
-                            <ul>
-                                <li>160 Pennsylvania Ave NW, Washington, Castle, PA 16101-5161</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Footer Block Area End Here -->
-                    <!-- Begin Footer Block Area -->
-                    <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div class="footer-block">
-                            <h3 class="footer-block-title"><i class="fa fa-phone"></i> Telepon</h3>
-                            <ul>
-                                <li>+62 896-2715-9368</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Begin Footer Block Area -->
-                    <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div class="footer-block">
-                            <h3 class="footer-block-title"><i class="fa fa-envelope"></i> Email</h3>
-                            <ul>
-                                <li>shopease@gmail.com</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div class="footer-block">
-                            <h3 class="footer-block-title">Follow Us</h3>
-                            <ul class="social-link">
-                                <li class="twitter">
-                                    <a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
-                                        <i class="fa fa-twitter"></i>
-                                    </a>
-                                </li>
-                                <li class="rss">
-                                    <a href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS">
-                                        <i class="fa fa-rss"></i>
-                                    </a>
-                                </li>
-                                <li class="google-plus">
-                                    <a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google +">
-                                        <i class="fa fa-google-plus"></i>
-                                    </a>
-                                </li>
-                                <li class="facebook">
-                                    <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook">
-                                        <i class="fa fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li class="youtube">
-                                    <a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube">
-                                        <i class="fa fa-youtube"></i>
-                                    </a>
-                                </li>
-                                <li class="instagram">
-                                    <a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram">
-                                        <i class="fa fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+<!-- Email -->
+<div class="col-lg-2 col-md-3 col-sm-6">
+    <div class="footer-block">
+        <h3 class="footer-block-title" style="color: #fff;"><i class="fa fa-envelope"></i> Email</h3>
+        <ul>
+            <li style="color: #fff;">shopease@gmail.com</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Follow Us -->
+<div class="col-lg-2 col-md-3 col-sm-6">
+    <div class="footer-block">
+        <h3 class="footer-block-title" style="color: #fff;">Follow Us</h3>
+        <ul class="social-link">
+            <!-- Icon dan teks sosial media -->
+            <li class="twitter"><a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter"><i class="fa fa-twitter" style="color: #fff;"></i></a></li>
+            <li class="rss"><a href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS"><i class="fa fa-rss" style="color: #fff;"></i></a></li>
+            <li class="google-plus"><a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google +"><i class="fa fa-google-plus" style="color: #fff;"></i></a></li>
+            <li class="facebook"><a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook"><i class="fa fa-facebook" style="color: #fff;"></i></a></li>
+            <li class="youtube"><a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube"><i class="fa fa-youtube" style="color: #fff;"></i></a></li>
+            <li class="instagram"><a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram"><i class="fa fa-instagram" style="color: #fff;"></i></a></li>
+        </ul>
+    </div>
+</div>
                     <!-- Footer Block Area End Here -->
                     <!-- Begin Footer Block Area -->
                     <!-- <div class="col-lg-4">

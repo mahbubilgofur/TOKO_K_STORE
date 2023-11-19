@@ -76,34 +76,48 @@
         </div>
     </div>
 </div>
-<div class="product-area pt-55 pb-25 pt-xs-50">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
-                    <?php foreach ($data_produk as $row) { ?>
-                        <!-- Product -->
-                        <div class="product-item men col-lg-4 col-md-4 col-sm-6">
-                            <div class="product discount product_filter">
-                                <div class="product_image">
-                                    <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
-                                        <img src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="<?= $row->nama ?>" style=" height: 200px;">
-                                    </a>
-                                </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html"><?php echo $row->nama ?></a></h6>
-                                    <h6 class="product_name"><a href="single.html"><?php echo $row->id_produk    ?></a></h6>
-                                    <div class="product_price">RP.<?= number_format($row->harga, 0) ?></div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">PRODUK SERUPA</a></div>
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 ">
+            <?php foreach ($data_produk as $row) { ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-5"> <!-- Ubah jumlah kolom untuk tampilan hp -->
+                    <div class="card h-100" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                        <!-- Product image-->
+                        <div class="card-img-container">
+                        <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
+                            <img class="card-img-top img-fluid" src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="Product Image" />
+                        </a>
                         </div>
-                        <!-- End of Product -->
-                    <?php } ?>
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder"><?php echo $row->nama ?></h5>
+                                <!-- Product price-->
+                                RP.<?= number_format($row->harga, 0) ?>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('home/detail/' . $row->id_produk); ?>">View options</a></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
-</div>
+</section>
+
+<style>
+    /* Mengatur ukuran gambar agar memiliki tinggi yang sama */
+    .card-img-container {
+        overflow: hidden;
+        height: 200px; /* Sesuaikan tinggi gambar sesuai kebutuhan Anda */
+    }
+
+    .card-img-top {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+</style>

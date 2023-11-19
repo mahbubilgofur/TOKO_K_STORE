@@ -48,7 +48,7 @@
     <div class="footer-block">
         <h3 class="footer-block-title" style="color: #fff;"><i class="fa fa-envelope"></i> Email</h3>
         <ul>
-            <li style="color: #fff;">shopease@gmail.com</li>
+            <li style="color: #fff;">shopeasy@gmail.com</li>
         </ul>
     </div>
 </div>
@@ -56,16 +56,16 @@
 <!-- Follow Us -->
 <div class="col-lg-2 col-md-3 col-sm-6">
     <div class="footer-block">
-        <h3 class="footer-block-title" style="color: #fff;">Follow Us</h3>
+        <!-- <h3 class="footer-block-title" style="color: #fff;">Follow Us</h3>
         <ul class="social-link">
-            <!-- Icon dan teks sosial media -->
+          
             <li class="twitter"><a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter"><i class="fa fa-twitter" style="color: #fff;"></i></a></li>
             <li class="rss"><a href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS"><i class="fa fa-rss" style="color: #fff;"></i></a></li>
             <li class="google-plus"><a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google +"><i class="fa fa-google-plus" style="color: #fff;"></i></a></li>
             <li class="facebook"><a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook"><i class="fa fa-facebook" style="color: #fff;"></i></a></li>
             <li class="youtube"><a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube"><i class="fa fa-youtube" style="color: #fff;"></i></a></li>
             <li class="instagram"><a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram"><i class="fa fa-instagram" style="color: #fff;"></i></a></li>
-        </ul>
+        </ul> -->
     </div>
 </div>
                     <!-- Footer Block Area End Here -->

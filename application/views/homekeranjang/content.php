@@ -100,9 +100,9 @@
 
 
                                 <div class="static-top-wrap">
-                                    <div class="container" style="padding-bottom: 120px; display: flex; align-items: center; justify-content: center;">
+                                    <div class="container12" style="padding-bottom: 120px; display: flex; align-items: center; justify-content: center;">
                                         <div class="row">
-                                            <div class="col-lg-12" style="text-align: center;display: flex; align-items: center; justify-content: center; flex-direction: column; 	margin-top: 100px;">
+                                            <div class="col-lg-122" style="text-align: center;display: flex; align-items: center; justify-content: center; flex-direction: column; 	margin-top: 100px;">
                                                 <h2>Keranjang belanja Anda kosong</h2>
                                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('home') ?>">Belanja Sekarang</a>
                                                 </div>

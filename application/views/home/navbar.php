@@ -16,45 +16,51 @@
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
                                 <li>
-                                    <span>Ikuti Kami</span>
-                                    <a href="#">
+                                    <span>Ikuti Kami</span>&nbsp;
+                                    <a href="https://www.facebook.com/">
                                         <i class="fab fa-facebook" style="color: white;"></i>
-                                    </a>
-                                    <a href="<?= base_url('login_user') ?>">
+                                    </a>&nbsp;&nbsp;
+                                    <a href="<?= base_url('ig') ?>">
                                         <i class="fa-brands fa-instagram" style="color: white; margin-right: 20px;"></i>
                                     </a>
-                                </li>
 
+                                    <td>
+                                        <a href="<?= base_url('wa') ?>" style="color: white; text-decoration: none;">
+                                            Hubungi Kami
+                                            <i class="fa-brands fa-whatsapp" style="color: white; margin-left: 5px;"></i>
+                                        </a>
+                                    </td>
+
+                                </li>
                             </div>
                         </div>
-                        <!-- Header Top Left Area End Here -->
-                        <!-- Begin Header Top Right Area -->
                         <div class="col-lg-9 col-md-8">
                             <div class="header-top-right">
                                 <ul class="ht-menu">
-                                    <!-- <li>
-                                        <span class="language-selector-wrapper">USERLOGIN</span>
-                                    </li> -->
+                                    <marquee behavior="scroll" direction="left">
+                                        ShopEasy adalah online shop yang memudahkan anda berbelanja dari rumah
+                                        dengan menjual berbagai produk fashion seperti baju, celana, topi, dan juga sepatu.
+                                    </marquee>
                                 </ul>
                             </div>
                         </div>
-                        <!-- Header Top Right Area End Here -->
                     </div>
                 </div>
             </div>
             <!-- Header Top Area End Here -->
             <!-- Begin Header Middle Area -->
-            <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+            <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0" style="margin-right: 30px;">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="logo pb-sm-30 pb-xs-50">
+                        <div class="col-lg-3 text-center"> <!-- Tambahkan kelas 'text-center' di sini -->
+                            <div class="logo pb-sm-30 pb-xs-10 d-flex justify-content-center">
                                 <a href="<?= base_url('home') ?>">
                                     <img src="<?= base_url() ?>assets/gambar_icon/logoo.png" alt="">
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
+
+                        <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15" style="margin-top:20px;">
                             <form action="<?= base_url('home/search') ?>" method="get" class="hm-searchbox">
                                 <input type="text" name="keyword" placeholder="CARI PRODUK ...">
                                 <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
@@ -76,6 +82,9 @@
                                             <div class="minicart">
 
                                                 <div class="minicart-button">
+                                                    <!-- <a href="shopping-cart.html" class="li-button li-button-fullwidth">
+                                                        <span>Profil</span>
+                                                    </a> -->
                                                     <a href="<?= base_url('pesanan_saya') ?>" class="li-button li-button-fullwidth">
                                                         <span>Pesanan Saya</span>
                                                     </a>
@@ -146,39 +155,7 @@
             </div>
             <!-- Header Middle Area End Here -->
             <!-- Begin Header Bottom Area -->
-            <div class="header-bottom header-sticky stick d-none d-lg-block d-xl-block">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <!-- Begin Header Bottom Menu Area -->
-                            <div class="hb-menu">
-                                <nav>
-                                    <ul>
-                                        <!-- <li><a href="<?= base_url('home/kartun') ?>">KAOS KARTUN</a></li>
-                                        <li><a href="<?= base_url('home/olahraga') ?>">KAOS OLAH RAGA</a> </li>
-                                        <li><a href="<?= base_url('home/panjang') ?>">KAOS PANJANG</a> </li>
-                                        <li><a href="<?= base_url('home/polos') ?>">KAOS POLOS</a> </li>
-                                        <li><a href="<?= base_url('home/hitam') ?>">KAOS HITAM</a></li>
-                                        <li><a href="<?= base_url('home/keren') ?>">KAOS KEREN</a></li>
-                                        <li><a href="<?= base_url('home/anime') ?>">KAOS ANIME</a></li>
-                                        <li><a href="<?= base_url('home/distro') ?>">KAOS DISTRO</a></li> -->
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- Header Bottom Menu Area End Here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <!-- Header Bottom Area End Here -->
-            <!-- Begin Mobile Menu Area -->
-            <div class="mobile-menu-area mobile-menu-area-4 d-lg-none d-xl-none col-12">
-                <div class="container">
-                    <div class="row">
-                        <div class="mobile-menu">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Mobile Menu Area End Here -->
+
         </header>

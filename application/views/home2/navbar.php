@@ -1,11 +1,13 @@
 <body>
+
+
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
         <!-- Begin Header Area -->
-        <header class="li-header-4">
+        <header class="li-header-4" style="background-color: #006494;">
             <!-- Begin Header Top Area -->
             <div class="header-top">
                 <div class="container">
@@ -13,9 +15,15 @@
                         <!-- Begin Header Top Left Area -->
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
-                                <ul class="phone-wrap">
-
-                                </ul>
+                                <li>
+                                    <span>Ikuti Kami</span>
+                                    <a href="#">
+                                        <i class="fab fa-facebook" style="color: white;"></i>
+                                    </a>
+                                    <a href="<?= base_url('login_user') ?>">
+                                        <i class="fa-brands fa-instagram" style="color: white; margin-right: 20px;"></i>
+                                    </a>
+                                </li>
 
                             </div>
                         </div>
@@ -42,7 +50,7 @@
                         <div class="col-lg-3">
                             <div class="logo pb-sm-30 pb-xs-50">
                                 <a href="<?= base_url('home') ?>">
-                                    <img src="<?= base_url() ?>assets/gambar_icon/icon3.png" alt="">
+                                    <img src="<?= base_url() ?>assets/gambar_icon/logoo.png" alt="">
                                 </a>
                             </div>
                         </div>
@@ -68,9 +76,6 @@
                                             <div class="minicart">
 
                                                 <div class="minicart-button">
-                                                    <a href="shopping-cart.html" class="li-button li-button-fullwidth">
-                                                        <span>Profil</span>
-                                                    </a>
                                                     <a href="<?= base_url('pesanan_saya') ?>" class="li-button li-button-fullwidth">
                                                         <span>Pesanan Saya</span>
                                                     </a>
@@ -116,7 +121,9 @@
                                                 <?php endforeach; ?>
                                             </ul>
                                         <?php else : ?>
-                                            <p>Keranjang belanja Anda kosong.</p>
+                                            <a href="<?= base_url('belanja') ?>" class="li-button li-button-dark li-button-fullwidth li-button-sm">
+                                                <span>Belum Ada Produk</span>
+                                            </a>
                                         <?php endif; ?>
 
                                         <?php if ($this->cart->total_items() > 0) : ?>
