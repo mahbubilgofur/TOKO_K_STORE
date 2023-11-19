@@ -67,34 +67,27 @@
                                                 <label for="tambahkan_master">Tambahkan Master:</label>
                                                 <select name="tambahkan_master" id="tambahkan_master" class="form-control">
                                                     <option value="0">Pilih master utama</option>
-                                                    <option value="0">Jadi master</option>
-                                                    <?php foreach ($data_kategori as $row) {
+                                                    <?php
+                                                    foreach ($data_kategori as $row) {
                                                         if ($row->induk_id == 0) {
                                                             echo '<option value="' . $row->id_kategori . '">' . $row->nama . '</option>';
                                                         }
-                                                    } ?>
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="tambahkan_master_kedua">Tambahkan Master Kedua:</label>
                                                 <select name="tambahkan_master_kedua" id="tambahkan_master_kedua" class="form-control">
                                                     <option value="0">Pilih master kedua</option>
-                                                    <?php foreach ($data_kategori as $row) {
-                                                        if ($row->induk_id != 0) {
-                                                            echo '<option value="' . $row->id_kategori . '">' . $row->nama . '</option>';
-                                                        }
-                                                    } ?>
                                                 </select>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="tambahkan_master_ketiga">Tambahkan Master Ketiga:</label>
                                                 <select name="tambahkan_master_ketiga" id="tambahkan_master_ketiga" class="form-control">
                                                     <option value="0">Pilih master ketiga</option>
-                                                    <?php foreach ($data_kategori as $row) {
-                                                        if ($row->induk_id != 0) {
-                                                            echo '<option value="' . $row->id_kategori . '">' . $row->nama . '</option>';
-                                                        }
-                                                    } ?>
                                                 </select>
                                             </div>
 
@@ -102,11 +95,13 @@
                                                 <label for="tambahkan_master_keempat">Tambahkan Master Keempat:</label>
                                                 <select name="tambahkan_master_keempat" id="tambahkan_master_keempat" class="form-control">
                                                     <option value="0">Pilih master keempat</option>
-                                                    <?php foreach ($data_kategori as $row) {
+                                                    <?php
+                                                    foreach ($data_kategori as $row) {
                                                         if ($row->induk_id != 0) {
                                                             echo '<option value="' . $row->id_kategori . '">' . $row->nama . '</option>';
                                                         }
-                                                    } ?>
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
 
@@ -122,88 +117,207 @@
 
                                                 tambahkanMaster.addEventListener("change", function() {
                                                     var tambahkanMasterValue = this.value;
-                                                    var tambahkanMasterKeduaValue = tambahkanMasterKedua.value;
-                                                    var tambahkanMasterKetigaValue = tambahkanMasterKetiga.value;
-                                                    var tambahkanMasterKeempatValue = tambahkanMasterKeempat.value;
 
-                                                    if (tambahkanMasterValue === "0" && tambahkanMasterKeduaValue === "0" && tambahkanMasterKetigaValue === "0" && tambahkanMasterKeempatValue !== "0") {
-                                                        indukId.value = tambahkanMasterKeempatValue; // Isi indukId dengan nilai dari tambahkanMasterKeempat jika hanya memilih master keempat
-                                                    } else if (tambahkanMasterValue === "0" && tambahkanMasterKeduaValue === "0" && tambahkanMasterKetigaValue !== "0") {
-                                                        indukId.value = tambahkanMasterKetigaValue; // Isi indukId dengan nilai dari tambahkanMasterKetiga jika hanya memilih master ketiga
-                                                    } else if (tambahkanMasterValue === "0" && tambahkanMasterKeduaValue !== "0") {
-                                                        indukId.value = tambahkanMasterKeduaValue; // Isi indukId dengan nilai dari tambahkanMasterKedua jika hanya memilih master kedua
+                                                    if (tambahkanMasterValue === "0") {
+                                                        // Kosongkan dan nonaktifkan "Tambahkan Master Kedua" dan "Tambahkan Master Ketiga"
+                                                        tambahkanMasterKedua.innerHTML = '<option value="0">Pilih master kedua</option>';
+                                                        tambahkanMasterKedua.disabled = true;
+                                                        tambahkanMasterKetiga.innerHTML = '<option value="0">Pilih master ketiga</option>';
+                                                        tambahkanMasterKetiga.disabled = true;
+                                                        tambahkanMasterKeempat.innerHTML = '<option value="0">Pilih master keempat</option>';
+                                                        tambahkanMasterKeempat.disabled = true;
+
+                                                        // Isi indukId dengan nilai dari tambahkanMaster jika hanya memilih master pertama
+                                                        indukId.value = tambahkanMasterValue;
                                                     } else {
-                                                        indukId.value = tambahkanMasterValue; // Isi indukId dengan nilai dari tambahkanMaster
+                                                        // Mengosongkan dan menonaktifkan "Tambahkan Master Ketiga" dan "Tambahkan Master Keempat"
+                                                        tambahkanMasterKetiga.innerHTML = '<option value="0">Pilih master ketiga</option>';
+                                                        tambahkanMasterKetiga.disabled = true;
+                                                        tambahkanMasterKeempat.innerHTML = '<option value="0">Pilih master keempat</option>';
+                                                        tambahkanMasterKeempat.disabled = true;
+
+                                                        // Menyambungkan ke backend untuk mendapatkan kategori berdasarkan tambahkanMasterValue
+                                                        // Gantilah dengan cara yang sesuai untuk mendapatkan data dari backend
+
+                                                        // Contoh data kategori yang diterima dari backend
+                                                        var dataKategori = <?php echo json_encode($data_kategori); ?>;
+
+                                                        // Mendapatkan kategori yang induk_id sama dengan tambahkanMasterValue
+                                                        var kategoriKedua = dataKategori.filter(function(kategori) {
+                                                            return kategori.induk_id === tambahkanMasterValue;
+                                                        });
+
+                                                        // Menyisipkan opsi kategori kedua ke "Tambahkan Master Kedua"
+                                                        tambahkanMasterKedua.innerHTML = '<option value="0">Pilih master kedua</option>';
+                                                        kategoriKedua.forEach(function(kategori) {
+                                                            var option = document.createElement('option');
+                                                            option.value = kategori.id_kategori;
+                                                            option.textContent = kategori.nama;
+                                                            tambahkanMasterKedua.appendChild(option);
+                                                        });
+
+                                                        // Mengaktifkan "Tambahkan Master Kedua"
+                                                        tambahkanMasterKedua.disabled = false;
+
+                                                        // Isi indukId dengan nilai dari tambahkanMaster jika hanya memilih master pertama
+                                                        indukId.value = tambahkanMasterValue;
                                                     }
                                                 });
 
                                                 tambahkanMasterKedua.addEventListener("change", function() {
                                                     var tambahkanMasterKeduaValue = this.value;
-                                                    var tambahkanMasterValue = tambahkanMaster.value;
-                                                    var tambahkanMasterKetigaValue = tambahkanMasterKetiga.value;
-                                                    var tambahkanMasterKeempatValue = tambahkanMasterKeempat.value;
 
-                                                    if (tambahkanMasterKeduaValue === "0" && tambahkanMasterValue === "0" && tambahkanMasterKetigaValue === "0" && tambahkanMasterKeempatValue !== "0") {
-                                                        indukId.value = tambahkanMasterKeempatValue; // Isi indukId dengan nilai dari tambahkanMasterKeempat jika hanya memilih master keempat
-                                                    } else if (tambahkanMasterKeduaValue === "0" && tambahkanMasterValue === "0" && tambahkanMasterKetigaValue !== "0") {
-                                                        indukId.value = tambahkanMasterKetigaValue; // Isi indukId dengan nilai dari tambahkanMasterKetiga jika hanya memilih master ketiga
-                                                    } else if (tambahkanMasterKeduaValue === "0" && tambahkanMasterValue !== "0") {
-                                                        indukId.value = tambahkanMasterValue; // Isi indukId dengan nilai dari tambahkanMaster jika hanya memilih master kedua
+                                                    if (tambahkanMasterKeduaValue === "0") {
+                                                        // Kosongkan dan nonaktifkan "Tambahkan Master Ketiga" dan "Tambahkan Master Keempat"
+                                                        tambahkanMasterKetiga.innerHTML = '<option value="0">Pilih master ketiga</option>';
+                                                        tambahkanMasterKetiga.disabled = true;
+                                                        tambahkanMasterKeempat.innerHTML = '<option value="0">Pilih master keempat</option>';
+                                                        tambahkanMasterKeempat.disabled = true;
+
+                                                        // Isi indukId dengan nilai dari tambahkanMasterKedua jika hanya memilih master kedua
+                                                        indukId.value = tambahkanMasterKeduaValue;
                                                     } else {
-                                                        indukId.value = tambahkanMasterKeduaValue; // Isi indukId dengan nilai dari tambahkanMasterKedua
+                                                        // Mengosongkan dan menonaktifkan "Tambahkan Master Keempat"
+                                                        tambahkanMasterKeempat.innerHTML = '<option value="0">Pilih master keempat</option>';
+                                                        tambahkanMasterKeempat.disabled = true;
+
+                                                        // Menyambungkan ke backend untuk mendapatkan kategori berdasarkan tambahkanMasterKeduaValue
+                                                        // Gantilah dengan cara yang sesuai untuk mendapatkan data dari backend
+
+                                                        // Contoh data kategori yang diterima dari backend
+                                                        var dataKategori = <?php echo json_encode($data_kategori); ?>;
+
+                                                        // Mendapatkan kategori yang induk_id sama dengan tambahkanMasterKeduaValue
+                                                        var kategoriKetiga = dataKategori.filter(function(kategori) {
+                                                            return kategori.induk_id === tambahkanMasterKeduaValue;
+                                                        });
+
+                                                        // Menyisipkan opsi kategori ketiga ke "Tambahkan Master Ketiga"
+                                                        tambahkanMasterKetiga.innerHTML = '<option value="0">Pilih master ketiga</option>';
+                                                        kategoriKetiga.forEach(function(kategori) {
+                                                            var option = document.createElement('option');
+                                                            option.value = kategori.id_kategori;
+                                                            option.textContent = kategori.nama;
+                                                            tambahkanMasterKetiga.appendChild(option);
+                                                        });
+
+                                                        // Mengaktifkan "Tambahkan Master Ketiga"
+                                                        tambahkanMasterKetiga.disabled = false;
+
+                                                        // Isi indukId dengan nilai dari tambahkanMasterKedua jika hanya memilih master kedua
+                                                        indukId.value = tambahkanMasterKeduaValue;
                                                     }
                                                 });
+                                                // Bagian ini dilanjutkan dari skrip sebelumnya
 
                                                 tambahkanMasterKetiga.addEventListener("change", function() {
                                                     var tambahkanMasterKetigaValue = this.value;
-                                                    var tambahkanMasterValue = tambahkanMaster.value;
-                                                    var tambahkanMasterKeduaValue = tambahkanMasterKedua.value;
-                                                    var tambahkanMasterKeempatValue = tambahkanMasterKeempat.value;
 
-                                                    if (tambahkanMasterKetigaValue === "0" && tambahkanMasterValue === "0" && tambahkanMasterKeduaValue === "0" && tambahkanMasterKeempatValue !== "0") {
-                                                        indukId.value = tambahkanMasterKeempatValue; // Isi indukId dengan nilai dari tambahkanMasterKeempat jika hanya memilih master keempat
-                                                    } else if (tambahkanMasterKetigaValue === "0" && tambahkanMasterValue === "0" && tambahkanMasterKeduaValue !== "0") {
-                                                        indukId.value = tambahkanMasterKeduaValue; // Isi indukId dengan nilai dari tambahkanMasterKedua jika hanya memilih master kedua
-                                                    } else if (tambahkanMasterKetigaValue === "0" && tambahkanMasterKeduaValue !== "0") {
-                                                        indukId.value = tambahkanMasterKeduaValue; // Isi indukId dengan nilai dari tambahkanMasterKedua jika hanya memilih master ketiga
+                                                    if (tambahkanMasterKetigaValue === "0") {
+                                                        // Kosongkan dan nonaktifkan "Tambahkan Master Keempat"
+                                                        tambahkanMasterKeempat.innerHTML = '<option value="0">Pilih master keempat</option>';
+                                                        tambahkanMasterKeempat.disabled = true;
+
+                                                        // Isi indukId dengan nilai dari tambahkanMasterKetiga jika hanya memilih master ketiga
+                                                        indukId.value = tambahkanMasterKetigaValue;
                                                     } else {
-                                                        indukId.value = tambahkanMasterKetigaValue; // Isi indukId dengan nilai dari tambahkanMasterKetiga
+                                                        // Mengosongkan "Tambahkan Master Keempat"
+                                                        tambahkanMasterKeempat.innerHTML = '<option value="0">Pilih master keempat</option>';
+
+                                                        // Menyambungkan ke backend untuk mendapatkan kategori berdasarkan tambahkanMasterKetigaValue
+                                                        // Gantilah dengan cara yang sesuai untuk mendapatkan data dari backend
+
+                                                        // Contoh data kategori yang diterima dari backend
+                                                        var dataKategori = <?php echo json_encode($data_kategori); ?>;
+
+                                                        // Mendapatkan kategori yang induk_id sama dengan tambahkanMasterKetigaValue
+                                                        var kategoriKeempat = dataKategori.filter(function(kategori) {
+                                                            return kategori.induk_id === tambahkanMasterKetigaValue;
+                                                        });
+
+                                                        // Menyisipkan opsi kategori keempat ke "Tambahkan Master Keempat"
+                                                        kategoriKeempat.forEach(function(kategori) {
+                                                            var option = document.createElement('option');
+                                                            option.value = kategori.id_kategori;
+                                                            option.textContent = kategori.nama;
+                                                            tambahkanMasterKeempat.appendChild(option);
+                                                        });
+
+                                                        // Mengaktifkan "Tambahkan Master Keempat"
+                                                        tambahkanMasterKeempat.disabled = false;
+
+                                                        // Isi indukId dengan nilai dari tambahkanMasterKetiga jika hanya memilih master ketiga
+                                                        indukId.value = tambahkanMasterKetigaValue;
                                                     }
                                                 });
 
                                                 tambahkanMasterKeempat.addEventListener("change", function() {
                                                     var tambahkanMasterKeempatValue = this.value;
-                                                    var tambahkanMasterValue = tambahkanMaster.value;
-                                                    var tambahkanMasterKeduaValue = tambahkanMasterKedua.value;
-                                                    var tambahkanMasterKetigaValue = tambahkanMasterKetiga.value;
 
-                                                    if (tambahkanMasterKeempatValue === "0" && tambahkanMasterValue === "0" && tambahkanMasterKeduaValue === "0" && tambahkanMasterKetigaValue !== "0") {
-                                                        indukId.value = tambahkanMasterKetigaValue; // Isi indukId dengan nilai dari tambahkanMasterKetiga jika hanya memilih master keempat
-                                                    } else if (tambahkanMasterKeempatValue === "0" && tambahkanMasterValue === "0" && tambahkanMasterKeduaValue !== "0") {
-                                                        indukId.value = tambahkanMasterKeduaValue; // Isi indukId dengan nilai dari tambahkanMasterKedua jika hanya memilih master keempat
-                                                    } else if (tambahkanMasterKeempatValue === "0" && tambahkanMasterKeduaValue !== "0") {
-                                                        indukId.value = tambahkanMasterKeduaValue; // Isi indukId dengan nilai dari tambahkanMasterKedua jika hanya memilih master keempat
+                                                    if (tambahkanMasterKeempatValue === "0") {
+                                                        // Isi indukId dengan nilai dari tambahkanMasterKeempat jika hanya memilih master keempat
+                                                        indukId.value = tambahkanMasterKeempatValue;
                                                     } else {
-                                                        indukId.value = tambahkanMasterKeempatValue; // Isi indukId dengan nilai dari tambahkanMasterKeempat
+                                                        // Menyambungkan ke backend untuk mendapatkan kategori berdasarkan tambahkanMasterKeempatValue
+                                                        // Gantilah dengan cara yang sesuai untuk mendapatkan data dari backend
+
+                                                        // Contoh data kategori yang diterima dari backend
+                                                        var dataKategori = <?php echo json_encode($data_kategori); ?>;
+
+                                                        // Lakukan validasi jika diperlukan dan lanjutkan dengan logika sesuai kebutuhan
+
+                                                        // Isi indukId dengan nilai dari tambahkanMasterKeempat jika hanya memilih master keempat
+                                                        indukId.value = tambahkanMasterKeempatValue;
                                                     }
                                                 });
 
                                                 indukId.addEventListener("change", function() {
                                                     var indukIdValue = this.value;
+
                                                     if (indukIdValue === "0") {
-                                                        tambahkanMaster.value = "0"; // Isi tambahkanMaster dengan "0" jika memilih "0" pada indukId
-                                                        tambahkanMasterKedua.value = "0"; // Isi tambahkanMasterKedua dengan "0" jika memilih "0" pada indukId
-                                                        tambahkanMasterKetiga.value = "0"; // Isi tambahkanMasterKetiga dengan "0" jika memilih "0" pada indukId
-                                                        tambahkanMasterKeempat.value = "0"; // Isi tambahkanMasterKeempat dengan "0" jika memilih "0" pada indukId
+                                                        // Kosongkan dan nonaktifkan "Tambahkan Master" dan "Tambahkan Master Kedua", "Tambahkan Master Ketiga", "Tambahkan Master Keempat"
+                                                        tambahkanMaster.innerHTML = '<option value="0">Pilih master utama</option>';
+                                                        tambahkanMasterKedua.innerHTML = '<option value="0">Pilih master kedua</option>';
+                                                        tambahkanMasterKedua.disabled = true;
+                                                        tambahkanMasterKetiga.innerHTML = '<option value="0">Pilih master ketiga</option>';
+                                                        tambahkanMasterKetiga.disabled = true;
+                                                        tambahkanMasterKeempat.innerHTML = '<option value="0">Pilih master keempat</option>';
+                                                        tambahkanMasterKeempat.disabled = true;
                                                     } else {
-                                                        // Kosongkan semua select jika memilih nilai selain "0" pada indukId
-                                                        tambahkanMaster.value = "";
-                                                        tambahkanMasterKedua.value = "";
-                                                        tambahkanMasterKetiga.value = "";
-                                                        tambahkanMasterKeempat.value = "";
+                                                        // Mengosongkan dan menonaktifkan "Tambahkan Master", "Tambahkan Master Kedua", "Tambahkan Master Ketiga", "Tambahkan Master Keempat"
+                                                        tambahkanMaster.innerHTML = '<option value="0">Pilih master utama</option>';
+                                                        tambahkanMasterKedua.innerHTML = '<option value="0">Pilih master kedua</option>';
+                                                        tambahkanMasterKedua.disabled = true;
+                                                        tambahkanMasterKetiga.innerHTML = '<option value="0">Pilih master ketiga</option>';
+                                                        tambahkanMasterKetiga.disabled = true;
+                                                        tambahkanMasterKeempat.innerHTML = '<option value="0">Pilih master keempat</option>';
+                                                        tambahkanMasterKeempat.disabled = true;
+
+                                                        // Menyambungkan ke backend untuk mendapatkan kategori berdasarkan indukIdValue
+                                                        // Gantilah dengan cara yang sesuai untuk mendapatkan data dari backend
+
+                                                        // Contoh data kategori yang diterima dari backend
+                                                        var dataKategori = <?php echo json_encode($data_kategori); ?>;
+
+                                                        // Mendapatkan kategori yang induk_id sama dengan indukIdValue
+                                                        var kategoriMaster = dataKategori.filter(function(kategori) {
+                                                            return kategori.induk_id === indukIdValue;
+                                                        });
+
+                                                        // Menyisipkan opsi kategori master ke "Tambahkan Master"
+                                                        kategoriMaster.forEach(function(kategori) {
+                                                            var option = document.createElement('option');
+                                                            option.value = kategori.id_kategori;
+                                                            option.textContent = kategori.nama;
+                                                            tambahkanMaster.appendChild(option);
+                                                        });
+
+                                                        // Mengaktifkan "Tambahkan Master"
+                                                        tambahkanMaster.disabled = false;
                                                     }
                                                 });
                                             </script>
+
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

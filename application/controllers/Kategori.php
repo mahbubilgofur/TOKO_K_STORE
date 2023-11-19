@@ -76,19 +76,35 @@ class Kategori extends CI_Controller
         $nama = $this->input->post('nama');
         $deskripsi = $this->input->post('deskripsi');
         $induk_id = $this->input->post('induk_id');
+        $tambahkan_master = $this->input->post('tambahkan_master');
+        $tambahkan_master_kedua = $this->input->post('tambahkan_master_kedua');
+        $tambahkan_master_ketiga = $this->input->post('tambahkan_master_ketiga');
+        $tambahkan_master_keempat = $this->input->post('tambahkan_master_keempat');
 
+        // Determine the new parent ID based on the selected options
+        if ($tambahkan_master_keempat != 0) {
+            $new_induk_id = $tambahkan_master_keempat;
+        } elseif ($tambahkan_master_ketiga != 0) {
+            $new_induk_id = $tambahkan_master_ketiga;
+        } elseif ($tambahkan_master_kedua != 0) {
+            $new_induk_id = $tambahkan_master_kedua;
+        } elseif ($tambahkan_master != 0) {
+            $new_induk_id = $tambahkan_master;
+        } else {
+            $new_induk_id = 0; // No new parent selected, set to 0
+        }
 
         $DataUpdate = array(
             'id_kategori' => $id_kategori,
             'nama' => $nama,
             'deskripsi' => $deskripsi,
-            'induk_id' => $induk_id
-
+            'induk_id' => $new_induk_id
         );
 
         $this->M_kategori->UpdateDatakategori($DataUpdate, $id_kategori);
         redirect(base_url('kategori/'));
     }
+
 
     public function delete($id_kategori)
     {

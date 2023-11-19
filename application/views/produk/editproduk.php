@@ -108,7 +108,7 @@
                                 <!-- Tampilkan gambar yang akan diunggah (opsional) -->
                                 <div class="form-group">
                                     <label>Gambar yang akan diunggah:</label><br>
-                                    <img id="preview-gambar" src="#" alt="Preview Gambar" style="max-width: 50%; display: none;">
+                                    <img id="preview-gambar" src="#" alt="Preview Gambar" style="max-width: 20%; display: none;">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="<?= base_url('produk/') ?>" class="btn btn-secondary" data-dismiss="modal">Close</button>
