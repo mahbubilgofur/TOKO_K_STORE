@@ -92,10 +92,11 @@ class Home extends CI_Controller
 	public function detail($id_produk)
 	{
 		// Mengambil data produk berdasarkan $id_produk dari model Anda
+		$this->load->model('m_setting');
 		$this->load->model('m_produk'); // Ganti 'm_produk' dengan nama model Anda
 		$data['variasi_produk'] = $this->m_variasiproduk->get_variasi_produk_by_id_produk($id_produk);
-		$data['warna_produk'] = $this->m_variasiproduk->get_warna_produk_by_id_produk($id_produk);
-
+		$data['unique_colors'] = $this->m_setting->getUniqueColors($id_produk);
+		$data['unique_sizes'] = $this->m_setting->getUniqueSizes($id_produk);
 		$data['produk'] = $this->m_produk->getProdukById($id_produk);
 		$produk = $this->m_produk->getDataproduk();
 		$queryproduk = $this->m_produk->getDataproduk1();
@@ -137,34 +138,17 @@ class Home extends CI_Controller
 			// Handle jika produk tidak ditemukan
 			show_404(); // Menampilkan halaman 404 Not Found
 		}
-	} // Metode AJAX untuk mendapatkan stok berdasarkan warna dan ukuran
-	// Controller: home.php
-	// Controller
-	public function get_stok()
+	}
+	public function get_stok_harga()
 	{
+		$id_produk = $this->input->post('id_produk');
 		$warna = $this->input->post('warna');
 		$ukuran = $this->input->post('ukuran');
 
-		// Panggil model untuk mendapatkan stok
-		$stok = $this->m_variasiproduk->get_stok($warna, $ukuran);
+		// Panggil model untuk mendapatkan stok dan harga
+		$data = $this->m_variasiproduk->getStokHarga($id_produk, $warna, $ukuran);
 
-		// Kembalikan stok sebagai response
-		echo json_encode(['stok' => $stok]);
+		// Mengirimkan data dalam format JSON
+		echo json_encode($data);
 	}
-
-
-	// public function remove_cart_item($id_produk)
-	// {
-	// 	$this->load->library('session');
-	// 	$keranjang_belanja = $this->session->userdata('keranjang_belanja');
-
-	// 	$index = array_search($id_produk, $keranjang_belanja);
-	// 	if ($index !== false) {
-	// 		unset($keranjang_belanja[$index]);
-	// 		$this->session->set_userdata('keranjang_belanja', $keranjang_belanja);
-	// 	}
-
-	// 	echo 'success';
-	// }
-
 }

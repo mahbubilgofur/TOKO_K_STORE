@@ -107,6 +107,10 @@
                                                     <input type="text" class="form-control warna-input" name="warna<?= $i ?>" placeholder="Warna" required>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label>HARGA</label>
+                                                    <input type="number" class="form-control harga-input" name="harga<?= $i ?>" placeholder="Harga" required>
+                                                </div>
+                                                <div class="form-group">
                                                     <label>Ukuran</label>
                                                     <input type="text" class="form-control" name="ukuran<?= $i ?>" placeholder="Ukuran" required>
                                                 </div>
@@ -134,6 +138,20 @@
                                                             input.value = warnaValue;
                                                         });
                                                     });
+                                                    var hargaInput1 = document.querySelector('.harga-input');
+
+                                                    // Tambahkan event listener untuk mengisi nilai ke semua input warna
+                                                    hargaInput1.addEventListener('input', function() {
+                                                        var hargaValue = this.value;
+
+                                                        // Ambil semua input harga
+                                                        var hargaInputs = document.querySelectorAll('.harga-input');
+
+                                                        // Iterasi melalui semua input harga dan isi nilai yang sama
+                                                        hargaInputs.forEach(function(input) {
+                                                            input.value = hargaValue;
+                                                        });
+                                                    });
                                                 });
                                             </script>
                                             <div class="modal-footer">
@@ -144,6 +162,9 @@
                                         <!-- Script JavaScript -->
                                         <script>
                                             document.getElementById('warna').addEventListener('input', function() {
+                                                this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1).toLowerCase();
+                                            });
+                                            document.getElementById('harga').addEventListener('input', function() {
                                                 this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1).toLowerCase();
                                             });
                                         </script>
@@ -203,6 +224,7 @@
                             <thead>
                                 <th scope="col">ID VARIASIPRODUK</th>
                                 <th scope="col">ID PRODUK</th>
+                                <th scope="col">HARGA</th>
                                 <th scope="col">WARNA</th>
                                 <th scope="col">UKURAN</th>
                                 <th scope="col">GAMBAR</th>
@@ -216,6 +238,7 @@
                                     <tr>
                                         <td><?php echo $row->id_variasiproduk ?></td>
                                         <td><?php echo $row->nama_produk ?></td>
+                                        <td><?php echo $row->harga ?></td>
                                         <td><?php echo $row->warna ?></td>
                                         <td><?php echo $row->ukuran ?></td>
                                         <td>
@@ -223,7 +246,7 @@
                                         </td>
                                         <td><?php echo $row->stok ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('variasiproduk/update/') . $row->id_variasiproduk ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
                                             <a href="<?php echo base_url('variasiproduk/delete/') . $row->id_variasiproduk ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>

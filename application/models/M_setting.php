@@ -9,10 +9,28 @@ class M_setting extends CI_Model
         $this->db->where('id', 1);
         return $this->db->get()->row();
     }
-    public function getProdukById($produk_id)
+    // Model
+
+    public function getUniqueColors($id_produk)
+    {
+        $this->db->distinct();
+        $this->db->select('warna');
+        $this->db->where('id_produk', $id_produk);
+        return $this->db->get('tbl_variasiproduk')->result();
+    }
+    // Model
+    public function getUniqueSizes($id_produk)
+    {
+        $this->db->distinct();
+        $this->db->select('ukuran');
+        $this->db->where('id_produk', $id_produk);
+        return $this->db->get('tbl_variasiproduk')->result();
+    }
+
+    public function getProdukById($id_produk)
     {
         // Gantilah 'produk' dan 'id' dengan nama tabel dan kolom ID produk di database Anda.
-        $this->db->where('id_produk', $produk_id);
+        $this->db->where('id_produk', $id_produk);
         $query = $this->db->get('tbl_produk');
 
         if ($query->num_rows() > 0) {
@@ -50,5 +68,19 @@ class M_setting extends CI_Model
             // Produk tidak ditemukan, kembalikan null atau pesan kesalahan jika perlu
             return null;
         }
+    }
+
+
+    public function getVariasiByColorAndSize($id_produk, $warna, $ukuran)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_variasiproduk');
+        $this->db->where('id_produk', $id_produk);
+        $this->db->where('warna', $warna);
+        $this->db->where('ukuran', $ukuran);
+        $query = $this->db->get();
+
+        // Mengembalikan hasil query
+        return $query->row();
     }
 }

@@ -15,7 +15,7 @@
                         <!-- Begin Header Top Left Area -->
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
-                                <li>
+                                <!-- <li>
                                     <span>Ikuti Kami</span>&nbsp;
                                     <a href="https://www.facebook.com/">
                                         <i class="fab fa-facebook" style="color: white;"></i>
@@ -31,7 +31,7 @@
                                         </a>
                                     </td>
 
-                                </li>
+                                </li> -->
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-8">
@@ -117,11 +117,11 @@
                                                 <?php foreach ($this->cart->contents() as $item) : ?>
                                                     <li class="produk-keranjang">
                                                         <a href="<?= base_url('produk/detail/' . $item['id']); ?>" class="minicart-product-image">
-                                                            <img src="<?= base_url('gambarproduk/' . $item['options']['gambar1']); ?>" alt="<?= $item['name']; ?>">
+                                                            <img src="<?= base_url('gambarvariasi/' . $item['options']['gambar']); ?>" alt="<?= $item['name']; ?>">
                                                         </a>
                                                         <div class="minicart-product-details">
                                                             <h6><a href="<?= base_url('produk/detail/' . $item['id']); ?>"><?= $item['name']; ?></a></h6>
-                                                            <p class=" harga-produk">RP.<?= number_format($item['price']); ?></p>
+                                                            <p class=" harga-produk">RP.<?= number_format($item['options']['harga']); ?></p>
                                                             <p class="jumlah-produk">Jumlah: <?= $item['qty']; ?></p>
                                                             <p class="total-produk">Total Harga: <?= number_format($item['subtotal']); ?></p>
                                                         </div>

@@ -16,20 +16,17 @@
             <?php
             echo form_open('belanja/add', 'id="addToCartForm"'); // Form action akan mengarahkan ke metode 'add' pada controller 'belanja'.
             echo form_hidden('id', $produk['id_produk']);
+            echo form_hidden('price', $produk['harga']);
             echo form_hidden('name', $produk['nama']);
             echo form_hidden('redirect_page', str_replace('index.php/', '', current_url()));
 
             // Tambahkan input tersembunyi untuk menyimpan informasi gambar warna dan ukuran yang dipilih
-            echo form_hidden('gambar', ''); // Menyimpan gambar yang dipilih
-            echo form_hidden('warna', ''); // Menyimpan warna yang dipilih
-            echo form_hidden('ukuran', ''); // Menyimpan ukuran yang dipilih
-            echo form_hidden('harga', ''); // Harga akan diupdate secara dinamis
+            echo form_hidden('selected_gambar', ''); // Menyimpan gambar yang dipilih
+            echo form_hidden('selected_warna', ''); // Menyimpan warna yang dipilih
+            echo form_hidden('selected_ukuran', ''); // Menyimpan ukuran yang dipilih
 
             echo form_close();
             ?>
-
-
-
 
             <div class="row single-product-area">
                 <div class="col-lg-5 col-md-6">
@@ -91,9 +88,8 @@
                                     <li class="review-item"><a href="#">Write Review</a></li>
                                 </ul>
                             </div>
-                            <!-- Tampilan harga -->
                             <div class="price-box pt-20">
-                                <span class="new-price new-price-2" id="hargaLabel">RP. 0</span>
+                                <span class="new-price new-price-2">RP.<?= number_format($produk['harga']); ?></span>
                             </div>
                             <div class="product-desc">
                                 <p>
@@ -140,37 +136,14 @@
                                         </div>
                                     </section>
 
-                                    <!-- <input type="hidden" name="gambar" value="">
-                                    <input type="hidden" name="warna" value="">
-                                    <input type="hidden" name="ukuran" value="">
-                                    <input type="hidden" name="harga" value=""> -->
-
+                                    <!-- Tampilan harga -->
+                                    <div class="price-box pt-20">
+                                        <span class="new-price new-price-2" id="hargaLabel">RP.<?= number_format($produk['harga']); ?></span>
+                                    </div>
 
                                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                                     <script>
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            // Fungsi untuk mengatur pilihan warna dan ukuran secara otomatis
-                                            function setDefaultVariations() {
-                                                // Cek apakah terdapat pilihan warna
-                                                var warnaButtons = document.querySelectorAll('.warna-btn');
-                                                if (warnaButtons.length > 0) {
-                                                    // Pilih warna pertama
-                                                    warnaButtons[0].click();
-                                                }
-
-                                                // Cek apakah terdapat pilihan ukuran
-                                                var ukuranButtons = document.querySelectorAll('.ukuran-btn');
-                                                if (ukuranButtons.length > 0) {
-                                                    // Pilih ukuran pertama
-                                                    ukuranButtons[0].click();
-                                                }
-                                            }
-
-                                            // Panggil fungsi untuk mengatur pilihan warna dan ukuran secara otomatis
-                                            setDefaultVariations();
-                                        });
-
                                         var warnaButtons = document.querySelectorAll('.warna-btn');
                                         var ukuranButtons = document.querySelectorAll('.ukuran-btn');
 
@@ -178,7 +151,6 @@
                                         var warnaTerpilih = null;
                                         var ukuranTerpilih = null;
 
-                                        // Fungsi untuk menangani klik pada tombol warna
                                         // Fungsi untuk menangani klik pada tombol warna
                                         function handleWarnaClick(event) {
                                             event.preventDefault();
@@ -189,10 +161,6 @@
 
                                             warnaTerpilih = event.currentTarget.getAttribute('data-warna');
                                             updateStokHarga();
-
-                                            // Pilih gambar dari variasi yang dipilih
-                                            var selectedGambar = event.currentTarget.getAttribute('data-gambar');
-                                            $('input[name="gambar"]').val(selectedGambar);
 
                                             event.currentTarget.classList.add('selected');
                                         }
@@ -208,28 +176,7 @@
                                             ukuranTerpilih = event.currentTarget.getAttribute('data-ukuran');
                                             updateStokHarga();
 
-                                            // Pilih ukuran dari variasi yang dipilih
-                                            var selectedUkuran = ukuranTerpilih;
-                                            $('input[name="ukuran"]').val(selectedUkuran);
-
                                             event.currentTarget.classList.add('selected');
-                                        }
-
-
-                                        function formatRupiah(angka) {
-                                            var number_string = angka.toString();
-                                            var split = number_string.split(',');
-                                            var sisa = split[0].length % 3;
-                                            var rupiah = split[0].substr(0, sisa);
-                                            var ribuan = split[0].substr(sisa).match(/\d{1,3}/gi);
-
-                                            if (ribuan) {
-                                                separator = sisa ? '.' : '';
-                                                rupiah += separator + ribuan.join('.');
-                                            }
-
-                                            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                                            return 'Rp. ' + rupiah;
                                         }
 
                                         // Fungsi untuk memperbarui tampilan stok dan harga sesuai dengan pilihan warna dan ukuran
@@ -246,12 +193,7 @@
                                                     dataType: 'json',
                                                     success: function(response) {
                                                         $('#stokLabel').text('STOK: ' + response.stok);
-
-                                                        // Update harga pada input tersembunyi
-                                                        $('input[name="harga"]').val(response.harga);
-
-                                                        // Format dan tampilkan harga
-                                                        $('#hargaLabel').text(formatRupiah(response.harga));
+                                                        $('#hargaLabel').text('RP.' + response.harga);
                                                     },
                                                     error: function(xhr, status, error) {
                                                         console.error('Error:', error);
@@ -259,14 +201,6 @@
                                                 });
                                             }
                                         }
-
-
-                                        // Memanggil fungsi updateStokHarga() saat halaman dimuat
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            updateStokHarga();
-                                        });
-
-
 
                                         warnaButtons.forEach(function(button) {
                                             button.addEventListener('click', handleWarnaClick);
@@ -301,36 +235,25 @@
                                                 var selectedColor = $('.warna-btn.selected').data('warna');
                                                 var selectedSize = $('.ukuran-btn.selected').data('ukuran');
 
-                                                // Mengambil nilai variabel tersembunyi dari formulir
-                                                var selectedGambar = $('[name="gambar"]').val();
-
-                                                // Pastikan warna dan ukuran dipilih sebelum menambahkan ke keranjang
                                                 if (!selectedColor || !selectedSize) {
+                                                    // Pastikan warna dan ukuran dipilih sebelum menambahkan ke keranjang
                                                     alert('Harap pilih warna dan ukuran terlebih dahulu.');
                                                     return;
                                                 }
 
-                                                // Perbarui nilai variabel tersembunyi sesuai dengan pilihan saat ini
-                                                $('[name="warna"]').val(selectedColor);
-                                                $('[name="ukuran"]').val(selectedSize);
-                                                $('[name="gambar"]').val(selectedGambar);
-
-                                                // Menggunakan AJAX untuk menambahkan produk ke keranjang
                                                 $.ajax({
                                                     url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>',
                                                     method: "POST",
                                                     data: {
                                                         qty: qty,
-                                                        is_checkout: isCheckout,
+                                                        is_checkout: isCheckout, // Menambahkan properti is_checkout ke dalam data
                                                         selected_color: selectedColor,
-                                                        selected_size: selectedSize,
-                                                        selected_gambar: selectedGambar,
+                                                        selected_size: selectedSize
                                                     },
                                                     success: function(response) {
                                                         if (isCheckout) {
                                                             // Redirect ke halaman belanja jika itu checkout
                                                             window.location.href = '<?= base_url('belanja'); ?>';
-
                                                         } else {
                                                             Swal.fire({
                                                                 icon: 'success',
@@ -352,10 +275,9 @@
                                                             title: 'Oops...',
                                                             text: 'Something went wrong!',
                                                             footer: '<a href="">Why do I have this issue?</a>'
-                                                        }).then(function() {
-                                                            location.reload();
                                                         });
                                                     }
+
                                                 });
                                             }
                                         });
@@ -380,13 +302,14 @@
                                         <div class=" product-social-sharing pt-25">
                                             <ul class="ull">
                                                 <li class="button1" style="width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: white; border: 1px solid orange;">
-                                                    <a id="addToCartButton" href="#">
+                                                    <a id="addToCartButton" href="<?= base_url('belanja/add/' . $produk['id_produk']) ?>">
                                                         <i class="fa fa-cart-shopping" style="color: orange;"></i>
                                                         <span style="color: orange;">Tambahkan ke keranjang</span>
                                                     </a>
                                                 </li>
+
                                                 <li class="button1" style="margin-left: 40px; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: orange;">
-                                                    <a id="checkoutButton" href="#">
+                                                    <a id="checkoutButton" href="<?= base_url('belanja/add/' . $produk['id_produk']) ?>" style="font-size: 15px;">
                                                         <i></i>
                                                         <span style="color: white;">CHECKOUT</span>
                                                     </a>
@@ -634,9 +557,7 @@
 <style>
     /* Gaya centang pada tombol warna dan ukuran yang dipilih */
     .hUWqqt.selected {
-        border: 3px solid #ffc54d;
-        background-color: #333;
-        color: white;
+        border: 2px solid #4CAF50;
         /* Ganti dengan warna border yang diinginkan */
     }
 
@@ -667,7 +588,7 @@
     button.hUWqqt {
         padding: 8px 16px;
         /* Sesuaikan ukuran padding sesuai kebutuhan Anda */
-        border: 1px solid #000;
+        border: 1px solid #ccc;
         /* Garis tepi tombol */
         background-color: #fff;
         /* Warna latar belakang tombol */

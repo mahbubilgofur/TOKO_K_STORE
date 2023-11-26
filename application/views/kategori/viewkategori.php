@@ -347,7 +347,7 @@
                                         <td><?php echo $row->deskripsi ?></td>
                                         <td><?php echo $row->induk_id ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('kategori/update/') . $row->id_kategori ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
                                             <a href="<?php echo base_url('kategori/delete/') . $row->id_kategori ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>

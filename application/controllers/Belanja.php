@@ -113,53 +113,82 @@ class Belanja extends CI_Controller
     //         redirect('login_user'); // Gantilah 'login_user' dengan URL sesuai dengan halaman login Anda
     //     }
     // }
-    public function add($produk_id)
+
+
+    public function add($id_produk)
     {
         // Cek apakah pengguna sudah login dengan role_id 2
         if ($this->session->userdata('role_id') == 2) {
             // Pengguna sudah login, lanjutkan dengan menambahkan produk ke keranjang
 
             // Ambil data produk dari database berdasarkan ID produk
-            $produk = $this->m_setting->getProdukById($produk_id);
+            $produk = $this->m_setting->getProdukById($id_produk);
 
             if ($produk) {
                 // Data produk ditemukan, lanjutkan dengan menambahkannya ke keranjang
 
                 // Ambil nilai qty dari inputan formulir
                 $qty = $this->input->post('qty');
-                if ($qty && is_numeric($qty) && $qty > 0) {
-                    // Qty valid, lanjutkan dengan menambahkannya ke keranjang
-                    $user_id = $this->session->userdata('user_id');
 
-                    $data = array(
-                        'id'      => $produk->id_produk,
-                        'qty'     => $qty,
-                        'price'   => $produk->harga,
-                        'name'    => $produk->nama,
-                        'options' => array(
-                            'gambar1' => $produk->gambar1,
-                            'berat'   => $produk->berat,
-                            'user_id' => $user_id  // Tambahkan user_id ke dalam options
-                        )
-                    );
-
-                    $this->cart->insert($data);
-
-                    // Setelah menambahkan produk ke keranjang, Anda bisa melakukan apa yang diperlukan
-                    // Contoh:
-                    $this->session->set_flashdata('message', 'Produk berhasil ditambahkan ke keranjang.');
-
-                    // Cek dari tombol mana request datang dan arahkan ke halaman yang sesuai
-                    if ($this->input->post('checkout_button')) {
-                        redirect('belanja');
-                    } else {
-                        redirect('home/detail/' . $produk_id);
-                    }
-                } else {
+                // Validasi input qty
+                if (!is_numeric($qty) || $qty <= 0) {
                     // Qty tidak valid, tampilkan pesan kesalahan atau mengarahkan ke halaman lain
                     // Contoh:
                     $this->session->set_flashdata('error', 'Qty tidak valid.');
-                    redirect('home/detail/' . $produk_id);
+                    redirect('home/detail/' . $id_produk);
+                }
+
+                // Jika ada variasi produk, ambil data variasi dari formulir
+
+                $warna = $this->input->post('selected_color');
+                $ukuran = $this->input->post('selected_size');
+
+                // Validasi variasi yang dipilih
+                if (empty($warna) || empty($ukuran)) {
+                    // Variasi tidak valid, tampilkan pesan kesalahan atau arahkan ke halaman lain
+                    // Contoh:
+                    $this->session->set_flashdata('error', 'Harap pilih warna dan ukuran terlebih dahulu.');
+                    redirect('home/detail/' . $id_produk);
+                }
+
+                // Ambil data variasi produk berdasarkan warna dan ukuran yang dipilih
+                $variasi = $this->m_setting->getVariasiByColorAndSize($id_produk, $warna, $ukuran);
+
+                if (!$variasi) {
+                    // Variasi tidak ditemukan, tampilkan pesan kesalahan atau arahkan ke halaman lain
+                    // Contoh:
+                    $this->session->set_flashdata('error', 'Variasi produk tidak ditemukan.');
+                    redirect('home/detail/' . $id_produk);
+                }
+
+
+                $data = array(
+                    'id'      => $produk->id_produk,
+                    'qty'     => $qty,
+                    'price'   => $variasi->harga,
+                    'name'    => $produk->nama,
+                    'options' => array(
+                        'gambar'  => $variasi->gambar,
+                        'berat'   => $produk->berat, // Berat dihitung berdasarkan produk tanpa *qty
+                        'user_id' => $this->session->userdata('user_id'),
+                        'harga'   => $variasi->harga,
+                        'warna'   => $variasi->warna,
+                        'ukuran'  => $variasi->ukuran,
+                    ),
+                );
+
+                // Masukkan data produk ke dalam cart
+                $this->cart->insert($data);
+
+                // Setelah menambahkan produk ke keranjang, Anda bisa melakukan apa yang diperlukan
+                // Contoh:
+                $this->session->set_flashdata('message', 'Produk berhasil ditambahkan ke keranjang.');
+
+                // Cek dari tombol mana request datang dan arahkan ke halaman yang sesuai
+                if ($this->input->post('checkout_button')) {
+                    redirect('belanja');
+                } else {
+                    redirect('home/detail/' . $id_produk);
                 }
             } else {
                 // Produk tidak ditemukan, Anda bisa menangani ini dengan menampilkan pesan kesalahan atau mengarahkan ke halaman lain

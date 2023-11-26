@@ -20,23 +20,14 @@ class M_variasiproduk extends CI_Model
     public function InsertDetailvariasi($data)
     {
         $this->db->insert('tbl_detailvariasi', $data);
-
         // Tidak perlu mengembalikan ID karena kolom ID auto-increment
     }
-
-    public function UpdateDatavariasiproduk($data, $id_variasiproduk)
-    {
-        $this->db->where('id_variasiproduk', $id_variasiproduk);
-        $this->db->update('tbl_variasiproduk', $data);
-    }
-
     public function getDatavariasiprodukDetail($id_variasiproduk)
     {
         $this->db->where('id_variasiproduk', $id_variasiproduk);
         $query = $this->db->get('tbl_variasiproduk');
         return $query->row();
     }
-
     public function DeleteDatavariasiproduk($id_variasiproduk)
     {
         $this->db->where('id_variasiproduk', $id_variasiproduk);
@@ -70,7 +61,6 @@ class M_variasiproduk extends CI_Model
             return 0;
         }
     }
-
     public function data_produk()
     {
         $this->db->select('id_produk,nama as nama, gambar1,gambar2,gambar3,gambar4,gambar5');
@@ -114,28 +104,88 @@ class M_variasiproduk extends CI_Model
         return $this->db->get('tbl_variasiproduk')->result();
     }
 
-    public function get_warna_produk_by_id_produk($id_produk)
-    {
-        $this->db->distinct();
-        $this->db->select('warna');
-        $this->db->where('id_produk', $id_produk);
-        return $this->db->get('tbl_variasiproduk')->result();
-    }
 
-    public function get_stok($warna, $ukuran)
+
+    public function getHarga($id_produk, $warna, $ukuran)
     {
-        // Gantilah 'tbl_variasiproduk' sesuai dengan nama tabel Anda
-        $this->db->select('stok');
+        $this->db->select('harga');
+        $this->db->where('id_produk', $id_produk);
         $this->db->where('warna', $warna);
         $this->db->where('ukuran', $ukuran);
         $query = $this->db->get('tbl_variasiproduk');
 
-        // Jika data ditemukan, kembalikan stok
         if ($query->num_rows() > 0) {
-            return $query->row()->stok;
+            $row = $query->row();
+            return $row->harga;
+        } else {
+            return null;
         }
+    }
 
-        // Jika tidak ada data, kembalikan 0 (atau nilai yang sesuai)
-        return 0;
+    public function getStok($id_produk, $warna, $ukuran)
+    {
+        $this->db->select('stok');
+        $this->db->where('id_produk', $id_produk);
+        $this->db->where('warna', $warna);
+        $this->db->where('ukuran', $ukuran);
+        $query = $this->db->get('tbl_variasiproduk');
+
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->stok;
+        } else {
+            return null;
+        }
+    }
+    public function get_variasi_by_id($id_variasiproduk)
+    {
+        // Query untuk mengambil data variasi berdasarkan ID
+        $this->db->select('*');
+        $this->db->from('tbl_variasiproduk');
+        $this->db->where('id_variasiproduk', $id_variasiproduk);
+        return $this->db->get()->row();
+    }
+
+
+
+    public function update_variasi_produk($data)
+    {
+        // Mendapatkan ID variasi yang sedang diedit
+        $id_variasi = $data[0]['id_variasiproduk'];
+
+        // Menghapus data variasi_produk lama berdasarkan ID variasi
+        $this->db->where('id_variasiproduk', $id_variasi);
+        $this->db->delete('tbl_variasiproduk');
+
+        // Memasukkan data variasi_produk baru
+        $this->db->insert_batch('tbl_variasiproduk', $data);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ini fungsi viewdetailproduk  
+    public function getStokHarga($id_produk, $warna, $ukuran)
+    {
+        $this->db->select('stok, harga');
+        $this->db->from('tbl_variasiproduk');
+        $this->db->where('id_produk', $id_produk);
+        $this->db->where('warna', $warna);
+        $this->db->where('ukuran', $ukuran);
+        $result = $this->db->get()->row();
+
+        return [
+            'stok' => $result->stok,
+            'harga' => $result->harga,
+        ];
     }
 }

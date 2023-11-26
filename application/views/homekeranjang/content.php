@@ -24,10 +24,11 @@
                                 <tr>
                                     <th class="li-product-remove">DELETE</th>
                                     <th class="li-product-thumbnail">GAMBAR</th>
+                                    <th class="li-product-thumbnail">VARIASI</th>
                                     <th class="li-product-name">PRODUK</th>
                                     <th class="li-product-price">HARGA</th>
                                     <th class="li-product-quantity">JUMLAH</th>
-                                    <th class="li-product-name">Berat</th>
+                                    <th class="li-product-name">BERAT</th>
                                     <th class="li-product-subtotal">TOTAL</th>
                                 </tr>
                                 <?php $i = 1; ?>
@@ -43,15 +44,20 @@
                                         <td class="li-product-remove"><a href="<?= base_url('belanja/hapus/' . $item['rowid']) ?>"><i class="fa fa-times"></i></a></td>
                                         <td class="li-product-thumbnail">
                                             <a href="#">
-                                                <img src="<?= base_url('gambarproduk/' . $item['options']['gambar1']); ?>" alt="" width="50" height="50">
+                                                <img src="<?= base_url('gambarvariasi/' . $item['options']['gambar']); ?>" alt="" width="50" height="50">
                                             </a>
                                         </td>
+                                        <td class="li-product-name">
+                                            <p>Warna: <?= $item['options']['warna']; ?></p><br>
+                                            <p>Ukuran: <?= $item['options']['ukuran']; ?></p>
+                                        </td>
+
                                         <td class="li-product-name">
                                             <a href="#"><?= $item['name']; ?></a>
                                         </td>
                                         <td class="li-product-price">
                                             <?php
-                                            $price = $item['price'];
+                                            $price = $item['options']['harga'];
                                             $formattedPrice = 'Rp. ' . number_format($price, 0, ',', '.');
                                             ?>
                                             <span class="amount"><?= $formattedPrice; ?></span>
