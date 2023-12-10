@@ -4,96 +4,48 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_pencarian extends CI_Model
 {
-    // public function cari_produk($keyword)
-    // {
-    //     $keyword = strtolower($keyword); // Konversi kata kunci pencarian menjadi huruf kecil
-
-    //     // Mencari produk berdasarkan nama dengan huruf kecil
-    //     $this->db->like('LOWER(nama)', $keyword, 'both');
-
-    //     // Mencari produk berdasarkan id_kategori yang cocok dengan nama kategori atau subkategori
-    //     $kategori_ids = $this->getKategoriIdsByNama($keyword);
-
-    //     // Periksa apakah $kategori_ids tidak kosong sebelum menggunakan where_in
-    //     if (!empty($kategori_ids)) {
-    //         $this->db->where_in('id_kategori', $kategori_ids);
-    //     }
-
-    //     return $this->db->get('tbl_produk')->result();
-    // }
-
-    // private function getKategoriIdsByNama($nama_kategori)
-    // {
-    //     $kategori_ids = array();
-
-    //     // Mencari id_kategori berdasarkan nama kategori
-    //     $kategori = $this->db->get_where('tbl_kategori', array('LOWER(nama)' => $nama_kategori))->row();
-
-    //     if ($kategori) {
-    //         $kategori_ids[] = $kategori->id_kategori;
-    //     }
-
-    //     // Mencari subkategori
-    //     $subkategori_ids = $this->getSubkategoriIds($kategori->id_kategori);
-
-    //     return array_merge($kategori_ids, $subkategori_ids);
-    // }
-
-    // private function getSubkategoriIds($induk_id)
-    // {
-    //     $subkategori_ids = array();
-
-    //     // Mencari semua subkategori dari kategori dengan induk_id yang diberikan
-    //     $subkategoris = $this->db->get_where('tbl_kategori', array('induk_id' => $induk_id))->result();
-
-    //     foreach ($subkategoris as $subkategori) {
-    //         $subkategori_ids[] = $subkategori->id_kategori;
-    //         $subkategori_ids = array_merge($subkategori_ids, $this->getSubkategoriIds($subkategori->id_kategori));
-    //     }
-
-    //     return $subkategori_ids;
-    // }
-    public function cari_produk($keyword)
+    public function cari_produk($keywords)
     {
-        $keyword = strtolower($keyword); // Konversi kata kunci pencarian menjadi huruf kecil
+        $this->db->select('p.*, k.id_kategori, k.nama as nama_kategori');
+        $this->db->from('tbl_produk as p');
 
-        // Mencari produk berdasarkan nama dengan huruf kecil
-        $this->db->like('LOWER(nama)', $keyword, 'both');
-
-        // Mencari produk berdasarkan id_kategori yang cocok dengan nama kategori atau subkategori
-        $kategori_ids = $this->getKategoriIdsByNama($keyword);
-
-        if (!empty($kategori_ids)) {
-            $this->db->where_in('id_kategori', $kategori_ids);
-        } else {
-            // Tidak ada kategori yang cocok, set hasil pencarian menjadi array kosong
-            return array();
+        // Mencari produk berdasarkan nama produk atau nama kategori
+        $this->db->group_start();
+        foreach ($keywords as $keyword) {
+            $this->db->or_like('LOWER(p.nama)', strtolower($keyword));
+            $this->db->or_like('LOWER(k.nama)', strtolower($keyword));
         }
+        $this->db->group_end();
 
-        return $this->db->get('tbl_produk')->result();
+        // Gabungkan tabel kategori menggunakan LEFT JOIN
+        $this->db->join('tbl_kategori as k', 'p.id_kategori = k.id_kategori', 'left');
+
+        return $this->db->get()->result();
     }
 
-    private function getKategoriIdsByNama($nama_kategori)
+
+    private function getKategoriIdsByNama($keywords)
     {
         $kategori_ids = array();
 
-        // Mencari id_kategori berdasarkan nama kategori
-        $kategori = $this->db->get_where('tbl_kategori', array('LOWER(nama)' => $nama_kategori))->row();
+        foreach ($keywords as $keyword) {
+            $this->db->select('id_kategori');
+            $this->db->from('tbl_kategori');
+            $this->db->where('LOWER(nama)', strtolower($keyword));
 
-        if ($kategori !== null) {
-            $kategori_ids[] = $kategori->id_kategori;
+            $kategori = $this->db->get()->row();
 
-            // Mencari subkategori
-            $subkategori_ids = $this->getSubkategoriIds($kategori->id_kategori);
+            if ($kategori !== null) {
+                $kategori_ids[] = $kategori->id_kategori;
 
-            return array_merge($kategori_ids, $subkategori_ids);
-        } else {
-            // Handle jika kategori tidak ditemukan
-            // Misalnya, Anda dapat mengembalikan array kosong atau pesan kesalahan
-            return array();
+                // Mencari subkategori
+                $subkategori_ids = $this->getSubkategoriIds($kategori->id_kategori);
+                $kategori_ids = array_merge($kategori_ids, $subkategori_ids);
+            }
         }
-    }
 
+        return $kategori_ids;
+    }
 
     private function getSubkategoriIds($id_kategori)
     {
@@ -104,6 +56,7 @@ class M_pencarian extends CI_Model
 
         foreach ($subkategoris as $subkategori) {
             $subkategori_ids[] = $subkategori->id_kategori;
+
             // Rekursif mencari subkategori dari subkategori
             $subkategori_ids = array_merge($subkategori_ids, $this->getSubkategoriIds($subkategori->id_kategori));
         }

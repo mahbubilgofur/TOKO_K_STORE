@@ -36,6 +36,91 @@ class Variasiproduk extends CI_Controller
         $this->load->view('layout/footer');
     }
 
+    // public function input_variasi()
+    // {
+    //     $this->load->model('M_variasiproduk');
+    //     $data['data_variasiproduk'] = $this->M_variasiproduk->getDatavariasiproduk();
+    //     $data['data_variasi'] = $this->M_variasiproduk->getDatavariasiproduk1();
+    //     $data['data_produk'] = $this->M_variasiproduk->get_all_produk();
+
+    //     // Validasi form
+    //     $this->form_validation->set_rules('id_variasiproduk', 'ID VARIASI', 'required');
+    //     $this->form_validation->set_rules('id_produk', 'ID PRODUK', 'required');
+    //     $this->form_validation->set_rules('gambar_terpilih', 'Gambar Terpilih', 'required');
+
+    //     // Iterasi untuk input dinamis
+    //     $inputCount = $this->input->post('inputCount');
+
+    //     for ($i = 1; $i <= $inputCount; $i++) {
+    //         $this->form_validation->set_rules("warna[$i]", "Warna $i", 'required');
+    //         $this->form_validation->set_rules("harga[$i]", "Harga $i", 'required');
+    //         $this->form_validation->set_rules("ukuran[$i]", "Ukuran $i", 'required'); // Sesuaikan aturan validasi untuk input ukuran
+    //         $this->form_validation->set_rules("stok[$i]", "Stok $i", 'required|numeric');
+    //     }
+
+    //     if ($this->form_validation->run() == FALSE) {
+    //         $this->load->view('layout/header');
+    //         $this->load->view('admin/navbar');
+    //         $this->load->view('variasiproduk/viewvariasiproduk', $data);
+    //         $this->load->view('layout/footer');
+    //     } else {
+    //         // Jika validasi berhasil, proses input ke database
+    //         $id_produk = $this->input->post('id_produk');
+    //         $gambar_terpilih = $this->input->post('gambar_terpilih');
+
+    //         // Mendapatkan nama file gambar dari tbl_produk
+    //         $gambar_produk = $this->getGambarProdukById($id_produk, $gambar_terpilih);
+
+    //         // Menyimpan gambar di folder ./gambarvariasi/
+    //         $gambar_variasi = $this->saveGambarVariasi($gambar_produk);
+
+    //         // Data untuk disimpan ke dalam tabel variasi_produk
+    //         $data_variasi = array();
+
+    //         // Ambil ID variasi terakhir dari model
+    //         $last_id_variasi = $this->M_variasiproduk->get_last_variasi_id();
+
+    //         // Iterasi untuk input dinamis
+    //         for ($i = 1; $i <= $inputCount; $i++) {
+    //             $harga = $this->input->post("harga[$i]");
+    //             $ukuran = strtoupper($this->input->post("ukuran[$i]")); // Mengubah ukuran menjadi huruf kapital
+    //             $stok = $this->input->post("stok[$i]");
+
+    //             // Membuat ID variasi baru dengan nomor yang diincrement
+    //             $new_number = intval(substr($last_id_variasi, 3)) + $i;
+    //             $new_id_variasi = 'VAR' . str_pad($new_number, 5, '0', STR_PAD_LEFT);
+
+    //             $data_variasi[] = array(
+    //                 'id_variasiproduk' => $new_id_variasi,
+    //                 'id_produk' => $id_produk,
+    //                 'warna' => ucfirst(strtolower($this->input->post("warna[$i]"))),
+    //                 'harga' => $harga,
+    //                 'ukuran' => $ukuran,
+    //                 'stok' => $stok,
+    //                 'gambar' => $gambar_variasi,
+    //             );
+    //         }
+
+    //         // Simpan informasi variasi_produk ke database
+    //         $this->M_variasiproduk->update_variasi_produk($data_variasi);
+
+    //         // Redirect dengan pesan sukses
+    //         $this->session->set_flashdata('success', 'Data variasi_produk berhasil disimpan');
+    //         redirect('variasiproduk');
+    //     }
+    // }
+    public function getHargaProduk()
+    {
+        $id_produk = $this->input->post('id_produk');
+
+        // Panggil model atau database untuk mendapatkan harga berdasarkan id_produk
+        $this->load->model('M_variasiproduk'); // Pastikan model telah dibuat
+        $harga = $this->M_variasiproduk->getHargaById($id_produk);
+
+        // Kirim data harga sebagai respons JSON
+        $response['harga'] = $harga;
+        echo json_encode($response);
+    }
     public function input_variasi()
     {
         $this->load->model('M_variasiproduk');
@@ -46,13 +131,17 @@ class Variasiproduk extends CI_Controller
         // Validasi form
         $this->form_validation->set_rules('id_variasiproduk', 'ID VARIASI', 'required');
         $this->form_validation->set_rules('id_produk', 'ID PRODUK', 'required');
-        for ($i = 1; $i <= 5; $i++) {
-            $this->form_validation->set_rules("warna$i", "Warna $i", 'required');
-            $this->form_validation->set_rules("harga$i", "Harga $i", 'required');
-            $this->form_validation->set_rules("ukuran$i", "Ukuran $i", 'required');
-            $this->form_validation->set_rules("stok$i", "Stok $i", 'required|numeric');
-        }
         $this->form_validation->set_rules('gambar_terpilih', 'Gambar Terpilih', 'required');
+
+        // Iterasi untuk input dinamis
+        $inputCount = $this->input->post('inputCount');
+
+        for ($i = 1; $i <= $inputCount; $i++) {
+            $this->form_validation->set_rules("warna[$i]", "Warna $i", 'required');
+            $this->form_validation->set_rules("harga[$i]", "Harga $i", 'required');
+            $this->form_validation->set_rules("ukuran[$i]", "Ukuran $i", 'required');
+            $this->form_validation->set_rules("stok[$i]", "Stok $i", 'required|numeric');
+        }
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/header');
@@ -76,11 +165,11 @@ class Variasiproduk extends CI_Controller
             // Ambil ID variasi terakhir dari model
             $last_id_variasi = $this->M_variasiproduk->get_last_variasi_id();
 
-            for ($i = 1; $i <= 5; $i++) {
-                $warna = $this->input->post("warna$i");
-                $harga = $this->input->post("harga$i");
-                $ukuran = strtoupper($this->input->post("ukuran$i")); // Mengubah ukuran menjadi huruf kapital
-                $stok = $this->input->post("stok$i");
+            // Iterasi untuk input dinamis
+            for ($i = 1; $i <= $inputCount; $i++) {
+                $harga = $this->input->post("harga[$i]");
+                $ukuran = strtoupper($this->input->post("ukuran[$i]"));
+                $stok = $this->input->post("stok[$i]");
 
                 // Membuat ID variasi baru dengan nomor yang diincrement
                 $new_number = intval(substr($last_id_variasi, 3)) + $i;
@@ -89,7 +178,7 @@ class Variasiproduk extends CI_Controller
                 $data_variasi[] = array(
                     'id_variasiproduk' => $new_id_variasi,
                     'id_produk' => $id_produk,
-                    'warna' => ucfirst(strtolower($warna)),
+                    'warna' => ucfirst(strtolower($this->input->post("warna[$i]"))),
                     'harga' => $harga,
                     'ukuran' => $ukuran,
                     'stok' => $stok,
@@ -105,6 +194,9 @@ class Variasiproduk extends CI_Controller
             redirect('variasiproduk');
         }
     }
+
+
+
     // Menambahkan metode untuk menyimpan gambar ke folder variasi
     private function saveGambarVariasi($gambar_produk)
     {

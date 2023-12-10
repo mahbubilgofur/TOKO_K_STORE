@@ -46,20 +46,19 @@
                                 </button>
                             </div>
                         <?php endif; ?>
-
+                        <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
                     </div>
                     <!-- /.card -->
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">
                         TAMBAH
                     </button>
 
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Insert Data</h5>
@@ -68,10 +67,10 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="<?= base_url() ?>variasiproduk/input_variasi" method="POST" enctype="multipart/form-data">
+                                        <form action="<?= base_url() ?>variasiproduk/input_variasi" method="POST" enctype="multipart/form-data" id=form>
                                             <div class="form-group">
                                                 <label>ID VARIASI</label>
-                                                <input type="text" class="form-control" name="id_variasiproduk" placeholder="ID VARIASI" value="<?php echo sprintf($data_variasi) ?>" readonly>
+                                                <input type="text" class="form-control" name="id_variasiproduk" placeholder="ID VARIASI" value="<?= sprintf($data_variasi) ?>" readonly>
                                             </div>
 
                                             <div class="form-group">
@@ -85,12 +84,19 @@
                                                         <?php foreach ($data_produk as $row) : ?>
                                                             <option value="<?= $row->id_produk; ?>" data-gambar1="<?= base_url('gambarproduk/' . $row->gambar1); ?>" data-gambar2="<?= base_url('gambarproduk/' . $row->gambar2); ?>" data-gambar3="<?= base_url('gambarproduk/' . $row->gambar3); ?>" data-gambar4="<?= base_url('gambarproduk/' . $row->gambar4); ?>" data-gambar5="<?= base_url('gambarproduk/' . $row->gambar5); ?>">
                                                                 <?= $row->nama; ?>
+
                                                             </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
-
                                             </div>
+
+                                            <!-- Tambahkan elemen ini di dalam form -->
+                                            <div class="form-group col-md-6">
+                                                <p id="harga-text"></p>
+                                            </div>
+
+
                                             <div class="form-group">
                                                 <label for="selected_gambar">Pilih Gambar</label>
                                                 <div id="gambar-container"></div>
@@ -101,121 +107,199 @@
                                                 <label for="preview">Gambar yang Dipilih:</label>
                                                 <img id="preview" src="#" alt="Preview Gambar" style="max-width: 100px; max-height: 100px;">
                                             </div>
-                                            <?php for ($i = 1; $i <= 5; $i++) : ?>
-                                                <div class="form-group">
-                                                    <label>Warna</label>
-                                                    <input type="text" class="form-control warna-input" name="warna<?= $i ?>" placeholder="Warna" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>HARGA</label>
-                                                    <input type="number" class="form-control harga-input" name="harga<?= $i ?>" placeholder="Harga" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Ukuran</label>
-                                                    <input type="text" class="form-control" name="ukuran<?= $i ?>" placeholder="Ukuran" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Stok</label>
-                                                    <input type="number" class="form-control" name="stok<?= $i ?>" placeholder="Stok" required>
-                                                </div>
-                                            <?php endfor; ?>
 
-                                            <!-- Tambahkan skrip JavaScript di sini -->
+                                            <div class="form-group">
+                                                <label>Warna</label>
+                                                <input type="text" class="form-control warna-input static-input" name="warna[]" placeholder="Warna" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>HARGA</label>
+                                                <input type="number" class="form-control harga-input static-input" name="harga[]" placeholder="Harga" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Ukuran</label>
+                                                <input type="text" class="form-control ukuran-input static-input" name="ukuran[]" placeholder="Ukuran" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Stok</label>
+                                                <input type="number" class="form-control stok-input static-input" name="stok[]" placeholder="Stok" required>
+                                            </div>
+
+                                            <!-- Container untuk input dinamis -->
+                                            <div id="dynamicInputContainer"></div>
+
+                                            <!-- Tombol Tambah -->
+                                            <button type="button" class="btn btn-success" id="tambahInput">Tambah Warna/Ukuran</button>
+
+                                            <!-- Tombol Hapus -->
+                                            <button type="button" class="btn btn-danger" id="hapusInput" style="display: none;">Hapus Warna/Ukuran</button>
+
+                                            <!-- Hidden input untuk melacak jumlah set input dinamis -->
+                                            <input type="hidden" id="inputCount" name="inputCount" value="1">
+
+                                            <!-- Tombol Submit -->
+                                            <button type="button" class="btn btn-primary" id="submitBtn">Simpan</button>
+
                                             <script>
-                                                document.addEventListener("DOMContentLoaded", function() {
-                                                    // Ambil elemen input warna pertama
-                                                    var warnaInput1 = document.querySelector('.warna-input');
+                                                document.getElementById('tambahInput').addEventListener('click', function() {
+                                                    var dynamicInputContainer = document.getElementById('dynamicInputContainer');
+                                                    var inputCountInput = document.getElementById('inputCount');
 
-                                                    // Tambahkan event listener untuk mengisi nilai ke semua input warna
-                                                    warnaInput1.addEventListener('input', function() {
-                                                        var warnaValue = this.value;
+                                                    var inputIndex = inputCountInput.value;
+                                                    inputIndex++;
 
-                                                        // Ambil semua input warna
-                                                        var warnaInputs = document.querySelectorAll('.warna-input');
+                                                    // Update input count
+                                                    inputCountInput.value = inputIndex;
 
-                                                        // Iterasi melalui semua input warna dan isi nilai yang sama
-                                                        warnaInputs.forEach(function(input) {
-                                                            input.value = warnaValue;
+                                                    // Dapatkan nilai input pertama
+                                                    var firstColorInput = document.querySelector('.warna-input').value;
+                                                    var firstSizeInput = document.querySelector('.ukuran-input').value;
+                                                    var firstStockInput = document.querySelector('.stok-input').value;
+                                                    var firstPriceInput = document.querySelector('.harga-input').value;
+
+                                                    // Buat input elements baru dengan nilai yang sama seperti input pertama
+                                                    var colorInput = createInput('text', 'form-control warna-input', 'warna[]', 'Warna');
+                                                    var sizeInput = createInput('text', 'form-control ukuran-input', 'ukuran[]', 'Ukuran');
+                                                    var stockInput = createInput('number', 'form-control stok-input', 'stok[]', 'Stok');
+                                                    var priceInput = createInput('number', 'form-control harga-input', 'harga[]', 'Harga');
+
+                                                    // Tambahkan input elements ke dalam container
+                                                    dynamicInputContainer.appendChild(colorInput);
+                                                    dynamicInputContainer.appendChild(sizeInput);
+                                                    dynamicInputContainer.appendChild(stockInput);
+                                                    dynamicInputContainer.appendChild(priceInput);
+
+                                                    // Set nilai input sesuai dengan input pertama
+                                                    colorInput.value = firstColorInput;
+                                                    sizeInput.value = firstSizeInput;
+                                                    stockInput.value = firstStockInput;
+                                                    priceInput.value = firstPriceInput;
+
+                                                    // Tampilkan tombol Hapus
+                                                    document.getElementById('hapusInput').style.display = 'inline-block';
+                                                });
+
+                                                document.getElementById('hapusInput').addEventListener('click', function() {
+                                                    var dynamicInputContainer = document.getElementById('dynamicInputContainer');
+                                                    var inputCountInput = document.getElementById('inputCount');
+
+                                                    var inputIndex = inputCountInput.value;
+                                                    inputIndex = Math.max(1, inputIndex - 1);
+
+                                                    // Update input count
+                                                    inputCountInput.value = inputIndex;
+
+                                                    // Hapus satu set input
+                                                    if (inputIndex > 1) {
+                                                        for (var i = 0; i < 4; i++) {
+                                                            dynamicInputContainer.removeChild(dynamicInputContainer.lastChild);
+                                                        }
+                                                    }
+
+                                                    // Sembunyikan tombol Hapus jika tidak ada input lagi
+                                                    if (inputIndex === 1) {
+                                                        document.getElementById('hapusInput').style.display = 'none';
+                                                    }
+                                                });
+                                                document.getElementById('submitBtn').addEventListener('click', function() {
+                                                    // Periksa apakah ada input dinamis
+                                                    var dynamicInputs = document.querySelectorAll('#dynamicInputContainer input');
+                                                    var hasDynamicInputs = dynamicInputs.length > 0;
+
+                                                    // Jika tidak ada input dinamis, tambahkan input pertama ke dalam formulir
+                                                    if (!hasDynamicInputs) {
+                                                        var staticInputs = document.querySelectorAll('.static-input');
+                                                        staticInputs.forEach(function(staticInput) {
+                                                            var hiddenInput = document.createElement('input');
+                                                            hiddenInput.type = 'hidden';
+                                                            hiddenInput.name = staticInput.name;
+                                                            hiddenInput.value = staticInput.value;
+                                                            form.appendChild(hiddenInput);
                                                         });
+                                                    }
+
+                                                    // Code untuk mengumpulkan dan submit data
+                                                    collectAndSubmitData();
+                                                });
+
+                                                function collectAndSubmitData() {
+                                                    var form = document.getElementById('form');
+                                                    var dynamicInputs = document.querySelectorAll('#dynamicInputContainer input');
+
+                                                    // Buat elemen input tersembunyi untuk setiap data dinamis dan tambahkan ke formulir
+                                                    dynamicInputs.forEach(function(input) {
+                                                        var hiddenInput = document.createElement('input');
+                                                        hiddenInput.type = 'hidden';
+                                                        hiddenInput.name = input.name;
+                                                        hiddenInput.value = input.value;
+                                                        form.appendChild(hiddenInput);
                                                     });
-                                                    var hargaInput1 = document.querySelector('.harga-input');
 
-                                                    // Tambahkan event listener untuk mengisi nilai ke semua input warna
-                                                    hargaInput1.addEventListener('input', function() {
-                                                        var hargaValue = this.value;
+                                                    // Kirim formulir
+                                                    form.submit();
+                                                }
 
-                                                        // Ambil semua input harga
-                                                        var hargaInputs = document.querySelectorAll('.harga-input');
 
-                                                        // Iterasi melalui semua input harga dan isi nilai yang sama
-                                                        hargaInputs.forEach(function(input) {
-                                                            input.value = hargaValue;
+                                                function createInput(type, className, name, placeholder) {
+                                                    var input = document.createElement('input');
+                                                    input.type = type;
+                                                    input.className = className;
+                                                    input.name = name;
+                                                    input.placeholder = placeholder;
+                                                    return input;
+                                                }
+
+
+                                                document.getElementById('id_produk').addEventListener('change', function() {
+                                                    var selectedOption = this.options[this.selectedIndex];
+                                                    var gambarContainer = document.getElementById('gambar-container');
+                                                    var previewImage = document.getElementById('preview');
+                                                    var hargaContainer = document.getElementById('harga-text');
+
+                                                    // Ambil id_produk
+                                                    var id_produk = selectedOption.value;
+
+                                                    // Tampilkan gambar (sama seperti sebelumnya)
+                                                    gambarContainer.innerHTML = '';
+                                                    for (var i = 1; i <= 5; i++) {
+                                                        var img = document.createElement('img');
+                                                        img.src = selectedOption.getAttribute('data-gambar' + i);
+                                                        img.style.width = '80px';
+                                                        img.style.height = '80px';
+
+                                                        var label = document.createElement('label');
+                                                        label.appendChild(img);
+
+                                                        var radio = document.createElement('input');
+                                                        radio.type = 'radio';
+                                                        radio.name = 'selected_gambar';
+                                                        radio.value = 'gambar' + i;
+                                                        radio.required = true;
+
+                                                        // Attach a change event listener to update the preview image
+                                                        radio.addEventListener('change', function() {
+                                                            previewImage.src = this.previousSibling.src;
+                                                            document.getElementById('gambar_terpilih').value = this.value;
                                                         });
-                                                    });
+
+                                                        label.appendChild(radio);
+                                                        gambarContainer.appendChild(label);
+                                                    }
+
+                                                    // Tampilkan harga (baru)
+                                                    fetch('<?= base_url('variasiproduk/getHargaProduk') ?>', {
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'Content-Type': 'application/x-www-form-urlencoded',
+                                                            },
+                                                            body: 'id_produk=' + id_produk,
+                                                        })
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            hargaContainer.innerText = data.harga ? 'Harga Dasar Produk: Rp ' + data.harga : '';
+                                                        });
                                                 });
                                             </script>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save</button>
-                                            </div>
-                                        </form>
-                                        <!-- Script JavaScript -->
-                                        <script>
-                                            document.getElementById('warna').addEventListener('input', function() {
-                                                this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1).toLowerCase();
-                                            });
-                                            document.getElementById('harga').addEventListener('input', function() {
-                                                this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1).toLowerCase();
-                                            });
-                                        </script>
-
-                                        <script>
-                                            document.getElementById('id_produk').addEventListener('change', function() {
-                                                var selectedOption = this.options[this.selectedIndex];
-                                                var gambarContainer = document.getElementById('gambar-container');
-                                                var previewImage = document.getElementById('preview');
-
-                                                // Clear previous content
-                                                gambarContainer.innerHTML = '';
-
-                                                for (var i = 1; i <= 5; i++) {
-                                                    var img = document.createElement('img');
-                                                    img.src = selectedOption.getAttribute('data-gambar' + i);
-                                                    img.style.width = '80px';
-                                                    img.style.height = '80px';
-
-                                                    var label = document.createElement('label');
-                                                    label.appendChild(img);
-
-                                                    var radio = document.createElement('input');
-                                                    radio.type = 'radio';
-                                                    radio.name = 'selected_gambar';
-                                                    radio.value = 'gambar' + i;
-                                                    radio.required = true;
-
-                                                    // Attach a change event listener to update the preview image
-                                                    radio.addEventListener('change', function() {
-                                                        previewImage.src = this.previousSibling.src;
-                                                        document.getElementById('gambar_terpilih').value = this.value;
-                                                    });
-
-                                                    label.appendChild(radio);
-                                                    gambarContainer.appendChild(label);
-                                                }
-                                            });
-
-                                            function previewImage(input) {
-                                                var preview = document.getElementById('preview');
-                                                if (input.files && input.files[0]) {
-                                                    var reader = new FileReader();
-                                                    reader.onload = function(e) {
-                                                        preview.src = e.target.result;
-                                                    }
-                                                    reader.readAsDataURL(input.files[0]);
-                                                }
-                                            }
-                                        </script>
-
                                     </div>
                                 </div>
                             </div>

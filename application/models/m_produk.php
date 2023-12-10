@@ -67,7 +67,7 @@ class M_produk extends CI_Model
     public function getProdukById($id_produk)
     {
         // Query database untuk mengambil data produk berdasarkan id_produk
-        $this->db->select('tbl_produk.*, tbl_kategori.nama');
+        $this->db->select('tbl_produk.*, tbl_kategori.nama as namakategori');
         $this->db->from('tbl_produk');
         $this->db->join('tbl_kategori', 'tbl_kategori.id_kategori = tbl_produk.id_kategori');
         $this->db->where('tbl_produk.id_produk', $id_produk);

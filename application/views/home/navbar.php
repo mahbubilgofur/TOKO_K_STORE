@@ -7,15 +7,15 @@
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
         <!-- Begin Header Area -->
-        <header class="li-header-4" style="background-color: #006494;">
+        <header class="li-header-4" style="background-color: #006494;height:130px;">
             <!-- Begin Header Top Area -->
-            <div class="header-top">
+            <div class="header-top" style="position: relative;">
                 <div class="container">
                     <div class="row">
                         <!-- Begin Header Top Left Area -->
-                        <div class="col-lg-3 col-md-4">
-                            <div class="header-top-left">
-                                <!-- <li>
+                        <div class="col-lg-3 col-md-4" style="position: absolute; right:0;">
+                            <div class="header-top-right">
+                                <li>
                                     <span>Ikuti Kami</span>&nbsp;
                                     <a href="https://www.facebook.com/">
                                         <i class="fab fa-facebook" style="color: white;"></i>
@@ -31,19 +31,10 @@
                                         </a>
                                     </td>
 
-                                </li> -->
+                                </li>
                             </div>
                         </div>
-                        <div class="col-lg-9 col-md-8">
-                            <div class="header-top-right">
-                                <ul class="ht-menu">
-                                    <marquee behavior="scroll" direction="left">
-                                        ShopEasy adalah online shop yang memudahkan anda berbelanja dari rumah
-                                        dengan menjual berbagai produk fashion seperti baju, celana, topi, dan juga sepatu.
-                                    </marquee>
-                                </ul>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -72,7 +63,7 @@
                                 <ul class="hm-menu">
                                     <li class="hm-minicart">
                                         <?php if ($this->session->userdata('role_id') == 2) : ?>
-                                            <div class="hm-minicart-trigger">
+                                            <div class="hm-minicart-trigger" style="color: black;">
                                                 <i class="fas fa-sign-in-alt"></i> <span class="item-text">
                                                     <?php echo $this->session->userdata('nama'); ?>
                                                 </span>
@@ -104,7 +95,7 @@
                                 <!-- Header Middle Wishlist Area End Here -->
                                 <!-- Begin Header Mini Cart Area -->
                                 <li class="hm-minicart">
-                                    <div class="hm-minicart-trigger">
+                                    <div class="hm-minicart-trigger" style="background-color: black;">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         <span class="item-text">
 

@@ -3,7 +3,7 @@
         <div class="breadcrumb-content">
             <ul>
                 <li><a href="<?= base_url('home') ?>">Home</a></li>
-                <li class="active"><?= $produk['nama']; ?></li>
+                <li class="active"><?= $produk['namakategori']; ?></li>
             </ul>
         </div>
     </div>
@@ -78,29 +78,30 @@
                 <div class="col-lg-7 col-md-6">
                     <div class="product-details-view-content pt-60">
                         <div class="product-info">
-                            <h2><?= $produk['nama']; ?></h2>
-                            <span class="product-details-ref">Reference: demo_15</span>
+                            <h2 style="color: black; font-size: 25px;"><?= $produk['nama']; ?></h2>
+                            <!-- <span class="product-details-ref">Terjual: </span> -->
                             <div class="rating-box pt-20">
                                 <ul class="rating rating-with-review-item">
+                                    <li><a href="#">Terjual:</a>.</li>
                                     <li><i class="fa fa-star-o"></i></li>
                                     <li><i class="fa fa-star-o"></i></li>
                                     <li><i class="fa fa-star-o"></i></li>
                                     <li class="no-star"><i class="fa fa-star-o"></i></li>
                                     <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    <li class="review-item"><a href="#">Read Review</a></li>
-                                    <li class="review-item"><a href="#">Write Review</a></li>
+                                    <li><a href="#">(Rating)</a></li>
                                 </ul>
                             </div>
-                            <!-- Tampilan harga -->
                             <div class="price-box pt-20">
-                                <span class="new-price new-price-2" id="hargaLabel">RP. 0</span>
+                                <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel">RP.<?= number_format($produk['harga']); ?></span>
                             </div>
-                            <div class="product-desc">
+                            <div class="product-descc" id="productDescription">
                                 <p>
-                                    <span><?= $produk['deskripsi']; ?>
-                                    </span>
+                                    <span class="short-descc"><?= substr($produk['deskripsi'], 0, 100); ?>...</span>
+                                    <span class="full-descc"><?= $produk['deskripsi']; ?></span>
+                                    <a class="toggle-link" href="javascript:void(0);" onclick="toggleDescription()">Lihat Selengkapnya</a>
                                 </p>
                             </div>
+
                             <div class="flex rY0UiC j9be9C">
                                 <div class="flex flex-column">
                                     <!-- Tampilan warna -->
@@ -136,7 +137,7 @@
                                     <section class="flex items-center" style="margin-bottom: 24px; align-items: baseline;">
                                         <h3 class="oN9nMU">Stok</h3>
                                         <div class="flex items-center bR6mEk">
-                                            <span class="stok-label" id="stokLabel">STOK: tidak tersedia</span>
+                                            <span style="color: black;" class="stok-label" id="stokLabel"></span>
                                         </div>
                                     </section>
 
@@ -280,42 +281,42 @@
                                         updateStokHarga();
                                         document.addEventListener('DOMContentLoaded', function() {
                                             // Tombol Tambahkan ke Keranjang
-                                            $('#addToCartButton').on('click', function() {
+                                            document.getElementById('addToCartButton').addEventListener('click', function(event) {
+                                                event.preventDefault(); // Mencegah aksi default dari tautan
                                                 addToCart(false); // false menunjukkan bahwa ini bukan checkout
                                             });
 
                                             // Tombol Checkout
-                                            $('#checkoutButton').on('click', function() {
+                                            document.getElementById('checkoutButton').addEventListener('click', function(event) {
+                                                event.preventDefault(); // Mencegah aksi default dari tautan
                                                 addToCart(true); // true menunjukkan bahwa ini checkout
                                             });
 
                                             function addToCart(isCheckout) {
-                                                var role_id = <?php echo $this->session->userdata('role_id'); ?>;
+                                                // Mengambil nilai role_id dari data attribute tombol
+                                                var role_id = $('#addToCartButton').data('role-id');
+
+                                                // Jika role_id tidak sesuai (belum login atau bukan role_id 2), arahkan ke halaman login_user
                                                 if (role_id !== 2) {
-                                                    // Jika pengguna belum login atau rolenya tidak sesuai, arahkan ke halaman login_user
                                                     window.location.href = '<?= base_url('login_user'); ?>';
                                                     return;
                                                 }
 
-                                                var qty = $("#qty").val(); // Mengambil nilai qty dari elemen input
+                                                // Pengguna sudah login dan role_id adalah 2, lanjutkan dengan logika untuk menambahkan ke keranjang atau checkout
+                                                var qty = $("#qty").val();
                                                 var selectedColor = $('.warna-btn.selected').data('warna');
                                                 var selectedSize = $('.ukuran-btn.selected').data('ukuran');
-
-                                                // Mengambil nilai variabel tersembunyi dari formulir
                                                 var selectedGambar = $('[name="gambar"]').val();
 
-                                                // Pastikan warna dan ukuran dipilih sebelum menambahkan ke keranjang
                                                 if (!selectedColor || !selectedSize) {
                                                     alert('Harap pilih warna dan ukuran terlebih dahulu.');
                                                     return;
                                                 }
 
-                                                // Perbarui nilai variabel tersembunyi sesuai dengan pilihan saat ini
                                                 $('[name="warna"]').val(selectedColor);
                                                 $('[name="ukuran"]').val(selectedSize);
                                                 $('[name="gambar"]').val(selectedGambar);
 
-                                                // Menggunakan AJAX untuk menambahkan produk ke keranjang
                                                 $.ajax({
                                                     url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>',
                                                     method: "POST",
@@ -328,9 +329,7 @@
                                                     },
                                                     success: function(response) {
                                                         if (isCheckout) {
-                                                            // Redirect ke halaman belanja jika itu checkout
                                                             window.location.href = '<?= base_url('belanja'); ?>';
-
                                                         } else {
                                                             Swal.fire({
                                                                 icon: 'success',
@@ -338,7 +337,7 @@
                                                                 showConfirmButton: false,
                                                                 timer: 1500
                                                             }).then(function() {
-                                                                location.reload(); // Refresh halaman setelah 1.5 detik
+                                                                location.reload();
                                                             });
                                                         }
                                                     },
@@ -359,6 +358,23 @@
                                                 });
                                             }
                                         });
+
+
+                                        function toggleDescription() {
+                                            var shortDesc = document.querySelector('.product-descc .short-descc');
+                                            var fullDesc = document.querySelector('.product-descc .full-descc');
+                                            var link = document.querySelector('.product-descc .toggle-link');
+
+                                            if (shortDesc.style.display === 'none') {
+                                                shortDesc.style.display = 'block';
+                                                fullDesc.style.display = 'none';
+                                                link.innerHTML = 'Lihat Selengkapnya';
+                                            } else {
+                                                shortDesc.style.display = 'none';
+                                                fullDesc.style.display = 'block';
+                                                link.innerHTML = 'Lihat Lebih Sedikit';
+                                            }
+                                        }
                                     </script>
 
 
@@ -367,7 +383,7 @@
                             </div>
                             <div class="single-add-to-cart">
                                 <form action="#" class="cart-quantity">
-                                    <h6>JUMLAH</h6>
+                                    <h6 style="margin-top: 10px; ">JUMLAH</h6>
                                     <div class="quantity">
                                         <div class="cart-plus-minus">
                                             <input class="cart-plus-minus-box" type="number" id="qty" value="1" min="1">
@@ -377,16 +393,16 @@
                                     </div>
 
                                     <div class="product-additional-info">
-                                        <div class=" product-social-sharing pt-25">
+                                        <div class=" product-social-sharing1 pt-25">
                                             <ul class="ull">
-                                                <li class="button1" style="width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: white; border: 1px solid orange;">
-                                                    <a id="addToCartButton" href="#">
+                                                <li class="button1" style="margin-right: 30px; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: white; border: 1px solid orange;display: flex;justify-content: center;align-items: center;">
+                                                    <a id="addToCartButton" href="#" data-role-id="<?= $this->session->userdata('role_id'); ?>">
                                                         <i class="fa fa-cart-shopping" style="color: orange;"></i>
                                                         <span style="color: orange;">Tambahkan ke keranjang</span>
                                                     </a>
                                                 </li>
-                                                <li class="button1" style="margin-left: 40px; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: orange;">
-                                                    <a id="checkoutButton" href="#">
+                                                <li class="button1" style="display: flex;justify-content: center;align-items: center; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: orange;">
+                                                    <a id="checkoutButton" href="#" data-role-id="<?= $this->session->userdata('role_id'); ?>">
                                                         <i></i>
                                                         <span style="color: white;">CHECKOUT</span>
                                                     </a>
@@ -637,6 +653,7 @@
         border: 3px solid #ffc54d;
         background-color: #333;
         color: white;
+        border-radius: 10px;
         /* Ganti dengan warna border yang diinginkan */
     }
 
@@ -669,6 +686,8 @@
         /* Sesuaikan ukuran padding sesuai kebutuhan Anda */
         border: 1px solid #000;
         /* Garis tepi tombol */
+        border-radius: 10px;
+
         background-color: #fff;
         /* Warna latar belakang tombol */
         color: #333;
@@ -740,5 +759,48 @@
             background-color: rgb(61, 61, 61);
             color: white;
         }
+    }
+
+    .product-descc {
+        max-width: 500px;
+        margin: 20px 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .product-descc p {
+        margin: 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        position: relative;
+
+    }
+
+    .short-descc,
+    .full-descc {
+        display: block;
+        color: #333;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    .full-descc {
+        display: none;
+    }
+
+    .toggle-link {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        text-decoration: none;
+        color: #007bff;
+        cursor: pointer;
+        font-size: 12px;
+        transition: color 0.3s ease;
+    }
+
+    .toggle-link:hover {
+        color: #004080;
     }
 </style>

@@ -1,26 +1,3 @@
-<!-- <div class="popup" id="popup">
-    <div class="popup-content">
-        <button class="close-button" id="close-button">X</button>
-        <H1>MOHAMMAD MAHBUBIL GOFUR</H1>
-        <H3>12RPL2</H3>
-        <img src="<?= base_url() ?>template/images/pop-up.gif" alt="">
-    </div>
-</div> -->
-
-<!-- <div class="content-wraper pt-60 pb-60">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="single-banner shop-page-banner">
-                    <a href="#">
-                    <img src="<?= base_url('') ?>template/images/slider/1.jpg" alt="Li's Static Banner">
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div> -->
 <style>
     /* Tambahkan gaya CSS untuk membuat slider dan navbar mepet ke atas */
     #mySlider {
@@ -36,7 +13,7 @@
     @media (max-width: 767px) {
         #mySlider img {
             width: 100%;
-            height: auto;
+            height: 100%;
         }
     }
 </style>
@@ -168,9 +145,6 @@
 </div>
 
 
-<!-- Your HTML code for the content goes here -->
-<!-- 
-<!-- Tambahkan link ke jQuery dan Bootstrap JS di sini jika belum ada -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>

@@ -1,16 +1,47 @@
+.h-100:hover {
+	border: 2px solid #ffc54d;
+}
+.product-social-sharing1 {
+	max-height: 100px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	position: absolute;
+	margin-top: 100px;
+	right: 1%;
+}
+.quantity {
+	height: 200px;
+	width: 100%;
+	margin-left: 10px;
+	margin: 0;
+}
 .containerku {
-	margin: 20px auto;
-	max-width: 100%;
-	height: 100%;
+	width: 100%;
+	height: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	overflow: hidden;
+	position: relative;
+	margin-top: 10px;
+}
+.carousel-inner {
+	width: 900px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 500px;
 }
 
-.carousel-inner .carousel-item img {
+.carousel-item img {
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 290px;
+	height: 100%;
 	object-fit: cover;
 }
 
@@ -272,8 +303,8 @@ ul {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 500px;
-	margin-top: 100px;
+	width: 100%;
+	height: 100%;
 }
 li {
 	list-style: none;
@@ -469,7 +500,8 @@ textarea {
 /*----------------------------------------*/
 button.li-btn {
 	border: none;
-	background: orange;
+	background: white;
+	border-radius: 20px;
 	color: #242424;
 	font-size: 20px;
 	width: 45px;
@@ -2078,7 +2110,7 @@ textarea:focus {
 
 .hm-minicart-trigger {
 	border-radius: 2px;
-	background: #e80f0f;
+	background: white;
 	color: #fff;
 	height: 45px;
 	display: flex;

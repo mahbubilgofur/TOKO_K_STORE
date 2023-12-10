@@ -64,19 +64,22 @@ class Home extends CI_Controller
 		$this->load->view('home/footer');
 	}
 
-
 	public function search()
 	{
 		$keyword = $this->input->get('keyword');
 
+		// Memecah kata kunci pencarian menjadi array
+		$keywords = explode(' ', $keyword);
+
 		// Panggil metode cari_produk dari model
-		$data['produk'] = $this->m_pencarian->cari_produk($keyword);
+		$data['produk'] = $this->m_pencarian->cari_produk($keywords);
 
 		$this->load->view('home/header');
 		$this->load->view('home/navbar', $data);
 		$this->load->view('homekategori/content', $data);
 		$this->load->view('home/footer');
 	}
+
 	public function homekategori($id_kategori)
 	{
 		$this->load->model('m_produk'); // Load model m_produk

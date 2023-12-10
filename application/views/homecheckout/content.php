@@ -52,14 +52,18 @@
                                     <tr>
                                         <td class="li-product-thumbnail">
                                             <a href="#">
-                                                <img src="<?= base_url('gambarproduk/' . $item['options']['gambar1']); ?>" alt="<?= $item['name']; ?>" width="50" height="50">
+                                                <img src="<?= base_url('gambarvariasi/' . $item['options']['gambar']); ?>" alt="" width="50" height="50">
                                             </a>
+                                        </td>
+                                        <td class="li-product-name">
+                                            <p>Warna: <?= $item['options']['warna']; ?></p><br>
+                                            <p>Ukuran: <?= $item['options']['ukuran']; ?></p>
                                         </td>
                                         <td class="li-product-name">
                                             <a href="#"><?= $item['name']; ?></a>
                                         </td>
                                         <td class="li-product-price">
-                                            <span class="amount">Rp.<?php echo $this->cart->format_number($item['price']); ?></span>
+                                            <span class="amount">Rp.<?php echo $this->cart->format_number($item['options']['harga']); ?></span>
                                         </td>
                                         <td class="li-product-subtotal">
                                             <span class="amount">

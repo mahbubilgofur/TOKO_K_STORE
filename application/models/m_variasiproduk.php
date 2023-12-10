@@ -169,8 +169,15 @@ class M_variasiproduk extends CI_Model
 
 
 
+    public function getHargaById($id_produk)
+    {
+        // Ambil harga dari database berdasarkan id_produk
+        // Sesuaikan dengan struktur tabel dan query pada aplikasi Anda
+        $query = $this->db->select('harga')->get_where('tbl_produk', array('id_produk' => $id_produk));
+        $result = $query->row();
 
-
+        return $result ? $result->harga : null;
+    }
 
 
     // ini fungsi viewdetailproduk  
