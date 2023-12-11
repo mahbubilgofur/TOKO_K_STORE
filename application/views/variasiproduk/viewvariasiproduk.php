@@ -78,7 +78,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group ">
                                                     <select class="form-control" id="id_produk" name="id_produk" required>
                                                         <option value="">Pilih Produk</option>
                                                         <?php foreach ($data_produk as $row) : ?>
@@ -152,7 +152,6 @@
                                                     inputCountInput.value = inputIndex;
 
                                                     // Dapatkan nilai input pertama
-                                                    var firstColorInput = document.querySelector('.warna-input').value;
                                                     var firstSizeInput = document.querySelector('.ukuran-input').value;
                                                     var firstStockInput = document.querySelector('.stok-input').value;
                                                     var firstPriceInput = document.querySelector('.harga-input').value;
@@ -170,7 +169,6 @@
                                                     dynamicInputContainer.appendChild(priceInput);
 
                                                     // Set nilai input sesuai dengan input pertama
-                                                    colorInput.value = firstColorInput;
                                                     sizeInput.value = firstSizeInput;
                                                     stockInput.value = firstStockInput;
                                                     priceInput.value = firstPriceInput;
@@ -213,7 +211,7 @@
                                                             var hiddenInput = document.createElement('input');
                                                             hiddenInput.type = 'hidden';
                                                             hiddenInput.name = staticInput.name;
-                                                            hiddenInput.value = staticInput.value;
+                                                            hiddenInput.value = staticInput.name === 'warna[]' ? (staticInput.value || '0') : staticInput.value;
                                                             form.appendChild(hiddenInput);
                                                         });
                                                     }
@@ -226,8 +224,13 @@
                                                     var form = document.getElementById('form');
                                                     var dynamicInputs = document.querySelectorAll('#dynamicInputContainer input');
 
-                                                    // Buat elemen input tersembunyi untuk setiap data dinamis dan tambahkan ke formulir
+                                                    // Periksa dan tambahkan input dinamis ke formulir
                                                     dynamicInputs.forEach(function(input) {
+                                                        // Jika input warna kosong, set nilai default '0'
+                                                        if (input.name === 'warna[]' && input.value.trim() === '') {
+                                                            input.value = '0';
+                                                        }
+
                                                         var hiddenInput = document.createElement('input');
                                                         hiddenInput.type = 'hidden';
                                                         hiddenInput.name = input.name;
@@ -238,7 +241,6 @@
                                                     // Kirim formulir
                                                     form.submit();
                                                 }
-
 
                                                 function createInput(type, className, name, placeholder) {
                                                     var input = document.createElement('input');

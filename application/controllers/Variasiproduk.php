@@ -175,10 +175,13 @@ class Variasiproduk extends CI_Controller
                 $new_number = intval(substr($last_id_variasi, 3)) + $i;
                 $new_id_variasi = 'VAR' . str_pad($new_number, 5, '0', STR_PAD_LEFT);
 
+                // Periksa apakah input warna diisi atau tidak
+                $warna = $this->input->post("warna[$i]") ? ucfirst(strtolower($this->input->post("warna[$i]"))) : '0';
+
                 $data_variasi[] = array(
                     'id_variasiproduk' => $new_id_variasi,
                     'id_produk' => $id_produk,
-                    'warna' => ucfirst(strtolower($this->input->post("warna[$i]"))),
+                    'warna' => $warna,
                     'harga' => $harga,
                     'ukuran' => $ukuran,
                     'stok' => $stok,
