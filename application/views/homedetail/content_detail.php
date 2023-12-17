@@ -92,7 +92,9 @@
                                 </ul>
                             </div>
                             <div class="price-box pt-20">
-                                <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel">RP.<?= number_format($produk['harga']); ?></span>
+                                <!-- <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel">RP.<?= number_format($produk['harga']); ?></span>
+                             -->
+                                <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel" class="new-price new-price-2">RP.<?= $produk['harga']; ?></span>
                             </div>
                             <div class="product-descc" id="productDescription">
                                 <p>
@@ -104,17 +106,37 @@
 
                             <div class="flex rY0UiC j9be9C">
                                 <div class="flex flex-column">
-                                    <!-- Tampilan warna -->
+
+
+                                    <?php
+                                    $warnaTerpilih = isset($warnaTerpilih) ? $warnaTerpilih : null;
+
+                                    // Kode PHP lainnya di sini
+                                    $unique_colors = array_unique(array_column($variasi_produk, 'warna'));
+                                    // Cek apakah ada warna dengan nilai 0
+                                    $hasColorZero = in_array('0', $unique_colors);
+
+                                    // Tampilkan elemen <h3> hanya jika tidak ada warna dengan nilai 0
+                                    if (!$hasColorZero) {
+                                        echo '<h3 class="oN9nMU">Warna</h3>';
+                                    }
+                                    ?>
+
                                     <section class="flex items-center" style="margin-bottom: 24px; align-items: baseline;">
-                                        <h3 class="oN9nMU">Warna</h3>
                                         <div class="flex items-center bR6mEk">
-                                            <?php $unique_colors = array_unique(array_column($variasi_produk, 'warna')); ?>
-                                            <?php foreach ($unique_colors as $color) : ?>
-                                                <?php $first_variation = current(array_filter($variasi_produk, function ($variasi) use ($color) {
+                                            <?php
+                                            foreach ($unique_colors as $color) :
+                                                // Filter variasi dengan warna yang sesuai
+                                                $variasi_warna = array_filter($variasi_produk, function ($variasi) use ($color) {
                                                     return $variasi->warna == $color;
-                                                })); ?>
-                                                <button type="button" class="hUWqqt warna-btn" aria-label="<?= $color ?>" aria-disabled="false" data-warna="<?= $color ?>">
-                                                    <img class="I2jugL" src="<?= base_url() ?>gambarvariasi/<?= $first_variation->gambar ?>">
+                                                });
+
+                                                // Ambil variasi pertama (mungkin perlu disesuaikan sesuai kebutuhan)
+                                                $first_variation = reset($variasi_warna);
+                                            ?>
+                                                <button type="button" class="hUWqqt warna-btn <?= $color === '0' && $color === $warnaTerpilih ? 'selected' : ''; ?>" aria-label="<?= $color ?>" aria-disabled="false" data-warna="<?= $color ?>">
+                                                    <!-- Pastikan $first_variation->gambar memberikan URL gambar yang valid -->
+                                                    <img class="I2jugL" src="<?= base_url() ?>gambarvariasi/<?= $first_variation->gambar ?>" alt="<?= $color ?>">
                                                     <?= $color ?>
                                                 </button>
                                             <?php endforeach; ?>
@@ -123,28 +145,35 @@
 
                                     <!-- Tampilan ukuran -->
                                     <section class="flex items-center" style="margin-bottom: 24px; align-items: baseline;">
-                                        <h3 class="oN9nMU">Ukuran</h3>
-                                        <div class="flex items-center bR6mEk">
-                                            <?php $unique_sizes = array_unique(array_column($variasi_produk, 'ukuran')); ?>
-                                            <?php foreach ($unique_sizes as $size) : ?>
-                                                <button type="button" class="hUWqqt ukuran-btn" aria-label="<?= $size ?>" aria-disabled="false" data-ukuran="<?= $size ?>">
-                                                    <?= $size ?>
-                                                </button>
-                                            <?php endforeach; ?>
-                                        </div>
+                                        <?php
+                                        // Cek apakah terdapat pilihan ukuran
+                                        $unique_sizes = array_unique(array_column($variasi_produk, 'ukuran'));
+                                        if (!empty($unique_sizes)) :
+                                        ?>
+                                            <h3 class="oN9nMU">Ukuran</h3>
+                                            <div class="flex items-center bR6mEk">
+                                                <?php foreach ($unique_sizes as $size) : ?>
+                                                    <button type="button" class="hUWqqt ukuran-btn" aria-label="<?= $size ?>" aria-disabled="false" data-ukuran="<?= $size ?>">
+                                                        <?= $size ?>
+                                                    </button>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
                                     </section>
 
+                                    <!-- Tampilan stok -->
                                     <section class="flex items-center" style="margin-bottom: 24px; align-items: baseline;">
-                                        <h3 class="oN9nMU">Stok</h3>
-                                        <div class="flex items-center bR6mEk">
-                                            <span style="color: black;" class="stok-label" id="stokLabel"></span>
-                                        </div>
+                                        <?php
+                                        // Cek apakah terdapat data stok di tabel variasi produk
+                                        $hasStokData = !empty($variasi_produk);
+                                        if ($hasStokData) :
+                                        ?>
+                                            <h3 class="oN9nMU">Stok</h3>
+                                            <div class="flex items-center bR6mEk">
+                                                <span style="color: black;" class="stok-label" id="stokLabel"></span>
+                                            </div>
+                                        <?php endif; ?>
                                     </section>
-
-                                    <!-- <input type="hidden" name="gambar" value="">
-                                    <input type="hidden" name="warna" value="">
-                                    <input type="hidden" name="ukuran" value="">
-                                    <input type="hidden" name="harga" value=""> -->
 
 
                                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -152,12 +181,36 @@
                                     <script>
                                         document.addEventListener('DOMContentLoaded', function() {
                                             // Fungsi untuk mengatur pilihan warna dan ukuran secara otomatis
+                                            // Fungsi untuk mengatur pilihan warna dan ukuran secara otomatis
                                             function setDefaultVariations() {
                                                 // Cek apakah terdapat pilihan warna
                                                 var warnaButtons = document.querySelectorAll('.warna-btn');
                                                 if (warnaButtons.length > 0) {
-                                                    // Pilih warna pertama
-                                                    warnaButtons[0].click();
+                                                    // Periksa apakah ada warna dengan nilai 0
+                                                    var warnaZero = document.querySelector('.warna-btn[data-warna="0"]');
+                                                    if (warnaZero) {
+                                                        // Sembunyikan warna dengan nilai 0
+                                                        warnaZero.style.display = 'none';
+
+                                                        // Periksa apakah warna 0 sudah terpilih otomatis
+                                                        if (warnaZero.classList.contains('selected')) {
+                                                            // Sembunyikan seluruh bagian warna
+                                                            var warnaSection = document.querySelector('.flex.items-center[aria-label="Warna"]');
+                                                            if (warnaSection) {
+                                                                warnaSection.style.display = 'none';
+                                                            }
+                                                            var warnaHeader = document.querySelector('.oN9nMU');
+                                                            if (warnaHeader) {
+                                                                warnaHeader.style.display = 'none';
+                                                            }
+                                                            // Pilih warna dengan nilai 0
+                                                            warnaTerpilih = "0";
+                                                            updateStokHarga();
+                                                        } else {
+                                                            // Jika tidak terpilih, tampilkan dan pilih warna pertama
+                                                            warnaButtons[0].click();
+                                                        }
+                                                    }
                                                 }
 
                                                 // Cek apakah terdapat pilihan ukuran
@@ -166,119 +219,137 @@
                                                     // Pilih ukuran pertama
                                                     ukuranButtons[0].click();
                                                 }
-                                            }
 
-                                            // Panggil fungsi untuk mengatur pilihan warna dan ukuran secara otomatis
-                                            setDefaultVariations();
-                                        });
-
-                                        var warnaButtons = document.querySelectorAll('.warna-btn');
-                                        var ukuranButtons = document.querySelectorAll('.ukuran-btn');
-
-                                        // Variabel untuk menyimpan pilihan warna dan ukuran
-                                        var warnaTerpilih = null;
-                                        var ukuranTerpilih = null;
-
-                                        // Fungsi untuk menangani klik pada tombol warna
-                                        // Fungsi untuk menangani klik pada tombol warna
-                                        function handleWarnaClick(event) {
-                                            event.preventDefault();
-
-                                            if (warnaTerpilih !== null) {
-                                                document.querySelector('.warna-btn[data-warna="' + warnaTerpilih + '"]').classList.remove('selected');
-                                            }
-
-                                            warnaTerpilih = event.currentTarget.getAttribute('data-warna');
-                                            updateStokHarga();
-
-                                            // Pilih gambar dari variasi yang dipilih
-                                            var selectedGambar = event.currentTarget.getAttribute('data-gambar');
-                                            $('input[name="gambar"]').val(selectedGambar);
-
-                                            event.currentTarget.classList.add('selected');
-                                        }
-
-                                        // Fungsi untuk menangani klik pada tombol ukuran
-                                        function handleUkuranClick(event) {
-                                            event.preventDefault();
-
-                                            if (ukuranTerpilih !== null) {
-                                                document.querySelector('.ukuran-btn[data-ukuran="' + ukuranTerpilih + '"]').classList.remove('selected');
-                                            }
-
-                                            ukuranTerpilih = event.currentTarget.getAttribute('data-ukuran');
-                                            updateStokHarga();
-
-                                            // Pilih ukuran dari variasi yang dipilih
-                                            var selectedUkuran = ukuranTerpilih;
-                                            $('input[name="ukuran"]').val(selectedUkuran);
-
-                                            event.currentTarget.classList.add('selected');
-                                        }
-
-
-                                        function formatRupiah(angka) {
-                                            var number_string = angka.toString();
-                                            var split = number_string.split(',');
-                                            var sisa = split[0].length % 3;
-                                            var rupiah = split[0].substr(0, sisa);
-                                            var ribuan = split[0].substr(sisa).match(/\d{1,3}/gi);
-
-                                            if (ribuan) {
-                                                separator = sisa ? '.' : '';
-                                                rupiah += separator + ribuan.join('.');
-                                            }
-
-                                            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                                            return 'Rp. ' + rupiah;
-                                        }
-
-                                        // Fungsi untuk memperbarui tampilan stok dan harga sesuai dengan pilihan warna dan ukuran
-                                        function updateStokHarga() {
-                                            if (warnaTerpilih !== null && ukuranTerpilih !== null) {
-                                                $.ajax({
-                                                    url: '<?= base_url('home/get_stok_harga') ?>',
-                                                    type: 'POST',
-                                                    data: {
-                                                        id_produk: '<?= $produk['id_produk'] ?>',
-                                                        warna: warnaTerpilih,
-                                                        ukuran: ukuranTerpilih
-                                                    },
-                                                    dataType: 'json',
-                                                    success: function(response) {
-                                                        $('#stokLabel').text('STOK: ' + response.stok);
-
-                                                        // Update harga pada input tersembunyi
-                                                        $('input[name="harga"]').val(response.harga);
-
-                                                        // Format dan tampilkan harga
-                                                        $('#hargaLabel').text(formatRupiah(response.harga));
-                                                    },
-                                                    error: function(xhr, status, error) {
-                                                        console.error('Error:', error);
+                                                // Periksa apakah ada data di tabel variasi produk
+                                                var hasVariations = <?php echo json_encode(!empty($variasi_produk)); ?>;
+                                                if (!hasVariations) {
+                                                    // Sembunyikan tampilan pilihan warna dan ukuran
+                                                    var warnaSection = document.querySelector('.flex.items-center[aria-label="Warna"]');
+                                                    if (warnaSection) {
+                                                        warnaSection.style.display = 'none';
                                                     }
-                                                });
+                                                    var warnaHeader = document.querySelector('.oN9nMU');
+                                                    if (warnaHeader) {
+                                                        warnaHeader.style.display = 'none';
+                                                    }
+
+                                                    var ukuranSection = document.querySelector('.flex.items-center[aria-label="Ukuran"]');
+                                                    if (ukuranSection) {
+                                                        ukuranSection.style.display = 'none';
+                                                    }
+
+                                                    // Sembunyikan tampilan stok
+                                                    var stokSection = document.querySelector('.flex.items-center[aria-label="Stok"]');
+                                                    if (stokSection) {
+                                                        stokSection.style.display = 'none';
+                                                    }
+                                                }
+
                                             }
-                                        }
 
 
-                                        // Memanggil fungsi updateStokHarga() saat halaman dimuat
-                                        document.addEventListener('DOMContentLoaded', function() {
+                                            // Variabel untuk menyimpan pilihan warna dan ukuran
+                                            var warnaTerpilih = null;
+                                            var ukuranTerpilih = null;
+
+                                            // Fungsi untuk menangani klik pada tombol warna
+                                            function handleWarnaClick(event) {
+                                                event.preventDefault();
+
+                                                if (warnaTerpilih !== null) {
+                                                    document.querySelector('.warna-btn[data-warna="' + warnaTerpilih + '"]').classList.remove('selected');
+                                                }
+
+                                                warnaTerpilih = event.currentTarget.getAttribute('data-warna');
+                                                updateStokHarga();
+
+                                                // Pilih gambar dari variasi yang dipilih
+                                                var selectedGambar = event.currentTarget.getAttribute('data-gambar');
+                                                $('input[name="gambar"]').val(selectedGambar);
+
+                                                event.currentTarget.classList.add('selected');
+                                            }
+
+                                            // Fungsi untuk menangani klik pada tombol ukuran
+                                            function handleUkuranClick(event) {
+                                                event.preventDefault();
+
+                                                if (ukuranTerpilih !== null) {
+                                                    document.querySelector('.ukuran-btn[data-ukuran="' + ukuranTerpilih + '"]').classList.remove('selected');
+                                                }
+
+                                                ukuranTerpilih = event.currentTarget.getAttribute('data-ukuran');
+                                                updateStokHarga();
+
+                                                // Pilih ukuran dari variasi yang dipilih
+                                                var selectedUkuran = ukuranTerpilih;
+                                                $('input[name="ukuran"]').val(selectedUkuran);
+
+                                                event.currentTarget.classList.add('selected');
+                                            }
+
+
+                                            function formatRupiah(angka) {
+                                                var number_string = angka.toString();
+                                                var split = number_string.split(',');
+                                                var sisa = split[0].length % 20;
+                                                var rupiah = split[0].substr(0, sisa);
+                                                var ribuan = split[0].substr(sisa).match(/\d{1,3}/gi);
+
+                                                if (ribuan) {
+                                                    separator = sisa ? '.' : '';
+                                                    rupiah += separator + ribuan.join('.');
+                                                }
+
+                                                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                                                return 'Rp. ' + rupiah;
+                                            }
+
+                                            function updateStokHarga() {
+                                                if (warnaTerpilih !== null && ukuranTerpilih !== null) {
+                                                    $.ajax({
+                                                        url: '<?= base_url('home/get_stok_harga') ?>',
+                                                        type: 'POST',
+                                                        data: {
+                                                            id_produk: '<?= $produk['id_produk'] ?>',
+                                                            warna: warnaTerpilih,
+                                                            ukuran: ukuranTerpilih
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function(response) {
+                                                            $('#stokLabel').text('STOK: ' + response.stok);
+
+                                                            // Update harga pada input tersembunyi
+                                                            $('input[name="harga"]').val(response.harga);
+
+                                                            // Format dan tampilkan harga
+                                                            $('#hargaLabel').text(formatRupiah(response.harga));
+                                                        },
+                                                        error: function(xhr, status, error) {
+                                                            console.error('Error:', error);
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            var warnaButtons = document.querySelectorAll('.warna-btn');
+                                            var ukuranButtons = document.querySelectorAll('.ukuran-btn');
+
+                                            warnaButtons.forEach(function(button) {
+                                                button.addEventListener('click', handleWarnaClick);
+                                            });
+
+                                            ukuranButtons.forEach(function(button) {
+                                                button.addEventListener('click', handleUkuranClick);
+                                            });
+
+                                            // Memanggil fungsi setDefaultVariations() saat halaman dimuat
+                                            setDefaultVariations();
+
+                                            // Memanggil fungsi updateStokHarga() saat halaman dimuat
                                             updateStokHarga();
                                         });
 
-
-
-                                        warnaButtons.forEach(function(button) {
-                                            button.addEventListener('click', handleWarnaClick);
-                                        });
-
-                                        ukuranButtons.forEach(function(button) {
-                                            button.addEventListener('click', handleUkuranClick);
-                                        });
-
-                                        // Pemanggilan fungsi untuk memastikan tampilan awal sesuai dengan pilihan awal
-                                        updateStokHarga();
                                         document.addEventListener('DOMContentLoaded', function() {
                                             // Tombol Tambahkan ke Keranjang
                                             document.getElementById('addToCartButton').addEventListener('click', function(event) {
@@ -308,15 +379,25 @@
                                                 var selectedSize = $('.ukuran-btn.selected').data('ukuran');
                                                 var selectedGambar = $('[name="gambar"]').val();
 
-                                                if (!selectedColor || !selectedSize) {
-                                                    alert('Harap pilih warna dan ukuran terlebih dahulu.');
+                                                if (selectedColor == '0' && !selectedSize) {
+                                                    // Warna 0, dan ukuran belum dipilih
+                                                    alert('Harap pilih ukuran terlebih dahulu.');
                                                     return;
                                                 }
 
-                                                $('[name="warna"]').val(selectedColor);
-                                                $('[name="ukuran"]').val(selectedSize);
-                                                $('[name="gambar"]').val(selectedGambar);
+                                                if (!selectedSize) {
+                                                    // Jika warna bukan 0, namun ukuran belum dipilih
+                                                    alert('Harap pilih ukuran terlebih dahulu.');
+                                                    return;
+                                                }
 
+                                                if (selectedColor != '0' && !selectedColor) {
+                                                    // Jika warna tidak 0, namun warna belum dipilih
+                                                    alert('Harap pilih warna terlebih dahulu.');
+                                                    return;
+                                                }
+
+                                                // Masukkan data produk ke dalam cart
                                                 $.ajax({
                                                     url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>',
                                                     method: "POST",
@@ -328,6 +409,7 @@
                                                         selected_gambar: selectedGambar,
                                                     },
                                                     success: function(response) {
+                                                        console.log(response); // Log the response to the console
                                                         if (isCheckout) {
                                                             window.location.href = '<?= base_url('belanja'); ?>';
                                                         } else {
@@ -358,6 +440,7 @@
                                                 });
                                             }
                                         });
+
 
 
                                         function toggleDescription() {

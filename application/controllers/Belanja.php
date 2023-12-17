@@ -114,7 +114,6 @@ class Belanja extends CI_Controller
     //     }
     // }
 
-
     public function add($id_produk)
     {
         // Cek apakah pengguna sudah login dengan role_id 2
@@ -139,15 +138,18 @@ class Belanja extends CI_Controller
                 }
 
                 // Jika ada variasi produk, ambil data variasi dari formulir
-
                 $warna = $this->input->post('selected_color');
                 $ukuran = $this->input->post('selected_size');
 
                 // Validasi variasi yang dipilih
-                if (empty($warna) || empty($ukuran)) {
+                if ($warna !== '0' && (empty($warna) || empty($ukuran))) {
                     // Variasi tidak valid, tampilkan pesan kesalahan atau arahkan ke halaman lain
                     // Contoh:
                     $this->session->set_flashdata('error', 'Harap pilih warna dan ukuran terlebih dahulu.');
+                    redirect('home/detail/' . $id_produk);
+                } elseif ($warna === '0' && empty($ukuran)) {
+                    // Jika warna 0, ukuran wajib dipilih
+                    $this->session->set_flashdata('error', 'Harap pilih ukuran terlebih dahulu.');
                     redirect('home/detail/' . $id_produk);
                 }
 
@@ -160,7 +162,6 @@ class Belanja extends CI_Controller
                     $this->session->set_flashdata('error', 'Variasi produk tidak ditemukan.');
                     redirect('home/detail/' . $id_produk);
                 }
-
 
                 $data = array(
                     'id'      => $produk->id_produk,
@@ -201,7 +202,6 @@ class Belanja extends CI_Controller
             redirect('login_user'); // Gantilah 'login_user' dengan URL sesuai dengan halaman login Anda
         }
     }
-
 
 
 
