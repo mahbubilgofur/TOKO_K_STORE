@@ -151,7 +151,22 @@ class Home extends CI_Controller
 		// Panggil model untuk mendapatkan stok dan harga
 		$data = $this->m_variasiproduk->getStokHarga($id_produk, $warna, $ukuran);
 
+		// Check ketersediaan variasi produk
+		if ($data['stok'] > 0 && $data['harga'] > 0) {
+			// Jika variasi produk tersedia, kirim stok dan harga
+			$response = array(
+				'variasi_tersedia' => true,
+				'stok' => $data['stok'],
+				'harga' => $data['harga']
+			);
+		} else {
+			// Jika variasi produk tidak tersedia
+			$response = array(
+				'variasi_tersedia' => false
+			);
+		}
+
 		// Mengirimkan data dalam format JSON
-		echo json_encode($data);
+		echo json_encode($response);
 	}
 }

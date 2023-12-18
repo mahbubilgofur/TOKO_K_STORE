@@ -94,7 +94,7 @@
                             <div class="price-box pt-20">
                                 <!-- <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel">RP.<?= number_format($produk['harga']); ?></span>
                              -->
-                                <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel" class="new-price new-price-2">RP.<?= $produk['harga']; ?></span>
+                                <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel" class="new-price new-price-2">Rp.<?= $produk['harga']; ?></span>
                             </div>
                             <div class="product-descc" id="productDescription">
                                 <p>
@@ -106,7 +106,6 @@
 
                             <div class="flex rY0UiC j9be9C">
                                 <div class="flex flex-column">
-
 
                                     <?php
                                     $warnaTerpilih = isset($warnaTerpilih) ? $warnaTerpilih : null;
@@ -317,13 +316,17 @@
                                                         },
                                                         dataType: 'json',
                                                         success: function(response) {
-                                                            $('#stokLabel').text('STOK: ' + response.stok);
-
-                                                            // Update harga pada input tersembunyi
-                                                            $('input[name="harga"]').val(response.harga);
-
-                                                            // Format dan tampilkan harga
-                                                            $('#hargaLabel').text(formatRupiah(response.harga));
+                                                            if (response.variasi_tersedia) {
+                                                                // Jika variasi produk tersedia, update stok dan harga
+                                                                $('#stokLabel').text('STOK: ' + response.stok);
+                                                                $('input[name="harga"]').val(response.harga);
+                                                                $('#hargaLabel').text(formatRupiah(response.harga));
+                                                            } else {
+                                                                // Jika variasi produk tidak tersedia, tampilkan pesan
+                                                                $('#stokLabel').text('Varian produk tidak tersedia');
+                                                                $('input[name="harga"]').val('');
+                                                                $('#hargaLabel').text('');
+                                                            }
                                                         },
                                                         error: function(xhr, status, error) {
                                                             console.error('Error:', error);
@@ -331,6 +334,7 @@
                                                     });
                                                 }
                                             }
+
 
                                             var warnaButtons = document.querySelectorAll('.warna-btn');
                                             var ukuranButtons = document.querySelectorAll('.ukuran-btn');
@@ -378,25 +382,47 @@
                                                 var selectedColor = $('.warna-btn.selected').data('warna');
                                                 var selectedSize = $('.ukuran-btn.selected').data('ukuran');
                                                 var selectedGambar = $('[name="gambar"]').val();
-
+                                                var Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 3000
+                                                });
                                                 if (selectedColor == '0' && !selectedSize) {
                                                     // Warna 0, dan ukuran belum dipilih
-                                                    alert('Harap pilih ukuran terlebih dahulu.');
-                                                    return;
+
+                                                    Toast.fire({
+                                                        icon: 'error',
+                                                        title: 'Harap pilih ukuran terlebih dahulu.'
+                                                    })
                                                 }
 
                                                 if (!selectedSize) {
                                                     // Jika warna bukan 0, namun ukuran belum dipilih
-                                                    alert('Harap pilih ukuran terlebih dahulu.');
+
+                                                    Toast.fire({
+                                                        icon: 'error',
+                                                        title: 'Harap pilih ukuran terlebih dahulu.'
+                                                    })
                                                     return;
                                                 }
 
                                                 if (selectedColor != '0' && !selectedColor) {
                                                     // Jika warna tidak 0, namun warna belum dipilih
-                                                    alert('Harap pilih warna terlebih dahulu.');
+                                                    Toast.fire({
+                                                        icon: 'error',
+                                                        title: 'Harap pilih warna terlebih dahulu.'
+                                                    })
                                                     return;
                                                 }
+                                                if ($('#stokLabel').text() === 'Varian produk tidak tersedia') {
 
+                                                    Toast.fire({
+                                                        icon: 'error',
+                                                        title: 'Maaf, varian produk yang Anda pilih tidak tersedia.'
+                                                    })
+                                                    return;
+                                                }
                                                 // Masukkan data produk ke dalam cart
                                                 $.ajax({
                                                     url: '<?= base_url('belanja/add/' . $produk['id_produk']) ?>',

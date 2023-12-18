@@ -192,7 +192,7 @@
                                 <!-- Product name-->
                                 <h6 class="fw-bolder font-nama-produk"><?php echo $row->nama ?></h6>
                                 <!-- Product price-->
-                                <p class="font-harga-produk">RP.<?= number_format($row->harga, 0) ?></p>
+                                <p class="font-harga-produk">Rp.<?= ($row->harga) ?></p>
                             </div>
                         </div>
                         <!-- Product actions-->

@@ -190,9 +190,18 @@ class M_variasiproduk extends CI_Model
         $this->db->where('ukuran', $ukuran);
         $result = $this->db->get()->row();
 
-        return [
-            'stok' => $result->stok,
-            'harga' => $result->harga,
-        ];
+        if ($result) {
+            // Jika variasi produk ditemukan, kembalikan stok dan harga
+            return [
+                'stok' => $result->stok,
+                'harga' => $result->harga,
+            ];
+        } else {
+            // Jika variasi produk tidak ditemukan, kembalikan nilai default atau sesuaikan kebutuhan Anda
+            return [
+                'stok' => 0, // Nilai default atau sesuaikan kebutuhan
+                'harga' => 0, // Nilai default atau sesuaikan kebutuhan
+            ];
+        }
     }
 }
