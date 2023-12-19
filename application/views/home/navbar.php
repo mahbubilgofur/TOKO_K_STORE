@@ -7,34 +7,27 @@
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
         <!-- Begin Header Area -->
-        <header class="li-header-4" style="background-color: #006494;height:130px;">
+        <header class="li-header-4" style="background-color: #006494;">
             <!-- Begin Header Top Area -->
-            <div class="header-top" style="position: relative;">
+            <div class="header-top">
                 <div class="container">
                     <div class="row">
                         <!-- Begin Header Top Left Area -->
-                        <div class="col-lg-3 col-md-4" style="position: absolute; right:0;">
-                            <div class="header-top-right">
-                                <li>
-                                    <span>Ikuti Kami</span>&nbsp;
-                                    <a href="https://www.facebook.com/">
-                                        <i class="fab fa-facebook" style="color: white;"></i>
-                                    </a>&nbsp;&nbsp;
-                                    <a href="<?= base_url('ig') ?>">
-                                        <i class="fa-brands fa-instagram" style="color: white; margin-right: 20px;"></i>
-                                    </a>
+                        <div class="col-lg-3 col-md-4">
+                            <div class="header-top-left">
 
-                                    <td>
-                                        <a href="<?= base_url('wa') ?>" style="color: white; text-decoration: none;">
-                                            Hubungi Kami
-                                            <i class="fa-brands fa-whatsapp" style="color: white; margin-left: 5px;"></i>
-                                        </a>
-                                    </td>
-
-                                </li>
                             </div>
                         </div>
-
+                        <div class="col-lg-9 col-md-8">
+                            <div class="header-top-right">
+                                <ul class="ht-menu">
+                                    <marquee behavior="scroll" direction="left">
+                                        ShopEasy adalah online shop yang memudahkan anda berbelanja dari rumah
+                                        dengan menjual berbagai produk fashion seperti baju, celana, topi, dan juga sepatu.
+                                    </marquee>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

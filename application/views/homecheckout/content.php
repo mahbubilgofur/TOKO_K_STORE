@@ -36,6 +36,7 @@
                             <thead>
                                 <tr>
                                     <th class="li-product-thumbnail">GAMBAR</th>
+                                    <th class="li-product-thumbnail">VARIASI</th>
                                     <th class="li-product-name">PRODUK</th>
                                     <th class="li-product-price">HARGA</th>
                                     <th class="li-product-subtotal">TOTAL HARGA</th>
@@ -56,7 +57,12 @@
                                             </a>
                                         </td>
                                         <td class="li-product-name">
-                                            <p>Warna: <?= $item['options']['warna']; ?></p><br>
+                                            <?php
+                                            if ($item['options']['warna'] !== 0 && !empty($item['options']['warna'])) {
+                                                echo '<p>Warna: ' . $item['options']['warna'] . '</p><br>';
+                                            }
+                                            ?>
+
                                             <p>Ukuran: <?= $item['options']['ukuran']; ?></p>
                                         </td>
                                         <td class="li-product-name">

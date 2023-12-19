@@ -19,29 +19,18 @@
 	margin: 0;
 }
 .containerku {
-	width: 100%;
-	height: 300px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	margin: 20px auto;
+	max-width: 100%;
+	height: 100%;
 	overflow: hidden;
-	position: relative;
-	margin-top: 10px;
-}
-.carousel-inner {
-	width: 900px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 500px;
 }
 
-.carousel-item img {
+.carousel-inner .carousel-item img {
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 100%;
+	height: 290px;
 	object-fit: cover;
 }
 
@@ -1706,22 +1695,6 @@ textarea:focus {
 	width: 48px;
 	width: 3rem;
 	background: #fff;
-}
-
-.cart-plus-minus .dec.qtybutton,
-.cart-plus-minus .inc.qtybutton {
-	border-bottom: 1px solid #e1e1e1;
-	border-right: 1px solid #e1e1e1;
-	border-top: 1px solid #e1e1e1;
-	color: #333333;
-	cursor: pointer;
-	height: 23px;
-	line-height: 20px;
-	position: absolute;
-	text-align: center;
-	-webkit-transition: all 0.3s ease-in-out 0s;
-	transition: all 0.3s ease-in-out 0s;
-	width: 28px;
 }
 
 .cart-plus-minus .dec.qtybutton:hover,
