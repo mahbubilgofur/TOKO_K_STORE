@@ -529,8 +529,6 @@
                                     <div class="quantity">
                                         <div class="cart-plus-minus">
                                             <input class="cart-plus-minus-box" type="number" id="qty" value="1" min="1">
-                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                         </div>
                                         <div id="qtyErrorMessage" class="error-message"></div>
                                     </div>

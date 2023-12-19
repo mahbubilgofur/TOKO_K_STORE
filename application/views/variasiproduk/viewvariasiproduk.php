@@ -145,16 +145,18 @@
                                                     var dynamicInputContainer = document.getElementById('dynamicInputContainer');
                                                     var inputCountInput = document.getElementById('inputCount');
 
-                                                    var inputIndex = inputCountInput.value;
-                                                    inputIndex++;
-
-                                                    // Update input count
+                                                    var inputIndex = parseInt(inputCountInput.value) + 1;
                                                     inputCountInput.value = inputIndex;
 
                                                     // Dapatkan nilai input pertama
+                                                    var firstColorInput = document.querySelector('.warna-input').value;
                                                     var firstSizeInput = document.querySelector('.ukuran-input').value;
                                                     var firstStockInput = document.querySelector('.stok-input').value;
                                                     var firstPriceInput = document.querySelector('.harga-input').value;
+
+                                                    // Buat div untuk menyimpan satu set input
+                                                    var inputSetDiv = document.createElement('div');
+                                                    inputSetDiv.className = 'dynamic-input-set';
 
                                                     // Buat input elements baru dengan nilai yang sama seperti input pertama
                                                     var colorInput = createInput('text', 'form-control warna-input', 'warna[]', 'Warna');
@@ -162,16 +164,20 @@
                                                     var stockInput = createInput('number', 'form-control stok-input', 'stok[]', 'Stok');
                                                     var priceInput = createInput('number', 'form-control harga-input', 'harga[]', 'Harga');
 
-                                                    // Tambahkan input elements ke dalam container
-                                                    dynamicInputContainer.appendChild(colorInput);
-                                                    dynamicInputContainer.appendChild(sizeInput);
-                                                    dynamicInputContainer.appendChild(stockInput);
-                                                    dynamicInputContainer.appendChild(priceInput);
+                                                    // Tambahkan input elements ke dalam div
+                                                    inputSetDiv.appendChild(colorInput);
+                                                    inputSetDiv.appendChild(sizeInput);
+                                                    inputSetDiv.appendChild(stockInput);
+                                                    inputSetDiv.appendChild(priceInput);
 
                                                     // Set nilai input sesuai dengan input pertama
+                                                    colorInput.value = firstColorInput;
                                                     sizeInput.value = firstSizeInput;
                                                     stockInput.value = firstStockInput;
                                                     priceInput.value = firstPriceInput;
+
+                                                    // Tambahkan div ke dalam container
+                                                    dynamicInputContainer.appendChild(inputSetDiv);
 
                                                     // Tampilkan tombol Hapus
                                                     document.getElementById('hapusInput').style.display = 'inline-block';
@@ -181,40 +187,37 @@
                                                     var dynamicInputContainer = document.getElementById('dynamicInputContainer');
                                                     var inputCountInput = document.getElementById('inputCount');
 
-                                                    var inputIndex = inputCountInput.value;
-                                                    inputIndex = Math.max(1, inputIndex - 1);
-
-                                                    // Update input count
-                                                    inputCountInput.value = inputIndex;
+                                                    var inputIndex = parseInt(inputCountInput.value);
 
                                                     // Hapus satu set input
                                                     if (inputIndex > 1) {
-                                                        for (var i = 0; i < 4; i++) {
-                                                            dynamicInputContainer.removeChild(dynamicInputContainer.lastChild);
-                                                        }
+                                                        dynamicInputContainer.removeChild(dynamicInputContainer.lastChild);
+                                                        inputCountInput.value = inputIndex - 1;
                                                     }
 
                                                     // Sembunyikan tombol Hapus jika tidak ada input lagi
-                                                    if (inputIndex === 1) {
+                                                    if (inputIndex === 2) {
                                                         document.getElementById('hapusInput').style.display = 'none';
                                                     }
                                                 });
+
+
                                                 document.getElementById('submitBtn').addEventListener('click', function() {
+                                                    var form = document.getElementById('form'); // Pindahkan deklarasi form ke sini
+
                                                     // Periksa apakah ada input dinamis
                                                     var dynamicInputs = document.querySelectorAll('#dynamicInputContainer input');
                                                     var hasDynamicInputs = dynamicInputs.length > 0;
 
                                                     // Jika tidak ada input dinamis, tambahkan input pertama ke dalam formulir
-                                                    if (!hasDynamicInputs) {
-                                                        var staticInputs = document.querySelectorAll('.static-input');
-                                                        staticInputs.forEach(function(staticInput) {
-                                                            var hiddenInput = document.createElement('input');
-                                                            hiddenInput.type = 'hidden';
-                                                            hiddenInput.name = staticInput.name;
-                                                            hiddenInput.value = staticInput.name === 'warna[]' ? (staticInput.value || '0') : staticInput.value;
-                                                            form.appendChild(hiddenInput);
-                                                        });
-                                                    }
+                                                    var staticInputs = document.querySelectorAll('.static-input');
+                                                    staticInputs.forEach(function(staticInput) {
+                                                        var hiddenInput = document.createElement('input');
+                                                        hiddenInput.type = 'hidden';
+                                                        hiddenInput.name = staticInput.name;
+                                                        hiddenInput.value = staticInput.name === 'warna[]' ? (staticInput.value || '0') : staticInput.value;
+                                                        form.appendChild(hiddenInput);
+                                                    });
 
                                                     // Code untuk mengumpulkan dan submit data
                                                     collectAndSubmitData();
@@ -222,20 +225,26 @@
 
                                                 function collectAndSubmitData() {
                                                     var form = document.getElementById('form');
-                                                    var dynamicInputs = document.querySelectorAll('#dynamicInputContainer input');
+                                                    var dynamicInputs = document.querySelectorAll('#dynamicInputContainer input:not([data-processed])');
 
                                                     // Periksa dan tambahkan input dinamis ke formulir
                                                     dynamicInputs.forEach(function(input) {
+                                                        // Tandai input sebagai sudah diproses
+                                                        input.setAttribute('data-processed', 'true');
+
                                                         // Jika input warna kosong, set nilai default '0'
                                                         if (input.name === 'warna[]' && input.value.trim() === '') {
                                                             input.value = '0';
                                                         }
 
-                                                        var hiddenInput = document.createElement('input');
-                                                        hiddenInput.type = 'hidden';
-                                                        hiddenInput.name = input.name;
-                                                        hiddenInput.value = input.value;
-                                                        form.appendChild(hiddenInput);
+                                                        // Tambahkan input hanya jika nilainya tidak kosong
+                                                        if (input.value.trim() !== '') {
+                                                            var hiddenInput = document.createElement('input');
+                                                            hiddenInput.type = 'hidden';
+                                                            hiddenInput.name = input.name;
+                                                            hiddenInput.value = input.value;
+                                                            form.appendChild(hiddenInput);
+                                                        }
                                                     });
 
                                                     // Kirim formulir
@@ -250,6 +259,7 @@
                                                     input.placeholder = placeholder;
                                                     return input;
                                                 }
+
 
 
                                                 document.getElementById('id_produk').addEventListener('change', function() {
