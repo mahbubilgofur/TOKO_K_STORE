@@ -535,7 +535,9 @@
                                                 <li class="button1" style="margin-right: 30px; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: white; border: 1px solid orange;display: flex;justify-content: center;align-items: center;">
                                                     <a id="addToCartButton" href="#" data-role-id="<?= $this->session->userdata('role_id'); ?>">
                                                         <i class="fa fa-cart-shopping" style="color: orange;"></i>
-                                                        <span style="color: orange;">Tambahkan ke keranjang</span>
+                                                        <span class="span1" style="color: orange;">
+                                                            Tambahkan ke keranjang
+                                                        </span>
                                                     </a>
                                                 </li>
                                                 <li class="button1" style="display: flex;justify-content: center;align-items: center; width: 250px; height: 40px; line-height: 40px; border-radius: 10px; background-color: orange;">

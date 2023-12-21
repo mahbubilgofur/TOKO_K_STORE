@@ -5,30 +5,44 @@
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-2 gx-lg-4">
-            <?php foreach ($produk as $row) { ?>
-                <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-5">
-                    <div class="card h-100" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
-                        <!-- Product image-->
-                        <div class="card-img-container"> <a href="<?= base_url('home/detail/' . $row->id_produk); ?>"> <img class="card-img-top img-fluid" src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="Product Image" /> </a> </div> <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center"> <!-- Product name-->
-                                <h6 class="fw-bolder font-nama-produk">
-                                    <?php echo substr($row->nama, 0, 40) ?>......
-                                </h6> <!-- Product price-->
-                                <p class="font-harga-produk">Rp.<?= number_format($row->harga, 0, ',', '.') ?>
-                                </p>
+        <?php if (empty($produk)) { ?>
+            <h1 class="text-center">PRODUK TIDAK DITEMUKAN</h1>
+        <?php } else { ?>
+            <div class="row gx-2 gx-lg-4">
+                <?php foreach ($produk as $row) { ?>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-5">
+                        <div class="card h-100" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                            <!-- Product image-->
+                            <div class="card-img-container">
+                                <a href="<?= base_url('home/detail/' . $row->id_produk); ?>">
+                                    <img class="card-img-top img-fluid" src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="Product Image" />
+                                </a>
                             </div>
-                        </div> <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<?= base_url('home/detail/' . $row->id_produk); ?>">Lihat Opsi</a></div>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h6 class="fw-bolder font-nama-produk">
+                                        <?php echo substr($row->nama, 0, 40) ?>......
+                                    </h6>
+                                    <!-- Product price-->
+                                    <p class="font-harga-produk">Rp.<?= number_format($row->harga, 0, ',', '.') ?></p>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" href="<?= base_url('home/detail/' . $row->id_produk); ?>">Lihat Opsi</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php } ?>
-        </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
     </div>
 </section>
+
 
 <!-- <div class="paginatoin-area">
         <div class="row">
