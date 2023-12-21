@@ -116,7 +116,7 @@
 
                 $no_order = date('Ymd') . strtoupper(random_string('alnum', 8));
                 ?>
-                <div class="checkbox-form">
+                <div class="checkbox-form"><br>
                     <h3>Tujuan</h3>
                     <div class="row">
                         <div class="col-md-6">

@@ -208,8 +208,8 @@
                         <div class="card-img-container"> <a href="<?= base_url('home/detail/' . $row->id_produk); ?>"> <img class="card-img-top img-fluid" src="<?= base_url('gambarproduk/' . $row->gambar1); ?>" alt="Product Image" /> </a> </div> <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center"> <!-- Product name-->
-                                <h6 class="fw-bolder font-nama-produk"><?php echo $row->nama ?></h6> <!-- Product price-->
-                                <p class="font-harga-produk">Rp.<?= ($row->harga) ?></p>
+                                <h6 class="fw-bolder font-nama-produk"><?php echo substr($row->nama, 0, 40) ?>......</h6> <!-- Product price-->
+                                <p class="font-harga-produk">Rp.<?= number_format($row->harga, 0, ',', '.') ?></p>
                             </div>
                         </div> <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">

@@ -37,30 +37,26 @@
                     <div class="product-details-left">
                         <div class="product-details-images slider-navigation-1">
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
-                                </a>
+
+                                <img src="<?= base_url('gambarproduk/' . $produk['gambar1']); ?>" alt="product image thumb">
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar2']); ?>" alt="product image">
-                                </a>
+
+                                <img src="<?= base_url('gambarproduk/' . $produk['gambar2']); ?>" alt="product image">
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar3']); ?>" alt="product image">
-                                </a>
+
+                                <img src="<?= base_url('gambarproduk/' . $produk['gambar3']); ?>" alt="product image">
                             </div>
                             <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
-                                    <img src="<?= base_url('gambarproduk/' . $produk['gambar4']); ?>" alt="product image">
-                                </a>
+
+                                <img src="<?= base_url('gambarproduk/' . $produk['gambar4']); ?>" alt="product image">
                             </div>
-                            <div class="lg-image">
-                                <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
+                            <?php if ($produk['gambar5'] != 0) : ?>
+                                <div class="lg-image">
                                     <img src="<?= base_url('gambarproduk/' . $produk['gambar5']); ?>" alt="product image">
-                                </a>
-                            </div>
+                                </div>
+                            <?php endif; ?>
 
                         </div>
                         <div class="product-details-thumbs slider-thumbs-1">
@@ -68,8 +64,9 @@
                             <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar2']); ?>" alt="product image thumb"></div>
                             <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar3']); ?>" alt="product image thumb"></div>
                             <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar4']); ?>" alt="product image thumb"></div>
-                            <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar5']); ?>" alt="product image thumb"></div>
-
+                            <?php if ($produk['gambar5'] != 0) : ?>
+                                <div class="sm-image"><img src="<?= base_url('gambarproduk/' . $produk['gambar5']); ?>" alt="product image thumb"></div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <!--// Product Details Left -->
@@ -92,8 +89,6 @@
                                 </ul>
                             </div>
                             <div class="price-box pt-20">
-                                <!-- <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel">RP.<?= number_format($produk['harga']); ?></span>
-                             -->
                                 <span style="font-size: 30px; color: black;" class="new-price new-price-2" id="hargaLabel" class="new-price new-price-2">Rp.<?= $produk['harga']; ?></span>
                             </div>
                             <div class="product-descc" id="productDescription">
@@ -291,7 +286,7 @@
                                             function formatRupiah(angka) {
                                                 var number_string = angka.toString();
                                                 var split = number_string.split(',');
-                                                var sisa = split[0].length % 20;
+                                                var sisa = split[0].length % 3;
                                                 var rupiah = split[0].substr(0, sisa);
                                                 var ribuan = split[0].substr(sisa).match(/\d{1,3}/gi);
 
@@ -527,8 +522,8 @@
                                 <form action="#" class="cart-quantity">
                                     <h6 style="margin-top: 10px; ">JUMLAH</h6>
                                     <div class="quantity">
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="number" id="qty" value="1" min="1">
+                                        <div class="cart-plus-minus1">
+                                            <input class="cart-plus-minus-box" type="number" id="qty" value="1" min="1" style="width: 100px;">
                                         </div>
                                         <div id="qtyErrorMessage" class="error-message"></div>
                                     </div>

@@ -162,4 +162,16 @@ class M_produk extends CI_Model
 
         return $this->db->get()->row();
     }
+
+
+
+
+
+
+    // tampilan dasboard
+    public function getJumlahProduk()
+    {
+        $this->db->from('tbl_produk');
+        return $this->db->count_all_results();
+    }
 }

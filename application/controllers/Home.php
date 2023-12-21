@@ -23,6 +23,7 @@ class Home extends CI_Controller
 	}
 	public function index()
 	{
+
 		$produk = $this->m_produk->getDataproduk();
 		$queryproduk = $this->m_produk->getDataproduk1();
 		$getKategori = $this->m_produk->getKategori();
@@ -31,7 +32,7 @@ class Home extends CI_Controller
 
 		// Inisialisasi array untuk menyimpan detail produk dalam keranjang
 		$data['produk_keranjang'] = array();
-
+		shuffle($produk);
 		// Ambil data keranjang
 		$this->load->library('session');
 		$keranjang_belanja = $this->session->userdata('keranjang_belanja');

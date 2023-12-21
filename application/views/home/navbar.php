@@ -15,7 +15,22 @@
                         <!-- Begin Header Top Left Area -->
                         <div class="col-lg-3 col-md-4">
                             <div class="header-top-left">
+                                <li>
+                                    <span>Ikuti Kami</span>&nbsp;
+                                    <a href="https://www.facebook.com/">
+                                        <i class="fab fa-facebook" style="color: white;"></i>
+                                    </a>&nbsp;&nbsp;
+                                    <a href="https://www.instagram.com/">
+                                        <i class="fa-brands fa-instagram" style="color: white; margin-right: 20px;"></i>
+                                    </a>
+                                    <td>
+                                        <a href="https://wa.me/6289516207574" style="color: white; text-decoration: none;">
+                                            Hubungi Kami
+                                            <i class="fa-brands fa-whatsapp" style="color: white; margin-left: 5px;"></i>
+                                        </a>
+                                    </td>
 
+                                </li>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-8">
@@ -39,11 +54,10 @@
                         <div class="col-lg-3 text-center"> <!-- Tambahkan kelas 'text-center' di sini -->
                             <div class="logo pb-sm-30 pb-xs-10 d-flex justify-content-center">
                                 <a href="<?= base_url('home') ?>">
-                                    <img src="<?= base_url() ?>assets/gambar_icon/logoo.png" alt="">
+                                    <img src="<?= base_url() ?>assets/gambar_icon/logo.png" alt="">
                                 </a>
                             </div>
                         </div>
-
                         <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15" style="margin-top:20px;">
                             <form action="<?= base_url('home/search') ?>" method="get" class="hm-searchbox">
                                 <input type="text" name="keyword" placeholder="CARI PRODUK ...">

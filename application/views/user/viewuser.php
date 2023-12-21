@@ -102,7 +102,7 @@
                                         <td><?php echo $row->password ?></td>
                                         <td><?php echo $row->role_id ?></td>
                                         <td>
-                                            <a href="<?php echo base_url('user/update/') . $row->id ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <!-- <a href="<?php echo base_url('user/update/') . $row->id ?>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
                                             <a href="<?php echo base_url('user/delete/') . $row->id ?>" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>

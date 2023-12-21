@@ -54,4 +54,16 @@ class M_user extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+
+
+
+
+    // halaman dasboard
+    public function getJumlahUserByRoleId($role_id)
+    {
+        $this->db->where('role_id', $role_id);
+        $this->db->from('tbl_user');
+        return $this->db->count_all_results();
+    }
 }

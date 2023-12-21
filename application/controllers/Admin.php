@@ -25,12 +25,16 @@ class Admin extends CI_Controller
 		$this->load->model('m_setting');
 		$this->load->model('m_pesanan_masuk');
 		$this->load->model('m_transaksi1');
+		$this->load->model('m_produk');
+		$this->load->model('m_user');
 	}
 	public function index()
 	{
+		$data['totalProduk'] = $this->m_produk->getJumlahProduk();
+		$data['jumlahUser'] = $this->m_user->getJumlahUserByRoleId(2);
 		$this->load->view('admin/header');
 		$this->load->view('admin/navbar');
-		$this->load->view('admin/content');
+		$this->load->view('admin/content', $data);
 		$this->load->view('admin/footer');
 	}
 	public function layout()
