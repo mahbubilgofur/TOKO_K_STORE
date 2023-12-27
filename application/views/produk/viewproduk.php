@@ -99,9 +99,12 @@
                                                     <input type="file" class="form-control" name="gambar5" id="gambar5" accept=".jpg, .jpeg, .png, .webp" required value="<?= set_value('gambar5'); ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label>DESKRIPSI</label>
-                                                    <input type="text" class="form-control" name="deskripsi" placeholder="DESKRIPSI" required value="<?= set_value('deskripsi'); ?>">
+                                                    <label for="deskripsi">DESKRIPSI</label>
+                                                    <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" placeholder="Masukkan deskripsi produk Anda di sini..." required><?= set_value('deskripsi'); ?></textarea>
+                                                    <!-- Jika Anda ingin menampilkan pesan kesalahan (jika ada) menggunakan CI 3 -->
+                                                    <?= form_error('deskripsi', '<small class="text-danger">', '</small>'); ?>
                                                 </div>
+
 
                                                 <div class="form-group col-md-6">
                                                     <label>ID KATEGORI</label>

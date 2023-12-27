@@ -1,3 +1,88 @@
+/* Untuk efek hover pada link pertama (Daftar) */
+.selector1:nth-child(1):hover .language-selector-wrapper1 {
+	color: #ffc54d; /* Mengubah warna teks menjadi merah saat dihover */
+}
+
+/* Untuk efek hover pada link kedua (Login) */
+.selector1:nth-child(2):hover .language-selector-wrapper1 {
+	color: #ffc54d; /* Mengubah warna teks menjadi merah saat dihover */
+}
+
+/* Style the dropdown button */
+.selector1 {
+	text-decoration: none;
+	display: inline-block;
+	position: relative; /* Set relative positioning for absolute positioning of dropdown */
+} /* Style the dropdown content (hidden by default) */ /* Style the dropdown content (hidden by default) */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	top: calc(100% + 10px); /* Menggeser ke bawah 5px dari posisi asli */
+	left: 0;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	padding: 10px; /* Add padding for aesthetics */
+	border-radius: 4px; /* Rounded corners */
+}
+
+/* Triangle shape at the left top of the dropdown content */
+.dropdown-content::before {
+	content: "";
+	position: absolute;
+	top: -10px; /* Slightly above the dropdown */
+	left: 10px; /* Positioned at the left edge */
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #f9f9f9 transparent transparent; /* Creating a triangle */
+}
+
+/* ... (kode CSS lainnya tetap sama) ... */
+
+/* Ensure links stack vertically */
+.dropdown-content a {
+	display: block;
+	padding: 8px 16px; /* Padding for each link */
+	text-decoration: none;
+	color: black; /* Color for the links */
+}
+
+/* Hover effect for links */
+.dropdown-content a:hover {
+	background-color: #ddd; /* Background color on hover */
+}
+
+/* Show the dropdown content on hover */
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+	.selector1 {
+		display: block;
+		text-align: center;
+	}
+	.dropdown-content {
+		position: static;
+		display: none;
+		width: 100%; /* Full width for smaller screens */
+	}
+	.dropdown-content a {
+		display: block;
+		text-align: center; /* Center-align links for smaller screens */
+	}
+	/* Hide triangle for smaller screens if needed */
+	.dropdown-content::before {
+		display: none;
+	}
+}
+
+.language-selector-wrapper1 {
+	color: #ffffff;
+	margin: 10px;
+}
 .h-100:hover {
 	border: 2px solid #ffc54d;
 }
@@ -489,24 +574,27 @@ textarea {
 /*  1.4 Default Button
 /*----------------------------------------*/
 button.li-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	border: none;
-	background: white;
+	background: #006594;
 	border-radius: 20px;
 	color: #242424;
-	font-size: 20px;
-	width: 45px;
+	font-size: 15px;
+	width: 35px;
 	border-radius: 0 2px 2px 0;
-	height: 45px;
+	height: 35px;
 	line-height: 45px;
 	position: absolute;
-	right: -1px;
-	top: -1px;
+	right: 1px;
+	color: white;
 	transition: all 0.3s ease-in-out;
 	cursor: pointer;
 }
 
 button.li-btn:hover {
-	background: #333333;
+	background: #006594;
 	color: #ffffff;
 }
 
@@ -1823,9 +1911,9 @@ textarea:focus {
 /*----------------------------------------*/
 /*Header Top*/
 .header-top {
+	position: relative;
 	background: #f8f9f9;
-	padding: 20px 0;
-	border-bottom: 1px solid #e1e1e1;
+	padding: 10px 0;
 }
 
 /*Phone Wrap*/
@@ -1980,12 +2068,10 @@ textarea:focus {
 	padding-right: 5px;
 }
 
-/*Header Middle*/
-.header-middle {
-	padding: px;
-}
-
 .hm-searchbox {
+	justify-content: center;
+	text-align: center;
+	align-items: center;
 	display: flex;
 	position: relative;
 	background: #fff;
@@ -1994,6 +2080,7 @@ textarea:focus {
 	min-width: 638px;
 	height: 45px;
 	float: left;
+	margin-top: 15px;
 }
 
 .hm-searchbox .nice-select.select-search-category {
@@ -2084,7 +2171,6 @@ textarea:focus {
 
 .hm-minicart-trigger {
 	border-radius: 2px;
-	background: white;
 	color: #fff;
 	height: 45px;
 	display: flex;
@@ -2095,6 +2181,8 @@ textarea:focus {
 	position: relative;
 	padding: 0 15px 0 10px;
 	border-radius: 5px;
+	font-size: 20px;
+	margin-top: 20px;
 }
 
 .item-icon::before {
@@ -2146,7 +2234,7 @@ textarea:focus {
 
 .minicart {
 	position: absolute;
-	right: 0;
+	right: -15px;
 	top: 100%;
 	z-index: 1000;
 	display: none;
@@ -3649,13 +3737,16 @@ product-item {
 		width: 50%; /* 2 kolom dalam 1 baris */
 	}
 }
-
+.li1 {
+	width: 400px;
+	height: 20px;
+}
 .logo {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 200px;
-	height: 100px;
+	height: 70px;
 }
 .logo a img {
 	width: 100%;
@@ -3913,7 +4004,6 @@ product-item {
 .li-header-4 .header-top {
 	z-index: 10000;
 	background: transparent;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .li-header-4 .header-top-left > ul > li span,

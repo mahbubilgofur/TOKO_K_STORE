@@ -86,24 +86,31 @@ class Login_user extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('register_user');
         } else {
+            // Salin gambar dari ./assets/gambaruser/user.jpg ke ./gambar_user/
+            $source = './assets/gambaruser/user.jpg';
+            $destination = './gambar_user/user.jpg';
+            copy($source, $destination);
+
+            // Data yang akan disimpan ke database
             $data = [
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'email' =>  htmlspecialchars($this->input->post('email', true)),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'role_id' => 2
+                'role_id' => 2,
+                'gambar' => './assets/gambaruser/user.jpg'  // Path ke gambar di direktori assets
             ];
 
             $this->db->insert('tbl_user', $data);
 
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                Berhasil register
-              </div>');
+                    Berhasil register
+                  </div>');
                 redirect(base_url('login_user'));
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                Gagal register
-              </div>');
+                    Gagal register
+                  </div>');
                 redirect(base_url('login_user/register'));
             }
         }
