@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Login_user extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -10,7 +11,6 @@ class Login_user extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('m_user');
     }
-
 
     public function index()
     {
@@ -56,6 +56,7 @@ class Login_user extends CI_Controller
                     'email' => $user->email,
                     'role_id' => $user->role_id,
                     'nama' => $user->nama,
+                    'gambar' => $user->gambar,
                     'id' => $user->id // Tambahkan kolom 'id'
                 ];
                 $this->session->set_userdata($data);
@@ -86,31 +87,40 @@ class Login_user extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('register_user');
         } else {
-            // Salin gambar dari ./assets/gambaruser/user.jpg ke ./gambar_user/
-            $source = './assets/gambaruser/user.jpg';
-            $destination = './gambar_user/user.jpg';
-            copy($source, $destination);
-
             // Data yang akan disimpan ke database
             $data = [
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'email' =>  htmlspecialchars($this->input->post('email', true)),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 'role_id' => 2,
-                'gambar' => './assets/gambaruser/user.jpg'  // Path ke gambar di direktori assets
+                'gambar' => 'gambar_user/user.jpg' // Default image path
             ];
 
             $this->db->insert('tbl_user', $data);
 
             if ($this->db->affected_rows() > 0) {
+                // Ambil ID pengguna yang baru saja di-insert
+                $userId = $this->db->insert_id();
+                $current_date = date('Ymd');
+                $new_image_name = $userId . '_' . $current_date . '.jpg';
+                // Move the default image to the users directory with the new name
+                $default_image_path = FCPATH . 'gambar_user/user.jpg';
+                $user_image_path = FCPATH . 'gambar_user/' . $new_image_name;
+                copy($default_image_path, $user_image_path);
+
+                // Update the 'profil' column with the new image name
+                $this->db->set('gambar', $new_image_name);
+                $this->db->where('id', $userId);
+                $this->db->update('tbl_user');
+
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                    Berhasil register
-                  </div>');
+                Berhasil register
+              </div>');
                 redirect(base_url('login_user'));
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Gagal register
-                  </div>');
+                Gagal register
+              </div>');
                 redirect(base_url('login_user/register'));
             }
         }

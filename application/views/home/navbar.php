@@ -42,14 +42,19 @@
                                         <li>
                                             <div class="dropdown">
 
-                                                <a href="<?= base_url('profil') ?>" class="selector1">
-                                                    <img style="border-radius: 100%; width: 25px; height: 25px;" src="<?php echo base_url('gambar_user/user.jpg'); ?>" alt="Gambar Pengguna" />
+                                                <a href="<?= base_url('home/profil') ?>" class="selector1">
+                                                    <?php
+                                                    $user_id = $this->session->userdata('id');
+                                                    $user_data = $this->db->get_where('tbl_user', ['id' => $user_id])->row_array();
+                                                    $profil_image = base_url('gambar_user/' . $user_data['gambar']);
+                                                    ?>
+                                                    <img style="border-radius: 100%; width: 25px; height: 25px;" src="<?= $profil_image ?>" alt="Gambar Pengguna" alt="Gambar Pengguna" />
                                                     <span class="language-selector-wrapper1" style="font-size: 15px;x`"><?php echo $this->session->userdata('nama'); ?></span>
                                                 </a>
 
                                                 <div class="dropdown-content">
-                                                    <a href="<?= base_url('profil') ?>">Akun Saya</a>
-                                                    <a href="<?= base_url('pesanan_saya') ?>">Pesanan</a>
+                                                    <a href="<?= base_url('home/profil') ?>">Akun Saya</a>
+                                                    <a href="<?= base_url('pesanan_saya') ?>">Pesanan Saya</a>
                                                     <a href="<?= base_url('login_user/logout') ?>">Logout</a>
                                                 </div>
                                             </div>

@@ -141,9 +141,8 @@
                                                         <div class="card-body p-4">
                                                             <div class="text-center">
                                                                 <!-- Product name-->
-                                                                <h5 class="fw-bolder"><?php echo $row->nama ?></h5>
-                                                                <!-- Product price-->
-                                                                RP.<?= number_format($row->harga, 0) ?>
+                                                                <h6 class="fw-bolder font-nama-produk"><?php echo substr($row->nama, 0, 40) ?>......</h6> <!-- Product price-->
+                                                                <p class="font-harga-produk">Rp.<?= number_format($row->harga, 0, ',', '.') ?></p>
                                                             </div>
                                                         </div>
                                                         <!-- Product actions-->

@@ -1,4 +1,110 @@
-/* Untuk efek hover pada link pertama (Daftar) */
+.custom-link-container {
+	/* Anda dapat menambahkan styling lainnya untuk container ini jika diperlukan */
+	margin-top: 30px;
+}
+
+.custom-link {
+	display: block; /* Mengubah tautan menjadi blok */
+	color: black; /* Atur warna teks */
+	text-decoration: none; /* Hapus dekorasi tautan */
+	font-size: 15px; /* Atur ukuran font */
+}
+
+.user-info-container {
+	display: flex;
+	align-items: center; /* Mengatur vertikal tengah */
+}
+.vertical-container {
+	display: flex;
+	flex-direction: column; /* Mengatur tata letak vertikal */
+	align-items: center; /* Mengatur horisontal tengah */
+	text-align: center; /* Mengatur teks ke tengah */
+}
+
+.language-selector-wrapper1,
+.language-selector-wrapper2 {
+	font-size: 14px;
+	color: black;
+}
+.sidebar111 {
+	height: 100vh;
+	width: 250px;
+	background-color: rgb(245, 245, 245);
+	color: black;
+	position: fixed;
+	padding-top: 20px;
+	transition: width 0.3s;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.sidebar111 a {
+	padding: 10px 15px;
+	display: block;
+	color: black;
+	text-decoration: none;
+	margin-top: 10px;
+}
+
+.sidebar111 h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+.content-wrapper {
+	display: flex;
+	justify-content: space-between; /* Memisahkan ruang antara elemen */
+	align-items: center; /* Pusatkan vertikal */
+	padding: 20px;
+	transition: margin-left 0.3s;
+	margin-left: 250px;
+	/* Menambahkan margin kiri saat sidebar dibuka */
+	padding-right: 20px;
+	/* Menambahkan padding kanan untuk konten */
+}
+
+.form-container {
+	flex: 1; /* Biarkan fleksibilitas konten agar beradaptasi */
+	padding-right: 20px; /* Jarak antara form dengan gambar */
+	padding-bottom: 20px;
+}
+.image-info {
+	text-align: center; /* Pusatkan teks horizontal */
+	margin-top: 15px; /* Jarak antara gambar dengan teks */
+}
+.image-container {
+	flex: 1; /* Biarkan fleksibilitas konten agar beradaptasi */
+	padding-left: 20px; /* Jarak antara gambar dengan form */
+	margin-left: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 40px;
+}
+
+.content111 {
+	padding: 20px;
+	transition: margin-left 0.3s;
+	margin-left: 250px;
+	/* Menambahkan margin kiri saat sidebar dibuka */
+	padding-right: 20px;
+	/* Menambahkan padding kanan untuk konten */
+}
+
+@media screen and (max-width: 768px) {
+	.sidebar111 {
+		width: 0;
+		overflow: hidden;
+	}
+
+	.content111 {
+		margin-left: 0;
+	}
+	.image-container {
+		display: none;
+	}
+} /* Untuk efek hover pada link pertama (Daftar) */
 .selector1:nth-child(1):hover .language-selector-wrapper1 {
 	color: #ffc54d; /* Mengubah warna teks menjadi merah saat dihover */
 }
@@ -17,7 +123,7 @@
 .dropdown-content {
 	display: none;
 	position: absolute;
-	top: calc(100% + 10px); /* Menggeser ke bawah 5px dari posisi asli */
+	top: calc(100% + 3px); /* Menggeser ke bawah 5px dari posisi asli */
 	left: 0;
 	background-color: #f9f9f9;
 	min-width: 160px;
@@ -32,7 +138,7 @@
 	content: "";
 	position: absolute;
 	top: -10px; /* Slightly above the dropdown */
-	left: 10px; /* Positioned at the left edge */
+	left: 40px; /* Positioned at the left edge */
 	border-width: 10px;
 	border-style: solid;
 	border-color: transparent #f9f9f9 transparent transparent; /* Creating a triangle */
